@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- GLOBALS -->
+    <color name="smap_blue">#72CDF4</color>
+    <color name="smap_light_grey">#babbbd</color>
+    <color name="smap_dark_grey">#1a1a1a</color>
+    <color name="smap_green">#8ABC8A</color>
+
+    <!-- BASE CLASSES -->
+    <color name="loading_bg">#80545454</color>
+
+</resources>
