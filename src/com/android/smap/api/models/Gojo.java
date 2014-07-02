@@ -1,5 +1,8 @@
 package com.android.smap.api.models;
 
+import android.util.Log;
+
+import com.android.smap.controllers.Controller;
 import com.google.gson.annotations.Expose;
 
 /**
@@ -16,32 +19,14 @@ public class Gojo {
 	public String	model;
 	public String	reference;
 
-	public enum Goal {
-
-		SUBSCRIBE("sub"),
-		UNSUBSCRIBE("unsub"),
-		REDO("redo"),
-		RESET("reset"),
-		ANSWER("");
-
-		String	mStr;
-
-		Goal(String str) {
-			this.mStr = str;
+	public void go() {
+		try {
+			Controller c = goal.mHandler.newInstance();
+			c.start();
 		}
+		catch (InstantiationException | IllegalAccessException e) {
 
-		public String toString() {
-			return mStr;
-		}
-
-		public static Goal init(String command) {
-
-			for (Goal goal : Goal.values()) {
-				if (command.compareToIgnoreCase(goal.toString()) == 0) {
-					return goal;
-				}
-			}
-			return null;
+			Log.e(Gojo.class.getName(), "NO CONTROLLER FOUND");
 		}
 	}
 }

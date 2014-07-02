@@ -24,11 +24,12 @@ public class GatewayService extends Service implements
 		ControllerListener,
 		ControllerErrorListener {
 
-	public static final String	TAG		= GatewayService.class.getCanonicalName();
+	public static final String		TAG		= GatewayService.class
+													.getCanonicalName();
 
 	public static GatewayService	s_this	= null;
 
-	public CellularModem				modem;
+	public CellularModem			modem;
 
 	public static GatewayService get() {
 		return s_this;
@@ -148,11 +149,11 @@ public class GatewayService extends Service implements
 
 		// sendSMS or KickService basically...
 
-		
-		//TODO: MW create GOJO Model, then call its action. 
-		Gojo gojo = Samuel.parse(message);
-		
-		ControllerFactory.fetch(gojo, this).start();
+		// TODO: MW create GOJO Model, then call its action.
+		if (Samuel.isSmapRelatedSMS(message)) {
+			Gojo gojo = Samuel.parse(message);
+			gojo.go();
+		}
 
 		// kickService();
 	}

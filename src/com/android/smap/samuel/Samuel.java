@@ -3,8 +3,8 @@ package com.android.smap.samuel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.android.smap.api.models.Goal.GoalUtil;
 import com.android.smap.api.models.Gojo;
-import com.android.smap.api.models.Gojo.Goal;
 
 /**
  * Parser for inbound SMS's.
@@ -33,10 +33,9 @@ public class Samuel {
 		}
 
 		Gojo gojo = new Gojo();
-		gojo.goal = Goal.init(getGoalCommand(message));
+		gojo.goal = GoalUtil.goalForString(getGoalCommand(message));
 		gojo.reference = getGoalReference(message);
 		gojo.model = getModel(message);
-
 		return gojo;
 	}
 
