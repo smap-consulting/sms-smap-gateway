@@ -1,8 +1,5 @@
 package com.android.smap.api.models;
 
-import java.util.List;
-
-import com.android.smap.controllers.Controller;
 import com.google.gson.annotations.Expose;
 
 /**
@@ -13,56 +10,38 @@ import com.google.gson.annotations.Expose;
  */
 public class Gojo {
 
-	public Controller	controller;
 	@Expose
-	public Command		cmd;
+	public Goal		goal;
 	@Expose
-	public List<Node>	body;
+	public String	model;
+	public String	reference;
 
-	public enum Command {
+	public enum Goal {
 
-		EMAIL("email"),
-		POST("post");
+		SUBSCRIBE("sub"),
+		UNSUBSCRIBE("unsub"),
+		REDO("redo"),
+		RESET("reset"),
+		ANSWER("");
 
 		String	mStr;
 
-		Command(String str) {
+		Goal(String str) {
 			this.mStr = str;
 		}
 
 		public String toString() {
 			return mStr;
-		};
+		}
 
-		public static Command getCommand(String str) {
+		public static Goal init(String command) {
 
-			for (Command cmd : Command.values()) {
-				if (str.compareToIgnoreCase(cmd.toString()) == 0) {
-					return cmd;
+			for (Goal goal : Goal.values()) {
+				if (command.compareToIgnoreCase(goal.toString()) == 0) {
+					return goal;
 				}
 			}
 			return null;
 		}
-
 	}
-
-	/**
-	 * Returns value for a key. TODO make recursive for all children
-	 * 
-	 * @param key
-	 * @return
-	 */
-	public String find(String key) {
-
-		for (Node node : body) {
-			if (node.key == null) {
-				continue;
-			}
-			if (node.key.compareToIgnoreCase(key) == 0) {
-				return node.val;
-			}
-		}
-		return null;
-	}
-
 }

@@ -148,7 +148,10 @@ public class GatewayService extends Service implements
 
 		// sendSMS or KickService basically...
 
+		
+		//TODO: MW create GOJO Model, then call its action. 
 		Gojo gojo = Samuel.parse(message);
+		
 		ControllerFactory.fetch(gojo, this).start();
 
 		// kickService();
