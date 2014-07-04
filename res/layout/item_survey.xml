@@ -24,6 +24,7 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/txt_member_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txt_survey"
@@ -36,6 +37,7 @@
 
         <TextView
             style="@style/DarkGreyFont"
+            android:id="@+id/txt_completed_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
