@@ -18,7 +18,7 @@
     </style>
 
     <style name="SmapActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/smap_green</item>
+        <item name="android:background">@color/smap_dark_green</item>
         <item name="android:titleTextStyle">@style/SmapActionBar.ActionBar.TitleTextStyle</item>
     </style>
 

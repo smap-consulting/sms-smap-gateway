@@ -810,19 +810,23 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f070002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f080008;
+        public static final int abc_search_url_text_holo=0x7f08000c;
         public static final int abc_search_url_text_normal=0x7f080000;
         public static final int abc_search_url_text_pressed=0x7f080002;
         public static final int abc_search_url_text_selected=0x7f080001;
         /**  BASE CLASSES 
          */
-        public static final int loading_bg=0x7f080007;
+        public static final int loading_bg=0x7f08000b;
         /**  GLOBALS 
          */
         public static final int smap_blue=0x7f080003;
-        public static final int smap_dark_grey=0x7f080005;
-        public static final int smap_green=0x7f080006;
+        public static final int smap_cream=0x7f080006;
+        public static final int smap_dark_green=0x7f080009;
+        public static final int smap_dark_grey=0x7f080007;
+        public static final int smap_green=0x7f080008;
+        public static final int smap_light_green=0x7f08000a;
         public static final int smap_light_grey=0x7f080004;
+        public static final int smap_med_grey=0x7f080005;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -917,6 +921,8 @@ containing a value of this type.
          */
         public static final int activity_horizontal_margin=0x7f090011;
         public static final int activity_vertical_margin=0x7f090012;
+        public static final int list_horizontal_margin=0x7f090013;
+        public static final int list_vertical_margin=0x7f090014;
     }
     public static final class drawable {
         public static final int abc_ab_bottom_solid_dark_holo=0x7f020000;
@@ -1021,7 +1027,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
         public static final int action_mode_close_button=0x7f060024;
-        public static final int action_settings=0x7f060044;
+        public static final int action_settings=0x7f060046;
         public static final int activity_chooser_view_content=0x7f060025;
         public static final int always=0x7f06000b;
         public static final int beginning=0x7f060011;
@@ -1051,7 +1057,7 @@ containing a value of this type.
         public static final int never=0x7f060009;
         public static final int none=0x7f060010;
         public static final int normal=0x7f060000;
-        public static final int progress=0x7f060043;
+        public static final int progress=0x7f060045;
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
         public static final int radio=0x7f06002f;
@@ -1074,9 +1080,11 @@ containing a value of this type.
         public static final int tabMode=0x7f060002;
         public static final int title=0x7f06002b;
         public static final int top_action_bar=0x7f060020;
+        public static final int txt_survey=0x7f060043;
         public static final int txt_title=0x7f060042;
         public static final int up=0x7f060021;
         public static final int useLogo=0x7f060003;
+        public static final int view_progress=0x7f060044;
         public static final int web_view=0x7f060041;
         public static final int withText=0x7f06000c;
     }
@@ -1133,9 +1141,11 @@ containing a value of this type.
         public static final int fragment_base_data=0x7f030018;
         public static final int fragment_common_webview=0x7f030019;
         public static final int fragment_home=0x7f03001a;
-        public static final int item_menudrawer=0x7f03001b;
-        public static final int layout_loading=0x7f03001c;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
+        public static final int fragment_surveys=0x7f03001b;
+        public static final int item_menudrawer=0x7f03001c;
+        public static final int item_survey=0x7f03001d;
+        public static final int layout_loading=0x7f03001e;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;

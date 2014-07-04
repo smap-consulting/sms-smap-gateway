@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="62dp"
+    android:background="@color/smap_med_grey" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="2dp"
+        android:background="@color/smap_light_grey" >
+
+        <com.android.smap.ui.views.FontableTextView
+            android:id="@+id/txt_survey"
+            style="@style/DarkGreyFont"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:paddingLeft="12dp"
+            android:paddingTop="12dp"
+            android:singleLine="true"
+            android:text="APRIL SURVEY"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/txt_member_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_survey"
+            android:inputType="textCapCharacters"
+            android:paddingLeft="12dp"
+            android:paddingTop="2dp"
+            android:text="6 ACTIVE / 3 SILENT"
+            android:textColor="@android:color/black"
+            android:textSize="10dp" />
+
+        <TextView
+            style="@style/DarkGreyFont"
+            android:id="@+id/txt_completed_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="12dp"
+            android:text="17/26"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/view_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/smap_light_green" />
+    </RelativeLayout>
+
+</RelativeLayout>

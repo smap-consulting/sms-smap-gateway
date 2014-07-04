@@ -1,6 +1,6 @@
 package com.android.smap.api.models;
 
-import java.util.List;
+import android.util.Log;
 
 import com.android.smap.controllers.Controller;
 import com.google.gson.annotations.Expose;
@@ -13,56 +13,20 @@ import com.google.gson.annotations.Expose;
  */
 public class Gojo {
 
-	public Controller	controller;
 	@Expose
-	public Command		cmd;
+	public Goal		goal;
 	@Expose
-	public List<Node>	body;
+	public String	model;
+	public String	reference;
 
-	public enum Command {
-
-		EMAIL("email"),
-		POST("post");
-
-		String	mStr;
-
-		Command(String str) {
-			this.mStr = str;
+	public void go() {
+		try {
+			Controller c = goal.mHandler.newInstance();
+			c.start();
 		}
+		catch (InstantiationException | IllegalAccessException e) {
 
-		public String toString() {
-			return mStr;
-		};
-
-		public static Command getCommand(String str) {
-
-			for (Command cmd : Command.values()) {
-				if (str.compareToIgnoreCase(cmd.toString()) == 0) {
-					return cmd;
-				}
-			}
-			return null;
+			Log.e(Gojo.class.getName(), "NO CONTROLLER FOUND");
 		}
-
 	}
-
-	/**
-	 * Returns value for a key. TODO make recursive for all children
-	 * 
-	 * @param key
-	 * @return
-	 */
-	public String find(String key) {
-
-		for (Node node : body) {
-			if (node.key == null) {
-				continue;
-			}
-			if (node.key.compareToIgnoreCase(key) == 0) {
-				return node.val;
-			}
-		}
-		return null;
-	}
-
 }
