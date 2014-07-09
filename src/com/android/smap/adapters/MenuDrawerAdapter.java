@@ -12,24 +12,29 @@ import com.android.smap.ui.ViewQuery;
 
 public class MenuDrawerAdapter extends ArrayVelocAdapter<MenuDrawerItem> {
 
-	private static final MenuDrawerItem MENUITEM_ONE = new MenuDrawerItem(
-			"Home");
-	private static final MenuDrawerItem MENUITEM_TWO = new MenuDrawerItem(
-			"Clients");
-	private static final MenuDrawerItem MENUITEM_THREE = new MenuDrawerItem(
-			"Endpoints");
-	private static final MenuDrawerItem MENUITEM_FOUR = new MenuDrawerItem(
-			"Settings");
-	private static final MenuDrawerItem MENUITEM_FIVE = new MenuDrawerItem(
-			"Contact");
+	private static final MenuDrawerItem	MENUITEM_SURVEYS	= new MenuDrawerItem(
+																	"Surveys",
+																	android.R.drawable.ic_media_play);
+	private static final MenuDrawerItem	MENUITEM_CONTACTS	= new MenuDrawerItem(
+																	"Contacts",
+																	android.R.drawable.ic_media_play);
+	private static final MenuDrawerItem	MENUITEM_SERVERS	= new MenuDrawerItem(
+																	"Servers",
+																	android.R.drawable.ic_media_play);
+	private static final MenuDrawerItem	MENUITEM_SETTINGS	= new MenuDrawerItem(
+																	"Settings",
+																	android.R.drawable.ic_media_play);
+	private static final MenuDrawerItem	MENUITEM_INFO		= new MenuDrawerItem(
+																	"Info",
+																	android.R.drawable.ic_media_play);
 
 	public MenuDrawerAdapter(Context context) {
 		super(context);
-		add(MENUITEM_ONE);
-		add(MENUITEM_TWO);
-		add(MENUITEM_THREE);
-		add(MENUITEM_FOUR);
-		add(MENUITEM_FIVE);
+		add(MENUITEM_SURVEYS);
+		add(MENUITEM_CONTACTS);
+		add(MENUITEM_SERVERS);
+		add(MENUITEM_SETTINGS);
+		add(MENUITEM_INFO);
 	}
 
 	@Override
@@ -40,6 +45,7 @@ public class MenuDrawerAdapter extends ArrayVelocAdapter<MenuDrawerItem> {
 	@Override
 	public void bindView(Context context, View view, ViewQuery query,
 			int position) {
-		query.text(getItem(position).getName());
+		query.find(R.id.txt_title).text(getItem(position).getName());
+		query.find(R.id.ic_menu_item).image(getItem(position).getId());
 	}
 }

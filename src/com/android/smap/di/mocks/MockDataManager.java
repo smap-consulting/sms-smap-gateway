@@ -31,7 +31,7 @@ public class MockDataManager implements DataManager {
 		list.add(s2);
 
 		Random r = new Random();
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 10; i++) {
 			Survey fake = new Survey();
 			fake.completed = r.nextInt(10);
 			fake.members = 10;

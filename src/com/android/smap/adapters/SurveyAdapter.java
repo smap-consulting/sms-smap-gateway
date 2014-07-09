@@ -25,7 +25,7 @@ public class SurveyAdapter extends VelocAdapter {
 
 	@Override
 	public View newView(LayoutInflater inflator, int position, ViewGroup parent) {
-		return inflator.inflate(R.layout.item_survey, parent);
+		return inflator.inflate(R.layout.item_survey, null, false);
 	}
 
 	@Override

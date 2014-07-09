@@ -15,7 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.android.smap.R;
 import com.android.smap.adapters.MenuDrawerAdapter;
 import com.android.smap.fragments.BaseFragment;
-import com.android.smap.fragments.HomeFragment;
+import com.android.smap.fragments.SurveysFragment;
 import com.android.smap.sms.GatewayService;
 import com.android.smap.ui.ViewQuery;
 
@@ -28,13 +28,13 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupActionBar();
-		setInitialFragment(HomeFragment.class);
+		setInitialFragment(SurveysFragment.class);
 		setContentView(R.layout.activity_main);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		mQuery = new ViewQuery(this);
 		mMenuQuery = mQuery.find(R.id.drawer_left);
 		mMenuQuery.adapter(new MenuDrawerAdapter(this)).onItemClicked(this);
-		mMenuQuery.background(R.color.loading_bg);
+		// mMenuQuery.background(R.color.loading_bg);
 
 	}
 
@@ -53,6 +53,8 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 
 	private void setupActionBar() {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setCustomView(R.layout.view_action_bar);
+		getActionBar().setDisplayShowCustomEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 	}
 
@@ -81,9 +83,29 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// push new screen
-		// TODO
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
+
+		switch (position) {
+		case 2:
+			// startActivity();
+			return;
+			// case 2:
+			// // startActivity();
+			// return;
+			// case 2:
+			// // startActivity();
+			// return;
+			// case 2:
+			// // startActivity();
+			// return;
+			// case 2:
+			// // startActivity();
+			// return;
+		default:
+			return;
+		}
+
 	}
 
 }

@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.adapters.SurveyAdapter;
 import com.android.smap.api.models.Survey;
@@ -29,6 +30,7 @@ public class SurveysFragment extends BaseFragment implements
 		ListView view = (ListView) inflater.inflate(R.layout.fragment_surveys,
 				null);
 		ViewQuery query = new ViewQuery(view);
+		mDataManager = GatewayApp.getDependencyContainer().getInjector().getInstance(DataManager.class);
 		mAdapter = new SurveyAdapter(getActivity(), mDataManager
 				.getSurveys());
 		view.setAdapter(mAdapter);

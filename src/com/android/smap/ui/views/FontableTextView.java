@@ -38,11 +38,11 @@ public class FontableTextView extends TextView {
 
 	private void setCustomFont(Context ctx, AttributeSet attrs) {
 		TypedArray a = ctx.obtainStyledAttributes(attrs,
-				R.styleable.MWCustomFontView);
+				R.styleable.FontableTextView);
 		String customFont = a
-				.getString(R.styleable.MWCustomFontView_customFont);
+				.getString(R.styleable.FontableTextView_customFont);
 		String editorText = a
-				.getString(R.styleable.MWCustomFontView_editorText);
+				.getString(R.styleable.FontableTextView_editorText);
 
 		if (isInEditMode()) {
 			// set editor text value

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -24,13 +24,18 @@
 
     <style name="SmapActionBar.ActionBar.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@android:color/white</item>
+        <item name="customFont">BPreplayBoldItalics.ttf</item>
     </style>
 
     <style name="BaseFont">
         <item name="customFont">BPreplay.ttf</item>
     </style>
 
-    <style name="BlueFont" parent="BaseFont">
+    <style name="BaseBoldFont">
+        <item name="customFont">BPreplayBoldItalics.ttf</item>
+    </style>
+
+    <style name="BlueFont" parent="BaseBoldFont">
         <item name="android:textColor">@color/smap_blue</item>
     </style>
 
@@ -40,6 +45,11 @@
 
     <style name="DarkGreyFont" parent="BaseFont">
         <item name="android:textColor">@color/smap_dark_grey</item>
+    </style>
+
+    <style name="ActionbarText" parent="BaseBoldFont">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
 </resources>

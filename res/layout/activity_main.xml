@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="left"
         android:background="@color/smap_dark_grey"
-        android:divider="@android:color/white"
+        android:divider="@android:color/black"
         android:dividerHeight="2dip" />
 
 </android.support.v4.widget.DrawerLayout>
