@@ -21,7 +21,8 @@ public class GatewayApp extends Application {
 	private static RequestQueue			sRequestQueue;
 	private static ImageLoader			sImageLoader;
 	private static PreferenceWrapper	sPreferenceWrapper;
-	private PhoneStateWrapper			sPhoneStateWrapper;
+	private static PhoneStateWrapper	sPhoneStateWrapper;
+	private static DependencyContainer	sDependencyContainer;
 
 	@Override
 	public void onCreate() {
@@ -33,6 +34,7 @@ public class GatewayApp extends Application {
 				new BitmapLruCache());
 		sPreferenceWrapper = new PreferenceWrapper(this);
 		sPhoneStateWrapper = new PhoneStateWrapper(this);
+		sDependencyContainer = new DependencyContainer();
 	}
 
 	/**
@@ -45,7 +47,8 @@ public class GatewayApp extends Application {
 	}
 
 	/**
-	 * Returns an instance of the SMAP Application 
+	 * Returns an instance of the SMAP Application
+	 * 
 	 * @return
 	 */
 	public static GatewayApp getInstance() {
@@ -75,12 +78,16 @@ public class GatewayApp extends Application {
 	 * 
 	 * @return
 	 */
-	public PhoneStateWrapper getPhoneStateWrapper() {
+	public static PhoneStateWrapper getPhoneStateWrapper() {
 		return sPhoneStateWrapper;
 	}
 
 	public static RequestQueue getRequestQueue() {
 		return sRequestQueue;
+	}
+
+	public static DependencyContainer getDependencyContainer() {
+		return sDependencyContainer;
 	}
 
 }

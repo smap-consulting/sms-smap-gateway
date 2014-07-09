@@ -6,6 +6,7 @@ public class Survey {
 	public int members;
 	public int completed;
 	public int partial;
+	public int id;
 	
 	//etc
 }
