@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -27,19 +28,23 @@ public class SurveysFragment extends BaseFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		ListView view = (ListView) inflater.inflate(R.layout.fragment_surveys,
+		LinearLayout view = (LinearLayout) inflater.inflate(
+				R.layout.fragment_surveys,
 				null);
-		ViewQuery query = new ViewQuery(view);
-		mDataManager = GatewayApp.getDependencyContainer().getInjector().getInstance(DataManager.class);
+
+		ListView listView = (ListView) view.findViewById(R.id.list_surveys);
+		mDataManager = GatewayApp.getDependencyContainer().getInjector()
+				.getInstance(DataManager.class);
 		mAdapter = new SurveyAdapter(getActivity(), mDataManager
 				.getSurveys());
-		view.setAdapter(mAdapter);
-		view.setOnItemClickListener(this);
+		listView.setOnItemClickListener(this);
+		listView.setAdapter(mAdapter);
 		return view;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
+
 		Bundle b = new Bundle();
 		int id = ((Survey) mAdapter.getItem(pos)).id;
 		b.putInt(SurveyDetailFragment.EXTRA_SURVEY_ID, id);
