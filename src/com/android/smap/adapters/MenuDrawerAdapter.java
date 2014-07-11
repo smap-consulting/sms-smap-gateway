@@ -14,19 +14,19 @@ public class MenuDrawerAdapter extends ArrayVelocAdapter<MenuDrawerItem> {
 
 	private static final MenuDrawerItem	MENUITEM_SURVEYS	= new MenuDrawerItem(
 																	"Surveys",
-																	android.R.drawable.ic_media_play);
+																	R.drawable.ic_action_survey);
 	private static final MenuDrawerItem	MENUITEM_CONTACTS	= new MenuDrawerItem(
 																	"Contacts",
-																	android.R.drawable.ic_media_play);
+																	R.drawable.ic_action_contacts);
 	private static final MenuDrawerItem	MENUITEM_SERVERS	= new MenuDrawerItem(
 																	"Servers",
-																	android.R.drawable.ic_media_play);
+																	R.drawable.ic_action_server);
 	private static final MenuDrawerItem	MENUITEM_SETTINGS	= new MenuDrawerItem(
 																	"Settings",
-																	android.R.drawable.ic_media_play);
+																	R.drawable.ic_action_settings);
 	private static final MenuDrawerItem	MENUITEM_INFO		= new MenuDrawerItem(
 																	"Info",
-																	android.R.drawable.ic_media_play);
+																	R.drawable.ic_action_info);
 
 	public MenuDrawerAdapter(Context context) {
 		super(context);

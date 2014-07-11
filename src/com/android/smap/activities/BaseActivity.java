@@ -2,9 +2,13 @@ package com.android.smap.activities;
 
 import java.util.List;
 
+import com.android.smap.R;
+
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 public abstract class BaseActivity extends FragmentActivity {
@@ -14,6 +18,13 @@ public abstract class BaseActivity extends FragmentActivity {
 	@Override
 	public void setContentView(int layoutResID) {
 		super.setContentView(layoutResID);
+	}
+
+	protected void setupActionBar() {
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setCustomView(R.layout.view_action_bar);
+		getActionBar().setDisplayShowCustomEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 	}
 
 	protected boolean isOrientationForced() {
@@ -35,4 +46,5 @@ public abstract class BaseActivity extends FragmentActivity {
 			fragment.onActivityResult(requestCode, resultCode, data);
 		}
 	}
+
 }

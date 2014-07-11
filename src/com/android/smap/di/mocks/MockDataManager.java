@@ -21,14 +21,14 @@ public class MockDataManager implements DataManager {
 		Survey s = new Survey();
 		s.completed = 2;
 		s.members = 10;
-		s.name = "Medical Survey: May";
+		s.name = "Medical Survey: April";
 		s.partial = 4;
 		s.id = 1;
 
 		Survey s2 = new Survey();
 		s2.completed = 10;
 		s2.members = 10;
-		s2.name = "Medical Survey: April";
+		s2.name = "Medical Survey: May";
 		s2.partial = 0;
 		s2.id = 1;
 		list.add(s);

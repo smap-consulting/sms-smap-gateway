@@ -94,9 +94,9 @@ public class MWUiUtils {
 				r.getDisplayMetrics());
 	}
 
-	public static int getScreenWidth(Activity context) {
+	public static int getScreenWidth(Context context) {
 		DisplayMetrics displaymetrics = new DisplayMetrics();
-		context.getWindowManager().getDefaultDisplay()
+		((Activity) context).getWindowManager().getDefaultDisplay()
 				.getMetrics(displaymetrics);
 		return displaymetrics.widthPixels;
 	}

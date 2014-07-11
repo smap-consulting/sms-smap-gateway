@@ -24,8 +24,6 @@
         android:id="@+id/list_surveys"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/list_vertical_margin"
-       
         android:background="@color/smap_med_grey"
         android:divider="@android:color/transparent"
         android:dividerHeight="8dp"

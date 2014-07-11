@@ -1,5 +1,6 @@
 package com.android.smap.api.models;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.android.smap.controllers.Controller;
@@ -19,6 +20,7 @@ public class Gojo {
 	public String	model;
 	public String	reference;
 
+	@SuppressLint("NewApi")
 	public void go() {
 		try {
 			Controller c = goal.mHandler.newInstance();

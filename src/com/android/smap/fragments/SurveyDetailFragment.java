@@ -2,6 +2,8 @@ package com.android.smap.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -47,6 +49,8 @@ public class SurveyDetailFragment extends BaseFragment {
 
 		ViewQuery query = new ViewQuery(view);
 		ListView listView = (ListView) query.find(R.id.list_contacts).get();
+
+		// get all necessary local data
 		mDataManager = GatewayApp.getDependencyContainer().getInjector()
 				.getInstance(DataManager.class);
 		mModel = mDataManager.getDetailsForSurvey(mSurveyId);
@@ -54,13 +58,26 @@ public class SurveyDetailFragment extends BaseFragment {
 		mAdapter = new SurveyContactAdapter(getActivity(), mModel.contacts);
 		listView.setAdapter(mAdapter);
 
+		int completed = mModel.survey.completed;
+		int total = mModel.survey.members;
+
+		String template = getActivity().getResources().getString(
+				R.string.template_quotient);
+		String completedProgress = String.format(template, completed, total);
+		query.find(R.id.txt_completed_progress).text(completedProgress);
+
+		// grow the progress bar out
 		View progress = query.find(R.id.view_progress).get();
-
 		float percent = (float) ((float) mModel.survey.completed / (float) mModel.survey.members);
-
 		MWAnimUtil.growRight(progress, percent);
 
 		return view;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override

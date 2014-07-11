@@ -13,8 +13,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.android.smap.R;
+import com.android.smap.activities.FragmentContainerActivity.Builder;
 import com.android.smap.adapters.MenuDrawerAdapter;
 import com.android.smap.fragments.BaseFragment;
+import com.android.smap.fragments.SurveyDetailFragment;
 import com.android.smap.fragments.SurveysFragment;
 import com.android.smap.sms.GatewayService;
 import com.android.smap.ui.ViewQuery;
@@ -34,8 +36,13 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 		mQuery = new ViewQuery(this);
 		mMenuQuery = mQuery.find(R.id.drawer_left);
 		mMenuQuery.adapter(new MenuDrawerAdapter(this)).onItemClicked(this);
-		// mMenuQuery.background(R.color.loading_bg);
 
+	}
+
+	@Override
+	protected void setupActionBar() {
+		super.setupActionBar();
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	private void setInitialFragment(Class<? extends BaseFragment> fclass) {
@@ -51,13 +58,6 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 		startService(new Intent(this, GatewayService.class));
 	}
 
-	private void setupActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setCustomView(R.layout.view_action_bar);
-		getActionBar().setDisplayShowCustomEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
@@ -68,40 +68,43 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
 
-			DrawerLayout drawer = mQuery.find(R.id.layout_drawer).get(
-					DrawerLayout.class);
-			View menuView = mMenuQuery.get();
-			if (drawer.isDrawerOpen(menuView)) {
-				drawer.closeDrawer(menuView);
-			} else {
-				drawer.openDrawer(menuView);
-			}
-
+			toggleDraw();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void toggleDraw() {
+
+		DrawerLayout drawer = mQuery.find(R.id.layout_drawer).get(
+				DrawerLayout.class);
+		View menuView = mMenuQuery.get();
+		if (drawer.isDrawerOpen(menuView)) {
+			drawer.closeDrawer(menuView);
+		} else {
+			drawer.openDrawer(menuView);
+		}
+
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
 
+		toggleDraw();
 		switch (position) {
-		case 2:
-			// startActivity();
+		case 0:
+			setInitialFragment(SurveysFragment.class);
 			return;
-			// case 2:
-			// // startActivity();
-			// return;
-			// case 2:
-			// // startActivity();
-			// return;
-			// case 2:
-			// // startActivity();
-			// return;
-			// case 2:
-			// // startActivity();
-			// return;
+		case 1:
+			setInitialFragment(SurveysFragment.class);
+			return;
+		case 2:
+			setInitialFragment(SurveysFragment.class);
+			return;
+		case 3:
+			setInitialFragment(SurveysFragment.class);
+			return;
 		default:
 			return;
 		}

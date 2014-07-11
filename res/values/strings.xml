@@ -6,7 +6,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="ok">OK</string>
-    <string name="template_quotient">%1$d / %2$d</string>
+    <string name="template_quotient">%1$d/%2$d</string>
 
     <!-- Email -->
     <string name="contact_choose_email_client">Please choose your mail client</string>
