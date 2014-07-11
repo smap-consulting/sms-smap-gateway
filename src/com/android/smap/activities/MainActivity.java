@@ -40,9 +40,10 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 	}
 
 	@Override
-	protected void setupActionBar() {
+	public void setupActionBar() {
 		super.setupActionBar();
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setHomeButtonEnabled(true);
 	}
 
 	private void setInitialFragment(Class<? extends BaseFragment> fclass) {

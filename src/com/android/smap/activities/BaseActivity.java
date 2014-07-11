@@ -20,7 +20,7 @@ public abstract class BaseActivity extends FragmentActivity {
 		super.setContentView(layoutResID);
 	}
 
-	protected void setupActionBar() {
+	public void setupActionBar() {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setCustomView(R.layout.view_action_bar);
 		getActionBar().setDisplayShowCustomEnabled(true);

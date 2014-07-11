@@ -4,8 +4,10 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
 
 import com.android.smap.R;
+import com.android.smap.activities.BaseActivity;
 
 /**
  * <pre>
@@ -34,6 +36,7 @@ public class BaseFragment extends Fragment {
 		if (hasActionBarTitle()) {
 			getActionBar().setTitle(getActionBarTitle());
 		}
+
 	}
 
 	@Override
@@ -42,6 +45,13 @@ public class BaseFragment extends Fragment {
 		if (hasActionBarTitle()) {
 			getActionBar().setTitle(getString(R.string.app_name));
 		}
+	}
+
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		super.onPrepareOptionsMenu(menu);
+		BaseActivity b = ((BaseActivity) getActivity());
+		b.setupActionBar();
 	}
 
 	/**

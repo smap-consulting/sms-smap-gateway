@@ -68,6 +68,7 @@
 
         <activity
             android:name=".activities.MainActivity"
+            android:icon="@drawable/ic_menu"
             android:label="" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
