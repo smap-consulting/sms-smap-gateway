@@ -21,6 +21,7 @@ import com.android.smap.adapters.SurveyContactAdapter;
 import com.android.smap.api.models.SurveyDetail;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.ViewQuery;
+import com.android.smap.utils.MWAnimUtil;
 import com.google.inject.Inject;
 import com.mjw.android.swipe.BaseSwipeListViewListener;
 import com.mjw.android.swipe.SwipeListView;
@@ -62,116 +63,78 @@ public class SurveyDetailFragment extends BaseFragment {
 		mDataManager = GatewayApp.getDependencyContainer().getInjector()
 				.getInstance(DataManager.class);
 		mModel = mDataManager.getDetailsForSurvey(mSurveyId);
+		setupContactsList();
 
-		mAdapter = new SurveyContactAdapter(getActivity(), mModel.contacts);
-		// listView.setAdapter(mAdapter);
+		int completed = mModel.survey.completed;
+		int total = mModel.survey.members;
 
-		//
+		String template = getActivity().getResources().getString(
+				R.string.template_quotient);
+		String completedProgress = String.format(template, completed, total);
+		query.find(R.id.txt_completed_progress).text(completedProgress);
 
-		// swipeListView = (SwipeListView) findViewById(R.id.list_contacts);
-
-		swipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			swipeListView
-					.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-
-						@Override
-						public void onItemCheckedStateChanged(ActionMode mode,
-								int position,
-								long id, boolean checked) {
-							mode.setTitle("Selected ("
-									+ swipeListView.getCountSelected()
-									+ ")");
-						}
-
-						@Override
-						public boolean onActionItemClicked(ActionMode mode,
-								MenuItem item) {
-							// switch (item.getItemId()) {
-							// case R.id.menu_delete:
-							// swipeListView.dismissSelected();
-							// mode.finish();
-							// return true;
-							// default:
-							// return false;
-							// }
-							return false;
-						}
-
-						@Override
-						public boolean onCreateActionMode(ActionMode mode,
-								Menu menu) {
-							MenuInflater inflater = mode.getMenuInflater();
-							inflater.inflate(R.menu.menu_choice_items, menu);
-							return true;
-						}
-
-						@Override
-						public void onDestroyActionMode(ActionMode mode) {
-							swipeListView.unselectedChoiceStates();
-						}
-
-						@Override
-						public boolean onPrepareActionMode(ActionMode mode,
-								Menu menu) {
-							return false;
-						}
-					});
-		}
-
-		swipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
-			@Override
-			public void onOpened(int position, boolean toRight) {}
-
-			@Override
-			public void onClosed(int position, boolean fromRight) {}
-
-			@Override
-			public void onListChanged() {}
-
-			@Override
-			public void onMove(int position, float x) {}
-
-			@Override
-			public void onStartOpen(int position, int action, boolean right) {
-				Log.d("swipe", String.format("onStartOpen %d - action %d",
-						position, action));
-			}
-
-			@Override
-			public void onStartClose(int position, boolean right) {
-				Log.d("swipe", String.format("onStartClose %d", position));
-			}
-
-			@Override
-			public void onClickFrontView(int position) {
-				Log.d("swipe", String.format("onClickFrontView %d", position));
-			}
-
-			@Override
-			public void onClickBackView(int position) {
-				Log.d("swipe", String.format("onClickBackView %d", position));
-			}
-
-			@Override
-			public void onDismiss(int[] reverseSortedPositions) {
-				for (int position : reverseSortedPositions) {
-					mModel.contacts.remove(position);
-				}
-				mAdapter.notifyDataSetChanged();
-			}
-
-		});
-
-		swipeListView.setAdapter(mAdapter);
+		// grow the progress bar out
+		View progress = query.find(R.id.view_progress).get();
+		float percent = (float) ((float) mModel.survey.completed / (float)
+				mModel.survey.members);
+		MWAnimUtil.growRight(progress, percent);
 
 		return view;
 	}
 
-	public int convertDpToPixel(float dp) {
-		DisplayMetrics metrics = getResources().getDisplayMetrics();
-		float px = dp * (metrics.densityDpi / 160f);
-		return (int) px;
+	private void setupContactsList() {
+
+		mAdapter = new SurveyContactAdapter(getActivity(), mModel.contacts);
+		swipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+		swipeListView
+				.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
+					@Override
+					public void onItemCheckedStateChanged(ActionMode mode,
+							int position,
+							long id, boolean checked) {
+						mode.setTitle("Selected ("
+								+ swipeListView.getCountSelected()
+								+ ")");
+					}
+
+					@Override
+					public boolean onActionItemClicked(ActionMode mode,
+							MenuItem item) {
+						// switch (item.getItemId()) {
+						// case R.id.menu_delete:
+						// swipeListView.dismissSelected();
+						// mode.finish();
+						// return true;
+						// default:
+						// return false;
+						// }
+						return false;
+					}
+
+					@Override
+					public boolean onCreateActionMode(ActionMode mode,
+							Menu menu) {
+						MenuInflater inflater = mode.getMenuInflater();
+						inflater.inflate(R.menu.menu_choice_items, menu);
+						return true;
+					}
+
+					@Override
+					public void onDestroyActionMode(ActionMode mode) {
+						swipeListView.unselectedChoiceStates();
+					}
+
+					@Override
+					public boolean onPrepareActionMode(ActionMode mode,
+							Menu menu) {
+						return false;
+					}
+				});
+
+		swipeListView.setAdapter(mAdapter);
+
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -186,33 +149,8 @@ public class SurveyDetailFragment extends BaseFragment {
 		case android.R.id.home: // Actionbar home/up icon
 
 			break;
-
 		}
 		return handled;
-	}
-
-	//
-
-	// int completed = mModel.survey.completed;
-	// int total = mModel.survey.members;
-	//
-	// String template = getActivity().getResources().getString(
-	// R.string.template_quotient);
-	// String completedProgress = String.format(template, completed, total);
-	// query.find(R.id.txt_completed_progress).text(completedProgress);
-	//
-	// // grow the progress bar out
-	// View progress = query.find(R.id.view_progress).get();
-	// float percent = (float) ((float) mModel.survey.completed / (float)
-	// mModel.survey.members);
-	// MWAnimUtil.growRight(progress, percent);
-	//
-	// return view;
-
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// TODO Auto-generated method stub
-		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
