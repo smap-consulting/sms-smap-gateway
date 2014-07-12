@@ -25,7 +25,7 @@ public class SurveyContactAdapter extends VelocAdapter {
 
 	@Override
 	public View newView(LayoutInflater inflator, int position, ViewGroup parent) {
-		return inflator.inflate(R.layout.item_survey_contact, null, false);
+		return inflator.inflate(R.layout.item_survey_contact_slider, null, false);
 	}
 
 	@Override

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:tag="back" >
+
+        <Button
+            android:id="@+id/example_row_b_action_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CALL" />
+
+        <Button
+            android:id="@+id/example_row_b_action_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REMOVE" />
+
+        <Button
+            android:id="@+id/example_row_b_action_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OTHER" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/front"
+        layout="@layout/item_survey_contact"
+        android:tag="front" />
+
+</FrameLayout>

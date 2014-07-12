@@ -1,19 +1,17 @@
 /*
- * Copyright (C) 2013 47 Degrees, LLC
- * http://47deg.com
- * hello@47deg.com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Copyright (C) 2013 47 Degrees, LLC http://47deg.com hello@47deg.com
+ * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package com.mjw.android.swipe;
@@ -43,101 +41,101 @@ public class SwipeListView extends ListView {
 	/**
 	 * log tag
 	 */
-	public final static String TAG = "SwipeListView";
+	public final static String			TAG							= "SwipeListView";
 
 	/**
 	 * whether debug
 	 */
-	public final static boolean DEBUG = false;
+	public final static boolean			DEBUG						= false;
 
 	/**
 	 * Used when user want change swipe list mode on some rows
 	 */
-	public final static int SWIPE_MODE_DEFAULT = -1;
+	public final static int				SWIPE_MODE_DEFAULT			= -1;
 
 	/**
 	 * Disables all swipes
 	 */
-	public final static int SWIPE_MODE_NONE = 0;
+	public final static int				SWIPE_MODE_NONE				= 0;
 
 	/**
 	 * Enables both left and right swipe
 	 */
-	public final static int SWIPE_MODE_BOTH = 1;
+	public final static int				SWIPE_MODE_BOTH				= 1;
 
 	/**
 	 * Enables right swipe
 	 */
-	public final static int SWIPE_MODE_RIGHT = 2;
+	public final static int				SWIPE_MODE_RIGHT			= 2;
 
 	/**
 	 * Enables left swipe
 	 */
-	public final static int SWIPE_MODE_LEFT = 3;
+	public final static int				SWIPE_MODE_LEFT				= 3;
 
 	/**
 	 * Binds the swipe gesture to reveal a view behind the row (Drawer style)
 	 */
-	public final static int SWIPE_ACTION_REVEAL = 0;
+	public final static int				SWIPE_ACTION_REVEAL			= 0;
 
 	/**
 	 * Dismisses the cell when swiped over
 	 */
-	public final static int SWIPE_ACTION_DISMISS = 1;
+	public final static int				SWIPE_ACTION_DISMISS		= 1;
 
 	/**
 	 * Marks the cell as checked when swiped and release
 	 */
-	public final static int SWIPE_ACTION_CHOICE = 2;
+	public final static int				SWIPE_ACTION_CHOICE			= 2;
 
 	/**
 	 * No action when swiped
 	 */
-	public final static int SWIPE_ACTION_NONE = 3;
+	public final static int				SWIPE_ACTION_NONE			= 3;
 
 	/**
 	 * Default ids for front view
 	 */
-	public final static String SWIPE_DEFAULT_FRONT_VIEW = "swipelist_frontview";
+	public final static String			SWIPE_DEFAULT_FRONT_VIEW	= "swipelist_frontview";
 
 	/**
 	 * Default id for back view
 	 */
-	public final static String SWIPE_DEFAULT_BACK_VIEW = "swipelist_backview";
+	public final static String			SWIPE_DEFAULT_BACK_VIEW		= "swipelist_backview";
 
 	/**
 	 * Indicates no movement
 	 */
-	private final static int TOUCH_STATE_REST = 0;
+	private final static int			TOUCH_STATE_REST			= 0;
 
 	/**
 	 * State scrolling x position
 	 */
-	private final static int TOUCH_STATE_SCROLLING_X = 1;
+	private final static int			TOUCH_STATE_SCROLLING_X		= 1;
 
 	/**
 	 * State scrolling y position
 	 */
-	private final static int TOUCH_STATE_SCROLLING_Y = 2;
+	private final static int			TOUCH_STATE_SCROLLING_Y		= 2;
 
-	private int touchState = TOUCH_STATE_REST;
+	private int							touchState					= TOUCH_STATE_REST;
 
-	private float lastMotionX;
-	private float lastMotionY;
-	private int touchSlop;
+	private float						lastMotionX;
+	private float						lastMotionY;
+	private int							touchSlop;
 
-	int swipeFrontView = 0;
-	int swipeBackView = 0;
+	int									swipeFrontView				= 0;
+	int									swipeBackView				= 0;
 
 	/**
 	 * Internal listener for common swipe events
 	 */
-	private SwipeListViewListener swipeListViewListener;
+	private SwipeListViewListener		swipeListViewListener;
 
 	/**
 	 * Internal touch listener
 	 */
-	private SwipeListViewTouchListener touchListener;
+	private SwipeListViewTouchListener	touchListener;
 
 	/**
 	 * If you create a View programmatically you need send back and front
@@ -249,7 +247,8 @@ public class SwipeListView extends ListView {
 				.get(getContext());
 		touchSlop = ViewConfigurationCompat
 				.getScaledPagingTouchSlop(configuration);
-		touchListener = new SwipeListViewTouchListener(this, swipeFrontView, swipeBackView);
+		touchListener = new SwipeListViewTouchListener(this, swipeFrontView,
+				swipeBackView);
 		if (swipeAnimationTime > 0) {
 			touchListener.setAnimationTime(swipeAnimationTime);
 		}

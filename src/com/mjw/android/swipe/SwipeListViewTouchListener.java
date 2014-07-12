@@ -1,24 +1,25 @@
 /*
- * Copyright (C) 2013 47 Degrees, LLC
- * http://47deg.com
- * hello@47deg.com
- *
  * Copyright 2012 Roman Nurik
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0 Copyright (C) 2013 47 Degrees, LLC
+ * http://47deg.com hello@47deg.com
+ * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package com.mjw.android.swipe;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -33,80 +34,74 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.ViewPropertyAnimator;
 import android.widget.AbsListView;
 import android.widget.ListView;
-
-//import com.nineoldandroids.animation.Animator;
-//import com.nineoldandroids.animation.AnimatorListenerAdapter;
-//import com.nineoldandroids.animation.ValueAnimator;
-//import com.nineoldandroids.view.ViewHelper;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-//import static com.nineoldandroids.view.ViewHelper.setAlpha;
-//import static com.nineoldandroids.view.ViewHelper.setTranslationX;
-//import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
 /**
  * Touch listener impl for the SwipeListView
  */
 public class SwipeListViewTouchListener implements View.OnTouchListener {
 
-	private static final int DISPLACE_CHOICE = 80;
+	private static final int			DISPLACE_CHOICE						= 80;
 
-	private int swipeMode = SwipeListView.SWIPE_MODE_BOTH;
-	private boolean swipeOpenOnLongPress = true;
-	private boolean swipeClosesAllItemsWhenListMoves = true;
+	private int							swipeMode							= SwipeListView.SWIPE_MODE_BOTH;
+	private boolean						swipeOpenOnLongPress				= true;
+	private boolean						swipeClosesAllItemsWhenListMoves	= true;
 
-	private int swipeFrontView = 0;
-	private int swipeBackView = 0;
+	private int							swipeFrontView						= 0;
+	private int							swipeBackView						= 0;
 
-	private Rect rect = new Rect();
+	private Rect						rect								= new Rect();
 
 	// Cached ViewConfiguration and system-wide constant values
-	private int slop;
-	private int minFlingVelocity;
-	private int maxFlingVelocity;
-	private long configShortAnimationTime;
-	private long animationTime;
+	private int							slop;
+	private int							minFlingVelocity;
+	private int							maxFlingVelocity;
+	private long						configShortAnimationTime;
+	private long						animationTime;
 
-	private float leftOffset = 0;
-	private float rightOffset = 0;
+	private float						leftOffset							= 0;
+	private float						rightOffset							= 0;
 
-	private int swipeDrawableChecked = 0;
-	private int swipeDrawableUnchecked = 0;
+	private int							swipeDrawableChecked				= 0;
+	private int							swipeDrawableUnchecked				= 0;
 
 	// Fixed properties
-	private SwipeListView swipeListView;
-	private int viewWidth = 1; // 1 and not 0 to prevent dividing by zero
+	private SwipeListView				swipeListView;
+	private int							viewWidth							= 1;									// 1
+																													// and
+																													// not
+																													// 0
+																													// to
+																													// prevent
+																													// dividing
+																													// by
+																													// zero
 
-	private List<PendingDismissData> pendingDismisses = new ArrayList<PendingDismissData>();
-	private int dismissAnimationRefCount = 0;
+	private List<PendingDismissData>	pendingDismisses					= new ArrayList<PendingDismissData>();
+	private int							dismissAnimationRefCount			= 0;
 
-	private float downX;
-	private boolean swiping;
-	private boolean swipingRight;
-	private VelocityTracker velocityTracker;
-	private int downPosition;
-	private View parentView;
-	private View frontView;
-	private View backView;
-	private boolean paused;
+	private float						downX;
+	private boolean						swiping;
+	private boolean						swipingRight;
+	private VelocityTracker				velocityTracker;
+	private int							downPosition;
+	private View						parentView;
+	private View						frontView;
+	private View						backView;
+	private boolean						paused;
 
-	private int swipeCurrentAction = SwipeListView.SWIPE_ACTION_NONE;
+	private int							swipeCurrentAction					= SwipeListView.SWIPE_ACTION_NONE;
 
-	private int swipeActionLeft = SwipeListView.SWIPE_ACTION_REVEAL;
-	private int swipeActionRight = SwipeListView.SWIPE_ACTION_REVEAL;
+	private int							swipeActionLeft						= SwipeListView.SWIPE_ACTION_REVEAL;
+	private int							swipeActionRight					= SwipeListView.SWIPE_ACTION_REVEAL;
 
-	private List<Boolean> opened = new ArrayList<Boolean>();
-	private List<Boolean> openedRight = new ArrayList<Boolean>();
-	private boolean listViewMoving;
-	private List<Boolean> checked = new ArrayList<Boolean>();
-	private int oldSwipeActionRight;
-	private int oldSwipeActionLeft;
+	private List<Boolean>				opened								= new ArrayList<Boolean>();
+	private List<Boolean>				openedRight							= new ArrayList<Boolean>();
+	private boolean						listViewMoving;
+	private List<Boolean>				checked								= new ArrayList<Boolean>();
+	private int							oldSwipeActionRight;
+	private int							oldSwipeActionLeft;
 
 	/**
 	 * Constructor
@@ -608,7 +603,8 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 		int moveTo = 0;
 		if (opened.get(position)) {
 			if (!swap) {
-				moveTo = openedRight.get(position) ? (int) (viewWidth - rightOffset)
+				moveTo = openedRight.get(position)
+						? (int) (viewWidth - rightOffset)
 						: (int) (-viewWidth + leftOffset);
 			}
 		} else {
@@ -658,7 +654,8 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 		int moveTo = 0;
 		if (opened.get(position)) {
 			if (!swap) {
-				moveTo = openedRight.get(position) ? (int) (viewWidth - rightOffset)
+				moveTo = openedRight.get(position)
+						? (int) (viewWidth - rightOffset)
 						: (int) (-viewWidth + leftOffset);
 			}
 		} else {
@@ -719,8 +716,8 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 	public AbsListView.OnScrollListener makeScrollListener() {
 		return new AbsListView.OnScrollListener() {
 
-			private boolean isFirstItem = false;
-			private boolean isLastItem = false;
+			private boolean	isFirstItem	= false;
+			private boolean	isLastItem	= false;
 
 			@Override
 			public void onScrollStateChanged(AbsListView absListView,
@@ -1091,8 +1088,8 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 	 * Class that saves pending dismiss data
 	 */
 	class PendingDismissData implements Comparable<PendingDismissData> {
-		public int position;
-		public View view;
+		public int	position;
+		public View	view;
 
 		public PendingDismissData(int position, View view) {
 			this.position = position;
