@@ -1,9 +1,6 @@
 package com.android.smap.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,7 +20,6 @@ import com.android.smap.di.DataManager;
 import com.android.smap.ui.ViewQuery;
 import com.android.smap.utils.MWAnimUtil;
 import com.google.inject.Inject;
-import com.mjw.android.swipe.BaseSwipeListViewListener;
 import com.mjw.android.swipe.SwipeListView;
 
 public class SurveyDetailFragment extends BaseFragment {
@@ -36,7 +32,7 @@ public class SurveyDetailFragment extends BaseFragment {
 	private SurveyDetail			mModel;
 	private SurveyContactAdapter	mAdapter;
 	private int						mSurveyId;
-	private SwipeListView			swipeListView;
+	private SwipeListView			mSwipeListView;
 	private View					mProgressBar;
 
 	@Override
@@ -58,7 +54,7 @@ public class SurveyDetailFragment extends BaseFragment {
 				null);
 
 		ViewQuery query = new ViewQuery(view);
-		swipeListView = (SwipeListView) query.find(R.id.list_contacts).get();
+		mSwipeListView = (SwipeListView) query.find(R.id.list_contacts).get();
 
 		// get all necessary local data
 		mDataManager = GatewayApp.getDependencyContainer().getInjector()
@@ -92,33 +88,33 @@ public class SurveyDetailFragment extends BaseFragment {
 
 	private void setupContactsList() {
 
-		mAdapter = new SurveyContactAdapter(getActivity(), mModel.contacts);
-		swipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+		mAdapter = new SurveyContactAdapter(getActivity(), mModel.contacts, mSwipeListView);
+		mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
-		swipeListView
+		mSwipeListView
 				.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 
 					@Override
 					public void onItemCheckedStateChanged(ActionMode mode,
 							int position,
 							long id, boolean checked) {
-						mode.setTitle("Selected ("
-								+ swipeListView.getCountSelected()
+						mode.setTitle("Remove ("
+								+ mSwipeListView.getCountSelected()
 								+ ")");
 					}
 
 					@Override
 					public boolean onActionItemClicked(ActionMode mode,
 							MenuItem item) {
-						// switch (item.getItemId()) {
-						// case R.id.menu_delete:
-						// swipeListView.dismissSelected();
-						// mode.finish();
-						// return true;
-						// default:
-						// return false;
-						// }
-						return false;
+						switch (item.getItemId()) {
+						case R.id.menu_delete:
+							mSwipeListView.dismissSelected();
+							mode.finish();
+							return true;
+						default:
+							return false;
+						}
+						
 					}
 
 					@Override
@@ -131,7 +127,7 @@ public class SurveyDetailFragment extends BaseFragment {
 
 					@Override
 					public void onDestroyActionMode(ActionMode mode) {
-						swipeListView.unselectedChoiceStates();
+						mSwipeListView.unselectedChoiceStates();
 					}
 
 					@Override
@@ -141,7 +137,7 @@ public class SurveyDetailFragment extends BaseFragment {
 					}
 				});
 
-		swipeListView.setAdapter(mAdapter);
+		mSwipeListView.setAdapter(mAdapter);
 
 	}
 
