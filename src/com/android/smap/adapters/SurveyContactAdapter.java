@@ -36,12 +36,13 @@ public class SurveyContactAdapter extends VelocAdapter {
 		int total = mModel.get((position)).total;
 
 		String template = getContext().getResources().getString(
-				R.string.template_quotient);
-		String completedProgress = String.format(template, completed, total);
+				R.string.surveys_of_total);
+		String totalCount = String.format(template,  total);
 
 		query.find(R.id.txt_name).text(mModel.get((position)).name);
 		query.find(R.id.txt_number).text("Ph: "+mModel.get((position)).number);
-		query.find(R.id.txt_completed_progress).text(completedProgress);
+		query.find(R.id.txt_completed_progress).text(String.valueOf(completed));
+		query.find(R.id.txt_completed_total).text(totalCount);
 		query.find(R.id.txt_timestamp).text(mModel.get((position)).updatedAt);
 
 	}

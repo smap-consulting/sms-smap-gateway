@@ -37,6 +37,7 @@ public class SurveyDetailFragment extends BaseFragment {
 	private SurveyContactAdapter	mAdapter;
 	private int						mSurveyId;
 	private SwipeListView			swipeListView;
+	private View					mProgressBar;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,12 +75,19 @@ public class SurveyDetailFragment extends BaseFragment {
 		query.find(R.id.txt_completed_progress).text(completedProgress);
 
 		// grow the progress bar out
-		View progress = query.find(R.id.view_progress).get();
-		float percent = (float) ((float) mModel.survey.completed / (float)
-				mModel.survey.members);
-		MWAnimUtil.growRight(progress, percent);
+		mProgressBar = query.find(R.id.view_progress).get();
 
 		return view;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (mModel != null) {
+			float percent = (float) ((float) mModel.survey.completed / (float)
+					mModel.survey.members);
+			MWAnimUtil.growRight(mProgressBar, percent);
+		}
 	}
 
 	private void setupContactsList() {

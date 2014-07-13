@@ -2,32 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/smap_med_grey"
+    android:background="@color/smap_dark_grey"
     android:orientation="vertical" >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/list_vertical_margin"
-        android:paddingLeft="@dimen/list_horizontal_margin"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingLeft="12dp"
         android:text="All Surveys"
-        android:textSize="22sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginLeft="@dimen/list_horizontal_margin"
-        android:layout_marginRight="@dimen/list_horizontal_margin"
-        android:background="@color/smap_dark_grey" />
+        android:textColor="@color/smap_cream"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/list_surveys"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/smap_med_grey"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="8dp"
-        android:paddingLeft="@dimen/list_horizontal_margin"
-        android:paddingRight="@dimen/list_horizontal_margin" />
+        android:divider="@color/smap_dark_grey"
+        android:dividerHeight="1dp" />
 
 </LinearLayout>

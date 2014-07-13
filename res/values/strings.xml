@@ -12,5 +12,6 @@
     <string name="contact_choose_email_client">Please choose your mail client</string>
 
     <!-- Surveys -->
-
+    <string name="surveys_of_total">OF %1$d</string>
+    
 </resources>
