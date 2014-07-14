@@ -36,8 +36,7 @@ public class SurveyAdapter extends VelocAdapter {
 	@Override
 	public void bindView(Context context, View view, ViewQuery query,
 			int position) {
-		view.invalidate();
-		view.forceLayout();
+
 		int completed = mModel.get((position)).completed;
 		int total = mModel.get((position)).members;
 		int partial = mModel.get((position)).partial;
@@ -52,7 +51,7 @@ public class SurveyAdapter extends VelocAdapter {
 		String partialProgress = String.format(template, partial, unfinished);
 		String totalCount = String.format(totalTemplate, total);
 
-		query.find(R.id.txt_survey).text(mModel.get((position)).name);
+		query.find(R.id.txt_name).text(mModel.get((position)).name);
 		query.find(R.id.txt_completed_progress).text(String.valueOf(completed));
 		query.find(R.id.txt_completed_total).text(totalCount);
 		query.find(R.id.txt_member_progress).text(partialProgress);
