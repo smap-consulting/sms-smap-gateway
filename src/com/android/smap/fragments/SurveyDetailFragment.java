@@ -20,6 +20,7 @@ import com.android.smap.di.DataManager;
 import com.android.smap.ui.ViewQuery;
 import com.android.smap.utils.MWAnimUtil;
 import com.google.inject.Inject;
+import com.mjw.android.swipe.MultiChoiceSwipeListener;
 import com.mjw.android.swipe.SwipeListView;
 
 public class SurveyDetailFragment extends BaseFragment {
@@ -88,7 +89,8 @@ public class SurveyDetailFragment extends BaseFragment {
 
 	private void setupContactsList() {
 
-		mAdapter = new SurveyContactAdapter(getActivity(), mModel.contacts, mSwipeListView);
+		mAdapter = new SurveyContactAdapter(getActivity(), mModel.contacts,
+				mSwipeListView);
 		mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
 		mSwipeListView
@@ -108,13 +110,14 @@ public class SurveyDetailFragment extends BaseFragment {
 							MenuItem item) {
 						switch (item.getItemId()) {
 						case R.id.menu_delete:
+
 							mSwipeListView.dismissSelected();
 							mode.finish();
 							return true;
 						default:
 							return false;
 						}
-						
+
 					}
 
 					@Override
@@ -136,6 +139,9 @@ public class SurveyDetailFragment extends BaseFragment {
 						return false;
 					}
 				});
+
+		mSwipeListView.setSwipeListViewListener(new MultiChoiceSwipeListener(
+				mAdapter));
 
 		mSwipeListView.setAdapter(mAdapter);
 
@@ -163,4 +169,13 @@ public class SurveyDetailFragment extends BaseFragment {
 		outState.putInt(EXTRA_SURVEY_ID, mSurveyId);
 	}
 
+	@Override
+	public boolean hasActionBarTitle() {
+		return true;
+	}
+
+	@Override
+	public String getActionBarTitle() {
+		return getResources().getString(R.string.ab_survey_contacts);
+	}
 }

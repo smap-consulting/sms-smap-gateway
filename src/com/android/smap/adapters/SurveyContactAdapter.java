@@ -14,9 +14,11 @@ import com.android.smap.api.models.SurveyContact;
 import com.android.smap.ui.VelocAdapter;
 import com.android.smap.ui.ViewQuery;
 import com.google.inject.Inject;
+import com.mjw.android.swipe.MultiChoiceSwipeListener.MutableAdapter;
 import com.mjw.android.swipe.SwipeListView;
 
-public class SurveyContactAdapter extends VelocAdapter {
+public class SurveyContactAdapter extends VelocAdapter implements
+		MutableAdapter {
 
 	private List<SurveyContact>	mModel;
 	private SwipeListView		mListViewRef;
@@ -65,12 +67,25 @@ public class SurveyContactAdapter extends VelocAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
+	public SurveyContact getItem(int position) {
 		return mModel.get(position);
 	}
 
 	public void setModel(List<SurveyContact> model) {
 		this.mModel = model;
+	}
+
+	@Override
+	public void remove(int pos) {
+		mModel.remove(pos);
+		notifyDataSetChanged();
+	}
+
+	@Override
+	public void removeAll(int[] pos) {
+		for (int i : pos) {
+			this.remove(i);
+		}
 	}
 
 }
