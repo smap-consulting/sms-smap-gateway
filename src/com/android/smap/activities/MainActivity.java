@@ -42,6 +42,8 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 	@Override
 	public void setupActionBar() {
 		super.setupActionBar();
+		getActionBar().setCustomView(R.layout.view_action_bar);
+		getActionBar().setDisplayShowCustomEnabled(true);
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		getActionBar().setHomeButtonEnabled(true);
 	}

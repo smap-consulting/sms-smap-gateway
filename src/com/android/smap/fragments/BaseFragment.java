@@ -33,6 +33,7 @@ public class BaseFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 		if (hasActionBarTitle()) {
 			getActionBar().setTitle(getActionBarTitle());
 		}
@@ -96,6 +97,12 @@ public class BaseFragment extends Fragment {
 		return "";
 	}
 
+	public void popFragment() {
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.remove(this);
+		ft.commit();
+	}
+
 	/**
 	 * Push a new fragment onto the stack.
 	 * 
@@ -150,4 +157,5 @@ public class BaseFragment extends Fragment {
 		ft.replace(R.id.container, f);
 		ft.commit();
 	}
+
 }

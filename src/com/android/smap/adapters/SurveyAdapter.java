@@ -12,22 +12,25 @@ import com.android.smap.R;
 import com.android.smap.api.models.Survey;
 import com.android.smap.ui.VelocAdapter;
 import com.android.smap.ui.ViewQuery;
-import com.android.smap.utils.MWUiUtils;
 import com.google.inject.Inject;
 
 public class SurveyAdapter extends VelocAdapter {
 
 	private List<Survey>	mModel;
+	private float			mProgressBarTotal;
 
 	@Inject
 	public SurveyAdapter(Context context, List<Survey> model) {
 		super(context);
 		this.mModel = model;
+		mProgressBarTotal = getContext()
+				.getResources().getDimension(R.dimen.survey_progress_width);
 	}
 
 	@Override
 	public View newView(LayoutInflater inflator, int position, ViewGroup parent) {
 		return inflator.inflate(R.layout.item_survey, null, false);
+
 	}
 
 	@Override
@@ -40,27 +43,34 @@ public class SurveyAdapter extends VelocAdapter {
 		int unfinished = (total - completed) - partial;
 		boolean isFinished = completed == total ? true : false;
 
+		// String formatting
 		String template = getContext().getResources().getString(
 				R.string.template_quotient);
-		String completedProgress = String.format(template, completed, total);
+		String totalTemplate = getContext().getResources().getString(
+				R.string.surveys_of_total);
 		String partialProgress = String.format(template, partial, unfinished);
+		String totalCount = String.format(totalTemplate, total);
 
-		query.find(R.id.txt_survey).text(mModel.get((position)).name);
-		query.find(R.id.txt_completed_progress).text(completedProgress);
+		query.find(R.id.txt_name).text(mModel.get((position)).name);
+		query.find(R.id.txt_completed_progress).text(String.valueOf(completed));
+		query.find(R.id.txt_completed_total).text(totalCount);
 		query.find(R.id.txt_member_progress).text(partialProgress);
 
 		// set progress bar length
 		View progress = query.find(R.id.view_progress).get();
-
 		float percent = (float) ((float) completed / (float) total);
 		LayoutParams params = progress.getLayoutParams();
-		params.width = (int) (MWUiUtils.getScreenWidth(getContext()) * percent);
+		params.width = (int) (mProgressBarTotal * percent);
 		progress.setLayoutParams(params);
 
 		if (isFinished) {
-			query.find(R.id.ic_tick).invisible(false);
+			query.find(R.id.img_tick).invisible(false);
+			query.find(R.id.view_progress).invisible(true);
+			query.find(R.id.view_progress_total).invisible(true);
 		} else {
-			query.find(R.id.ic_tick).invisible(true);
+			query.find(R.id.img_tick).invisible(true);
+			query.find(R.id.view_progress).invisible(false);
+			query.find(R.id.view_progress_total).invisible(false);
 		}
 	}
 

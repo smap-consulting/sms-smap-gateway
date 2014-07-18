@@ -33,8 +33,7 @@ public class SurveysFragment extends BaseFragment implements
 				null);
 
 		ListView listView = (ListView) view.findViewById(R.id.list_surveys);
-		mDataManager = GatewayApp.getDependencyContainer().getInjector()
-				.getInstance(DataManager.class);
+		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
 		mAdapter = new SurveyAdapter(getActivity(), mDataManager
 				.getSurveys());
 		listView.setOnItemClickListener(this);

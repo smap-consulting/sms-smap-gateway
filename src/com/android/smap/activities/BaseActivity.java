@@ -22,8 +22,6 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	public void setupActionBar() {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setCustomView(R.layout.view_action_bar);
-		getActionBar().setDisplayShowCustomEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 	}
 
