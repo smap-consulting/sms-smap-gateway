@@ -449,6 +449,11 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 	 *            view to re-draw
 	 */
 	protected void reloadSwipeStateInView(View frontView, int position) {
+		
+		//dirty hack. yolo.
+		if(position > opened.size()-1){
+			return;
+		}
 		if (!opened.get(position)) {
 			frontView.setTranslationX(0.0f);
 		} else {
