@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
@@ -147,20 +148,27 @@ public class SurveyDetailFragment extends BaseFragment {
 
 	}
 
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getActivity().getMenuInflater();
-		inflater.inflate(R.menu.menu_app, menu);
-		return true;
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater = getActivity().getMenuInflater();
+		inflater.inflate(R.menu.menu_add, menu);
 	}
 
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean handled = false;
 		switch (item.getItemId()) {
 		case android.R.id.home: // Actionbar home/up icon
-
+			getActivity().onBackPressed();
+			Toast.makeText(getActivity(), "BACK", Toast.LENGTH_LONG).show();
+			break;
+		case R.id.action_add: // Actionbar home/up icon
+			Toast.makeText(getActivity(), "ADD", Toast.LENGTH_LONG).show();
 			break;
 		}
 		return handled;
+
 	}
 
 	@Override
