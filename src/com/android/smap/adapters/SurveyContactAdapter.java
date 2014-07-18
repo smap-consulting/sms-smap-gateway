@@ -6,19 +6,19 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.ListView;
 
+import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.api.models.SurveyContact;
+import com.android.smap.di.DataManager;
 import com.android.smap.ui.VelocAdapter;
 import com.android.smap.ui.ViewQuery;
 import com.google.inject.Inject;
-import com.mjw.android.swipe.MultiChoiceSwipeListener.MutableAdapter;
+import com.mjw.android.swipe.MultiChoiceSwipeListener.MultiSelectActionAdapter;
 import com.mjw.android.swipe.SwipeListView;
 
 public class SurveyContactAdapter extends VelocAdapter implements
-		MutableAdapter {
+		MultiSelectActionAdapter {
 
 	private List<SurveyContact>	mModel;
 	private SwipeListView		mListViewRef;
@@ -73,19 +73,24 @@ public class SurveyContactAdapter extends VelocAdapter implements
 
 	public void setModel(List<SurveyContact> model) {
 		this.mModel = model;
-	}
-
-	@Override
-	public void remove(int pos) {
-		mModel.remove(pos);
 		notifyDataSetChanged();
 	}
 
 	@Override
-	public void removeAll(int[] pos) {
+	public void actionAllSelected(int[] pos) {
+
 		for (int i : pos) {
-			this.remove(i);
+			this.action(i);
 		}
+	}
+
+	@Override
+	public void action(int pos) {
+		mModel.remove(pos);
+		GatewayApp.getDependencyContainer().getDataManager()
+				.removeContactFromSurvey(pos, 1);
+		notifyDataSetChanged();
+
 	}
 
 }

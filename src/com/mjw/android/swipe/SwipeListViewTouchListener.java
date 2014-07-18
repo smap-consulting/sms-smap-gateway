@@ -69,15 +69,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 	// Fixed properties
 	private SwipeListView				swipeListView;
 	private int							viewWidth							= 1;									// 1
-																													// and
-																													// not
-																													// 0
-																													// to
-																													// prevent
-																													// dividing
-																													// by
-																													// zero
-
+																													// //
+																													// //
+																													// an
 	private List<PendingDismissData>	pendingDismisses					= new ArrayList<PendingDismissData>();
 	private int							dismissAnimationRefCount			= 0;
 
@@ -449,9 +443,9 @@ public class SwipeListViewTouchListener implements View.OnTouchListener {
 	 *            view to re-draw
 	 */
 	protected void reloadSwipeStateInView(View frontView, int position) {
-		
-		//dirty hack. yolo.
-		if(position > opened.size()-1){
+
+		// dirty hack. yolo.
+		if (position > opened.size() - 1) {
 			return;
 		}
 		if (!opened.get(position)) {

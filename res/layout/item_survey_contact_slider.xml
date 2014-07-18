@@ -15,29 +15,28 @@
         android:tag="back" >
 
         <TextView
-            android:id="@+id/example_row_b_action_2"
+            android:id="@+id/remove"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_marginRight="12dp"
             android:background="@color/smap_cream"
+            android:drawableRight="@android:drawable/ic_delete"
             android:gravity="center_vertical"
             android:paddingLeft="6dp"
-            android:layout_marginRight="12dp"
             android:paddingRight="6dp"
-            android:drawableRight="@android:drawable/ic_delete"
             android:text="REMOVE"
             android:textColor="@color/smap_dark_grey"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
-            
-            android:drawableRight="@android:drawable/ic_menu_call"
-            android:id="@+id/example_row_b_action_2"
+            android:id="@+id/call"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:background="@color/smap_cream"
+            android:drawableRight="@android:drawable/ic_menu_call"
             android:gravity="center_vertical"
             android:paddingLeft="6dp"
             android:paddingRight="6dp"

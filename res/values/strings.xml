@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="ok">OK</string>
     <string name="template_quotient">%1$d/%2$d</string>
-    
+
     <!-- ActionBar titles -->
     <string name="ab_survey_contacts">Survey Details</string>
 
@@ -16,5 +16,8 @@
 
     <!-- Surveys -->
     <string name="surveys_of_total">OF %1$d</string>
-    
+
+    <!-- Contacts -->
+    <string name="ab_select_contacts">Select Contacts</string>
+
 </resources>

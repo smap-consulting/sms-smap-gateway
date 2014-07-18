@@ -1,9 +1,7 @@
 package com.android.smap.api.models;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
-import com.android.smap.controllers.Controller;
 import com.google.gson.annotations.Expose;
 
 /**
@@ -22,13 +20,13 @@ public class Gojo {
 
 	@SuppressLint("NewApi")
 	public void go() {
-		try {
+/*		try {
 			Controller c = goal.mHandler.newInstance();
 			c.start();
 		}
 		catch (InstantiationException | IllegalAccessException e) {
 
 			Log.e(Gojo.class.getName(), "NO CONTROLLER FOUND");
-		}
+		}*/
 	}
 }

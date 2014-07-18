@@ -14,33 +14,28 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
-import com.android.smap.adapters.SurveyContactAdapter;
+import com.android.smap.adapters.ContactSelectionAdapter;
 import com.android.smap.api.models.Contact;
-import com.android.smap.api.models.SurveyContact;
-import com.android.smap.api.models.SurveyDetail;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.ViewQuery;
-import com.android.smap.utils.MWAnimUtil;
 import com.google.inject.Inject;
 import com.mjw.android.swipe.MultiChoiceSwipeListener;
 import com.mjw.android.swipe.SwipeListView;
 
-public class SurveyDetailFragment extends BaseFragment {
+public class ContactSelectFragment extends BaseFragment {
 
-	public static final String		EXTRA_SURVEY_ID	= SurveyDetailFragment.class
+	public static final String		EXTRA_SURVEY_ID	= ContactSelectFragment.class
 															.getCanonicalName()
 															+ "id";
 	@Inject
 	private DataManager				mDataManager;
-	private SurveyDetail			mModel;
-	private SurveyContactAdapter	mAdapter;
-	private int						mSurveyId;
+	private List<Contact>			mModel;
+	private ContactSelectionAdapter	mAdapter;
 	private SwipeListView			mSwipeListView;
-	private View					mProgressBar;
+	private int						mSurveyId;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,9 +44,6 @@ public class SurveyDetailFragment extends BaseFragment {
 		if (b != null) {
 			mSurveyId = b.getInt(EXTRA_SURVEY_ID);
 		}
-		// get all necessary local data
-		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-		mModel = mDataManager.getDetailsForSurvey(mSurveyId);
 
 	}
 
@@ -60,45 +52,25 @@ public class SurveyDetailFragment extends BaseFragment {
 			Bundle savedInstanceState) {
 
 		LinearLayout view = (LinearLayout) inflater.inflate(
-				R.layout.fragment_survey_detail,
+				R.layout.fragment_select_contacts,
 				null);
 
 		ViewQuery query = new ViewQuery(view);
 		mSwipeListView = (SwipeListView) query.find(R.id.list_contacts).get();
 
-		setupContactsList();
+		// get all necessary local data
+		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
+		mModel = mDataManager.getContacts();
+		setupList();
 
-		int completed = mModel.survey.completed;
-		int total = mModel.survey.members;
-
-		String template = getActivity().getResources().getString(
-				R.string.template_quotient);
-		String completedProgress = String.format(template, completed, total);
-		query.find(R.id.txt_completed_progress).text(completedProgress);
-
-		// grow the progress bar out
-		mProgressBar = query.find(R.id.view_progress).get();
+		// query.find(R.id.txt_completed_progress).text(completedProgress);
 
 		return view;
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		
-		mModel = mDataManager.getDetailsForSurvey(mSurveyId);
-		mAdapter.setModel(mModel.contacts);
+	private void setupList() {
 
-		if (mModel != null) {
-			float percent = (float) ((float) mModel.survey.completed / (float)
-					mModel.survey.members);
-			MWAnimUtil.growRight(mProgressBar, percent);
-		}
-	}
-
-	private void setupContactsList() {
-
-		mAdapter = new SurveyContactAdapter(getActivity(), mModel.contacts,
+		mAdapter = new ContactSelectionAdapter(getActivity(), mModel,
 				mSwipeListView);
 		mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
@@ -109,19 +81,18 @@ public class SurveyDetailFragment extends BaseFragment {
 					public void onItemCheckedStateChanged(ActionMode mode,
 							int position,
 							long id, boolean checked) {
-						mode.setTitle("Remove ("
-								+ mSwipeListView.getCountSelected()
-								+ ")");
+						mode.setTitle(String.format("Add (%d) Contacts",
+								mSwipeListView.getCountSelected()));
 					}
 
 					@Override
 					public boolean onActionItemClicked(ActionMode mode,
 							MenuItem item) {
 						switch (item.getItemId()) {
-						case R.id.menu_delete:
-							
-							mSwipeListView.dismissSelected();
+						case R.id.action_add:
+							addContactsToSurvey();
 							mode.finish();
+							getActivity().onBackPressed();
 							return true;
 						default:
 							return false;
@@ -133,7 +104,7 @@ public class SurveyDetailFragment extends BaseFragment {
 					public boolean onCreateActionMode(ActionMode mode,
 							Menu menu) {
 						MenuInflater inflater = mode.getMenuInflater();
-						inflater.inflate(R.menu.menu_choice_items, menu);
+						inflater.inflate(R.menu.menu_add, menu);
 						return true;
 					}
 
@@ -155,28 +126,23 @@ public class SurveyDetailFragment extends BaseFragment {
 
 	}
 
+	private void addContactsToSurvey() {
 
+		List<Integer> selected = mSwipeListView.getPositionsSelected();
+		List<Contact> contacts = new ArrayList<Contact>();
+		for (Integer i : selected) {
+			contacts.add(mModel.get(i));
+		}
+		mDataManager.putContacts(contacts);
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater = getActivity().getMenuInflater();
-		inflater.inflate(R.menu.menu_add, menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean handled = false;
 		switch (item.getItemId()) {
-		case android.R.id.home: // Actionbar home/up icon
+		case android.R.id.home:
 			getActivity().onBackPressed();
-			break;
-		case R.id.action_add: // Actionbar home/up icon
-			Bundle b = new Bundle();
-			b.putInt(ContactSelectFragment.EXTRA_SURVEY_ID, mSurveyId);
-			pushFragment(ContactSelectFragment.class, b);
-			Toast.makeText(getActivity(), "ADD CONTACT", Toast.LENGTH_LONG)
-					.show();
 			break;
 		}
 		return handled;
@@ -196,6 +162,7 @@ public class SurveyDetailFragment extends BaseFragment {
 
 	@Override
 	public String getActionBarTitle() {
-		return getResources().getString(R.string.ab_survey_contacts);
+		return getResources().getString(R.string.ab_select_contacts);
 	}
+
 }

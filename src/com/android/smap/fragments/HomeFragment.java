@@ -15,7 +15,6 @@ public class HomeFragment extends BaseFragment {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_home, null);
 		ViewQuery query = new ViewQuery(view);
-
 		// setup view
 		return view;
 	}

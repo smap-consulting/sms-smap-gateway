@@ -10,23 +10,23 @@ package com.mjw.android.swipe;
  */
 public class MultiChoiceSwipeListener implements SwipeListViewListener {
 
-	private MutableAdapter	mAdapter;
+	private MultiSelectActionAdapter	mAdapter;
 
-	public interface MutableAdapter {
+	public interface MultiSelectActionAdapter {
 
-		public void remove(int pos);
+		public void action(int pos);
 
-		public void removeAll(int[] pos);
+		public void actionAllSelected(int[] pos);
 
 	}
 
-	public MultiChoiceSwipeListener(MutableAdapter adapter) {
+	public MultiChoiceSwipeListener(MultiSelectActionAdapter adapter) {
 		mAdapter = adapter;
 	}
 
 	@Override
 	public void onDismiss(int[] reverseSortedPositions) {
-		mAdapter.removeAll(reverseSortedPositions);
+		mAdapter.actionAllSelected(reverseSortedPositions);
 	}
 
 	@Override
