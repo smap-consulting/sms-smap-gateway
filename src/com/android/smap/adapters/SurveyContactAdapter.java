@@ -22,6 +22,7 @@ public class SurveyContactAdapter extends VelocAdapter implements
 
 	private List<SurveyContact>	mModel;
 	private SwipeListView		mListViewRef;
+	private DataManager   mDataManager;
 
 	@Inject
 	public SurveyContactAdapter(Context context,
@@ -44,20 +45,25 @@ public class SurveyContactAdapter extends VelocAdapter implements
 
 		// clean up choice selections when scrolling
 		mListViewRef.recycle(view, position);
+		
+		SurveyContact contact = getItem(position);
 
-		int completed = mModel.get((position)).answers;
-		int total = mModel.get((position)).total;
+		String contactName = contact.name;
+		String phoneNumber = contact.number;
+		String updatedAt = contact.updatedAt;
+		int completed = contact.answers;
+		int total = contact.total;
 
 		String template = getContext().getResources().getString(
 				R.string.surveys_of_total);
 		String totalCount = String.format(template, total);
 
-		query.find(R.id.txt_name).text(mModel.get((position)).name);
+		query.find(R.id.txt_name).text(contactName);
 		query.find(R.id.txt_number)
-				.text("Ph: " + mModel.get((position)).number);
+				.text("Ph: " + phoneNumber);
 		query.find(R.id.txt_completed_progress).text(String.valueOf(completed));
 		query.find(R.id.txt_completed_total).text(totalCount);
-		query.find(R.id.txt_timestamp).text(mModel.get((position)).updatedAt);
+		query.find(R.id.txt_timestamp).text(updatedAt);
 
 	}
 
@@ -87,10 +93,14 @@ public class SurveyContactAdapter extends VelocAdapter implements
 	@Override
 	public void action(int pos) {
 		mModel.remove(pos);
-		GatewayApp.getDependencyContainer().getDataManager()
+		getDataManager()
 				.removeContactFromSurvey(pos, 1);
 		notifyDataSetChanged();
 
+	}
+	
+	private static DataManager getDataManager() {
+		return GatewayApp.getDependencyContainer().getDataManager();
 	}
 
 }
