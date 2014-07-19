@@ -2,6 +2,7 @@ package com.android.smap;
 
 import android.app.Application;
 
+import com.activeandroid.ActiveAndroid;
 import com.android.smap.utils.BitmapLruCache;
 import com.android.smap.utils.PreferenceWrapper;
 import com.android.volley.RequestQueue;
@@ -35,7 +36,14 @@ public class GatewayApp extends Application {
 		sPreferenceWrapper = new PreferenceWrapper(this);
 		sPhoneStateWrapper = new PhoneStateWrapper(this);
 		sDependencyContainer = new DependencyContainer();
+		ActiveAndroid.initialize(this);
 	}
+	
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        ActiveAndroid.dispose();
+    }
 
 	/**
 	 * Returns the {@link PreferenceWrapper}
