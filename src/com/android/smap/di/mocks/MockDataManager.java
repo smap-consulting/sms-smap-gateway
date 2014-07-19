@@ -32,14 +32,12 @@ public class MockDataManager implements DataManager {
 		s.members = 10;
 		s.name = "Medical Survey: April";
 		s.partial = 4;
-		s.id = 1;
 
 		Survey s2 = new Survey();
 		s2.completed = 10;
 		s2.members = 10;
 		s2.name = "Medical Survey: May";
 		s2.partial = 0;
-		s2.id = 1;
 		list.add(s);
 		list.add(s2);
 
@@ -50,7 +48,6 @@ public class MockDataManager implements DataManager {
 			fake.members = 10;
 			fake.name = "Dummy Survey " + i;
 			fake.partial = 10 - fake.completed;
-			fake.id = 1;
 			list.add(fake);
 		}
 		mSurveys = list;
