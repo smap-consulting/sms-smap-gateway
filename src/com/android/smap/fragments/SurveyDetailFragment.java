@@ -1,8 +1,5 @@
 package com.android.smap.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -19,9 +16,7 @@ import android.widget.Toast;
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.adapters.SurveyContactAdapter;
-import com.android.smap.api.models.Contact;
-import com.android.smap.api.models.SurveyContact;
-import com.android.smap.api.models.SurveyDetail;
+import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.ViewQuery;
 import com.android.smap.utils.MWAnimUtil;
@@ -36,7 +31,7 @@ public class SurveyDetailFragment extends BaseFragment {
 															+ "id";
 	@Inject
 	private DataManager				mDataManager;
-	private SurveyDetail			mModel;
+	private Survey					mModel;
 	private SurveyContactAdapter	mAdapter;
 	private int						mSurveyId;
 	private SwipeListView			mSwipeListView;
@@ -47,7 +42,7 @@ public class SurveyDetailFragment extends BaseFragment {
 		super.onCreate(savedInstanceState);
 		Bundle b = getArguments();
 		if (b != null) {
-			mSurveyId = b.getInt(EXTRA_SURVEY_ID);
+			mSurveyId = (int) b.getLong(EXTRA_SURVEY_ID);
 		}
 		// get all necessary local data
 		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
@@ -68,8 +63,8 @@ public class SurveyDetailFragment extends BaseFragment {
 
 		setupContactsList();
 
-		int completed = mModel.survey.completed;
-		int total = mModel.survey.members;
+		int completed = mModel.getCompletedCount();
+		int total = mModel.getMembersCount();
 
 		String template = getActivity().getResources().getString(
 				R.string.template_quotient);
@@ -87,18 +82,17 @@ public class SurveyDetailFragment extends BaseFragment {
 		super.onResume();
 		
 		mModel = mDataManager.getDetailsForSurvey(mSurveyId);
-		mAdapter.setModel(mModel.contacts);
+		mAdapter.setModel(mModel.getSurveyContacts());
 
 		if (mModel != null) {
-			float percent = (float) ((float) mModel.survey.completed / (float)
-					mModel.survey.members);
+			float percent = mModel.getCompletionPercentage();
 			MWAnimUtil.growRight(mProgressBar, percent);
 		}
 	}
 
 	private void setupContactsList() {
 
-		mAdapter = new SurveyContactAdapter(getActivity(), mModel.contacts,
+		mAdapter = new SurveyContactAdapter(getActivity(), mModel.getSurveyContacts(),
 				mSwipeListView);
 		mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 

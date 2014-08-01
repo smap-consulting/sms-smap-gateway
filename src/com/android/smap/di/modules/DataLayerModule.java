@@ -1,5 +1,6 @@
 package com.android.smap.di.modules;
 
+import com.android.smap.api.models.SqliteDataManager;
 import com.android.smap.di.DataManager;
 import com.android.smap.di.mocks.MockDataManager;
 import com.google.inject.AbstractModule;
@@ -12,16 +13,15 @@ import com.google.inject.AbstractModule;
  */
 public class DataLayerModule extends AbstractModule {
 
+	/**
+	 * This tells Guice that whenever it sees a dependency on a X, it should
+	 * satisfy the dependency using Y.
+	 * 
+	 * bind(X).to(Y);
+	 */
 	@Override
 	protected void configure() {
-		/*
-		 * This tells Guice that whenever it sees a dependency on a X, it should
-		 * satisfy the dependency using Y.
-		 * 
-		 * bind(X).to(Y);
-		 */
-
-		bind(DataManager.class).to(MockDataManager.class);
+		bind(DataManager.class).to(SqliteDataManager.class);
 
 	}
 

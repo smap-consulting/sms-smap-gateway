@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
+import com.android.smap.api.models.Contact;
 import com.android.smap.api.models.SurveyContact;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.VelocAdapter;
@@ -46,14 +47,22 @@ public class SurveyContactAdapter extends VelocAdapter implements
 		// clean up choice selections when scrolling
 		mListViewRef.recycle(view, position);
 		
-		SurveyContact contact = getItem(position);
-
-		String contactName = contact.name;
-		String phoneNumber = contact.number;
-		String updatedAt = contact.updatedAt;
-		int completed = contact.answers;
-		int total = contact.total;
-
+		SurveyContact surveyContact = getItem(position);
+		
+		Contact contact;
+		String contactName, phoneNumber;
+		if ((contact = surveyContact.contact) != null) {
+			contactName = contact.name;
+			phoneNumber = contact.number;
+		} else {
+			contactName = "";
+			phoneNumber = "";
+		}
+		
+		String updatedAt = surveyContact.updatedAt;
+		int completed = surveyContact.answers;
+		int total = surveyContact.total;
+		
 		String template = getContext().getResources().getString(
 				R.string.surveys_of_total);
 		String totalCount = String.format(template, total);

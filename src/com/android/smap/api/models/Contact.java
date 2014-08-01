@@ -23,5 +23,9 @@ public class Contact extends Model {
 	public static List<Contact> findAll() {
 		return new Select().from(Contact.class).execute(); 
 	}
+	
+	public List<SurveyContact> getSurveyContacts() {
+		return getMany(SurveyContact.class, "contact_id");
+	}
 
 }
