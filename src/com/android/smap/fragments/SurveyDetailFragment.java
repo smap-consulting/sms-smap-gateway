@@ -46,7 +46,7 @@ public class SurveyDetailFragment extends BaseFragment {
 		}
 		// get all necessary local data
 		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-		mModel = mDataManager.getDetailsForSurvey(mSurveyId);
+		mModel = mDataManager.getSurvey(mSurveyId);
 
 	}
 
@@ -81,7 +81,7 @@ public class SurveyDetailFragment extends BaseFragment {
 	public void onResume() {
 		super.onResume();
 		
-		mModel = mDataManager.getDetailsForSurvey(mSurveyId);
+		mModel = mDataManager.getSurvey(mSurveyId);
 		mAdapter.setModel(mModel.getSurveyContacts());
 
 		if (mModel != null) {
