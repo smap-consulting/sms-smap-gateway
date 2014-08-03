@@ -15,6 +15,6 @@ public interface DataManager {
 
 	void putContacts(List<Contact> contacts);
 
-	void removeContactFromSurvey(int contact, int survey);
+	void removeContactFromSurvey(long contact, long survey);
 
 }

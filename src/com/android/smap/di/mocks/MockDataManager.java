@@ -129,7 +129,7 @@ public class MockDataManager implements DataManager {
 	}
 
 	@Override
-	public void removeContactFromSurvey(int contact, int survey) {
+	public void removeContactFromSurvey(long contact, long survey) {
 
 //		SurveyDetail s = getDetailsForSurvey(1);
 //		s.surveyContacts.remove(contact);

@@ -43,8 +43,9 @@ public class SqliteDataManager implements DataManager {
 	}
 
 	@Override
-	public void removeContactFromSurvey(int contact, int survey) {
-		// TODO Auto-generated method stub
+	public void removeContactFromSurvey(long contact, long survey) {
+		
+		
 		
 	}
 
