@@ -2,7 +2,6 @@ package com.android.smap.di.modules;
 
 import com.android.smap.api.models.SqliteDataManager;
 import com.android.smap.di.DataManager;
-import com.android.smap.di.mocks.MockDataManager;
 import com.google.inject.AbstractModule;
 
 /**
