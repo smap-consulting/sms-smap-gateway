@@ -19,6 +19,15 @@ public class SurveyContact extends Model {
 	public int		total;
 	public String	updatedAt;
 	
+	public SurveyContact() {
+		
+	}
+	
+	public SurveyContact(Survey survey, Contact contact) {
+		this.survey = survey;
+		this.contact = contact;
+	}
+	
 	public static SurveyContact findBySurveyAndContactIds(long surveyId, long contactId) {
 
 		return new Select()
