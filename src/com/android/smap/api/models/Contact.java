@@ -10,6 +10,15 @@ import com.activeandroid.query.Select;
 @Table(name = "contacts")
 public class Contact extends Model {
 
+	public Contact() {
+		
+	}
+	
+	public Contact(String name, String number) {
+		this.name = name;
+		this.number = number;
+	}
+	
 	@Column
 	public String number;
 
