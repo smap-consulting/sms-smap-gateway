@@ -21,17 +21,17 @@ import com.mjw.android.swipe.SwipeListView;
 public class SurveyContactAdapter extends VelocAdapter implements
 		MultiSelectActionAdapter {
 
-	private List<SurveyContact>	mModel;
-	private SwipeListView		mListViewRef;
-	private DataManager   mDataManager;
+	private List<SurveyContact> mModel;
+	private SwipeListView mListViewRef;
+	private DataManager mDataManager;
 
 	@Inject
-	public SurveyContactAdapter(Context context,
-			List<SurveyContact> model,
+	public SurveyContactAdapter(Context context, List<SurveyContact> model,
 			SwipeListView ref) {
 		super(context);
 		this.mModel = model;
 		this.mListViewRef = ref;
+		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
 	}
 
 	@Override
@@ -46,9 +46,9 @@ public class SurveyContactAdapter extends VelocAdapter implements
 
 		// clean up choice selections when scrolling
 		mListViewRef.recycle(view, position);
-		
+
 		SurveyContact surveyContact = getItem(position);
-		
+
 		Contact contact;
 		String contactName, phoneNumber;
 		if ((contact = surveyContact.contact) != null) {
@@ -58,18 +58,17 @@ public class SurveyContactAdapter extends VelocAdapter implements
 			contactName = "";
 			phoneNumber = "";
 		}
-		
+
 		String updatedAt = surveyContact.updatedAt;
 		int completed = surveyContact.answers;
 		int total = surveyContact.total;
-		
+
 		String template = getContext().getResources().getString(
 				R.string.surveys_of_total);
 		String totalCount = String.format(template, total);
 
 		query.find(R.id.txt_name).text(contactName);
-		query.find(R.id.txt_number)
-				.text("Ph: " + phoneNumber);
+		query.find(R.id.txt_number).text("Ph: " + phoneNumber);
 		query.find(R.id.txt_completed_progress).text(String.valueOf(completed));
 		query.find(R.id.txt_completed_total).text(totalCount);
 		query.find(R.id.txt_timestamp).text(updatedAt);
@@ -102,14 +101,12 @@ public class SurveyContactAdapter extends VelocAdapter implements
 	@Override
 	public void action(int pos) {
 		mModel.remove(pos);
-		getDataManager()
-				.removeContactFromSurvey(pos, 1);
+		SurveyContact surveyContact = getItem(pos);
+		mDataManager.removeContactFromSurvey(
+				surveyContact.contact.getId(),
+				surveyContact.survey.getId());
 		notifyDataSetChanged();
 
-	}
-	
-	private static DataManager getDataManager() {
-		return GatewayApp.getDependencyContainer().getDataManager();
 	}
 
 }
