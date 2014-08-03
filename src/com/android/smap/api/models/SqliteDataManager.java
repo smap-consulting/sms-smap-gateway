@@ -22,7 +22,7 @@ public class SqliteDataManager implements DataManager {
 	}
 
 	@Override
-	public Survey getDetailsForSurvey(int id) {
+	public Survey getSurvey(long id) {
 
 		return Survey.findById((long) id);
 	}
@@ -34,11 +34,8 @@ public class SqliteDataManager implements DataManager {
 	}
 
 	@Override
-	public void putContacts(List<Contact> contacts) {
-
-		for (Contact contact : contacts) {
-			contact.save();
-		}
+	public void addContactsToSurvey(List<Contact> contacts, Survey survey) {
+		survey.addContacts(contacts);
 
 	}
 

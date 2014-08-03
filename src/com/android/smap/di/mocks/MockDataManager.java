@@ -55,7 +55,7 @@ public class MockDataManager implements DataManager {
 	}
 
 	@Override
-	public Survey getDetailsForSurvey(int mSurveyId) {
+	public Survey getSurvey(long mSurveyId) {
 
 		if (mSurvey != null) {
 			return mSurvey;
@@ -107,7 +107,7 @@ public class MockDataManager implements DataManager {
 	}
 
 	
-	public void putContacts(List<Contact> contacts) {
+	public void addContactsToSurvey(List<Contact> contacts, Survey survey) {
 
 //		// add to survey
 		List<Contact> tempSurveyContacts = new ArrayList<Contact>();

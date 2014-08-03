@@ -9,11 +9,11 @@ public interface DataManager {
 
 	List<Survey> getSurveys();
 
-	Survey getDetailsForSurvey(int id);
+	Survey getSurvey(long id);
 
 	List<Contact> getContacts();
 
-	void putContacts(List<Contact> contacts);
+	void addContactsToSurvey(List<Contact> contacts, Survey survey);
 
 	void removeContactFromSurvey(long contact, long survey);
 
