@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.activeandroid.ActiveAndroid;
 import com.android.smap.di.DataManager;
-
+import com.android.smap.utils.IntRange;
 
 public class SqliteDataManager implements DataManager {
-	
+
 	public SqliteDataManager() {
-		
+
 		if (getSurveys().isEmpty()) {
 			seedDevData();
 		}
@@ -35,30 +35,42 @@ public class SqliteDataManager implements DataManager {
 
 	@Override
 	public void putContacts(List<Contact> contacts) {
-		
-		for(Contact contact : contacts) {
+
+		for (Contact contact : contacts) {
 			contact.save();
 		}
 
 	}
 
 	@Override
-	public void removeContactFromSurvey(long contact, long survey) {
-		
-		
-		
+	public void removeContactFromSurvey(long contactId, long surveyId) {
+
+		SurveyContact surveyContact = SurveyContact.findBySurveyAndContactIds(
+				surveyId, contactId);
+
+		if (surveyContact != null) {
+			surveyContact.delete();
+		}
 	}
 
 	private void seedDevData() {
-		
+
 		ActiveAndroid.beginTransaction();
+
 		try {
-			for(int n = 1; n <= 10; n++) {
-				Survey survey = new Survey("Survey " + n);
-				survey.save();
+			
+			for (int n : IntRange.between(1, 10)) {
+				new Survey("Survey " + n).save();
 			}
+
+			for (int n : IntRange.between(1, 10)) {
+				new Contact("Contact " + n, "0123456789").save();
+			}
+
 			ActiveAndroid.setTransactionSuccessful();
+			
 		} finally {
+
 			ActiveAndroid.endTransaction();
 		}
 	}
