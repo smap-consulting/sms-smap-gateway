@@ -14,6 +14,12 @@ public class Survey extends Model {
 	@Column
 	public String name;
 	
+	public Survey() {}
+	
+	public Survey(String name) {
+		this.name = name;
+	}
+	
 	public int getMembersCount() {
 		return getSurveyContacts().size();
 	}
@@ -41,7 +47,6 @@ public class Survey extends Model {
 	}
 	
 	public List<SurveyContact> getSurveyContacts() {
-//		List<SurveyContact> contacts = getMany(SurveyContact.class, "survey_id");
-		return new ArrayList<SurveyContact>();
+		return getMany(SurveyContact.class, "survey_id");
 	}
 }
