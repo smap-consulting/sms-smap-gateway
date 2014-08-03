@@ -3,6 +3,7 @@ package com.android.smap.api.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -48,5 +49,19 @@ public class Survey extends Model {
 	
 	public List<SurveyContact> getSurveyContacts() {
 		return getMany(SurveyContact.class, "survey_id");
+	}
+
+	public void addContacts(List<Contact> contacts) {
+		ActiveAndroid.beginTransaction();
+		try {
+			
+			for (Contact contact : contacts) {
+				new SurveyContact(this, contact).save();
+			}
+			
+			ActiveAndroid.setTransactionSuccessful();
+		} finally {
+			ActiveAndroid.endTransaction();
+		}		
 	}
 }
