@@ -21,6 +21,9 @@ public class MenuDrawerAdapter extends ArrayVelocAdapter<MenuDrawerItem> {
 	private static final MenuDrawerItem	MENUITEM_SERVERS	= new MenuDrawerItem(
 																	"Servers",
 																	R.drawable.ic_action_server);
+	private static final MenuDrawerItem	MENUITEM_SURVEYDEF		= new MenuDrawerItem(
+																	"Surveys Definition",
+																	R.drawable.ic_action_surveydef);
 	private static final MenuDrawerItem	MENUITEM_SETTINGS	= new MenuDrawerItem(
 																	"Settings",
 																	R.drawable.ic_action_settings);
@@ -33,6 +36,7 @@ public class MenuDrawerAdapter extends ArrayVelocAdapter<MenuDrawerItem> {
 		add(MENUITEM_SURVEYS);
 		add(MENUITEM_CONTACTS);
 		add(MENUITEM_SERVERS);
+		add(MENUITEM_SURVEYDEF);
 		add(MENUITEM_SETTINGS);
 		add(MENUITEM_INFO);
 	}
