@@ -16,13 +16,13 @@ public class SurveyDefinition extends Model {
 	public String name;
 	
 	@Column
-	public String content;
+	public String path;
 	
 	public SurveyDefinition() {}
 	
-	public SurveyDefinition(String name, String content) {
+	public SurveyDefinition(String name, String path) {
 		this.name = name;
-		this.content = content;
+		this.path = path;
 	}
 	
 	public static SurveyDefinition findById(Long id) {
