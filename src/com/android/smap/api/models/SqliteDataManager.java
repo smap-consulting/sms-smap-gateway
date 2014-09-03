@@ -1,10 +1,17 @@
 package com.android.smap.api.models;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import com.activeandroid.ActiveAndroid;
 import com.android.smap.di.DataManager;
 import com.android.smap.utils.IntRange;
+
+
 
 public class SqliteDataManager implements DataManager {
 
@@ -12,6 +19,10 @@ public class SqliteDataManager implements DataManager {
 
 		if (getSurveys().isEmpty()) {
 			seedDevData();
+		}
+		
+		if (getSurveysDef().isEmpty()) {
+			createSampleDefinition();
 		}
 	}
 
@@ -25,6 +36,17 @@ public class SqliteDataManager implements DataManager {
 	public Survey getSurvey(long id) {
 
 		return Survey.findById((long) id);
+	}
+	
+	@Override
+	public List<SurveyDefinition> getSurveysDef() {
+		return SurveyDefinition.findAll();
+	}
+	
+	@Override
+	public SurveyDefinition getSurveyDef(long id) {
+
+		return SurveyDefinition.findById((long) id);
 	}
 
 	@Override
@@ -70,5 +92,37 @@ public class SqliteDataManager implements DataManager {
 
 			ActiveAndroid.endTransaction();
 		}
+	}
+	
+	private void createSampleDefinition() {
+		try{
+		//String stringSurvey = getStringFromFile("/data/Birds.xml");
+		
+		new SurveyDefinition("Birds.xml", "parse xml content here").save();
+		new SurveyDefinition("Household Survey.xml", "parse xml content here").save();
+		
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static String convertStreamToString(InputStream is) throws Exception {
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+	    StringBuilder sb = new StringBuilder();
+	    String line = null;
+	    while ((line = reader.readLine()) != null) {
+	      sb.append(line).append("\n");
+	    }
+	    reader.close();
+	    return sb.toString();
+	}
+
+	public static String getStringFromFile (String filePath) throws Exception {
+	    File fl = new File(filePath);
+	    FileInputStream fin = new FileInputStream(fl);
+	    String ret = convertStreamToString(fin);
+	    //Make sure you close all streams.
+	    fin.close();        
+	    return ret;
 	}
 }
