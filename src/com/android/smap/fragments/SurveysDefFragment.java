@@ -12,8 +12,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.activities.FragmentContainerActivity.Builder;
-import com.android.smap.adapters.SurveyAdapter;
+import com.android.smap.adapters.SurveyDefAdapter;
 import com.android.smap.api.models.Survey;
+import com.android.smap.api.models.SurveyDefinition;
 import com.android.smap.di.DataManager;
 import com.google.inject.Inject;
 
@@ -22,7 +23,7 @@ public class SurveysDefFragment extends BaseFragment implements
 	
 	@Inject
 	private DataManager		mDataManager;
-	private SurveyAdapter	mAdapter;
+	private SurveyDefAdapter	mAdapter;
 	
 	
 	@Override
@@ -30,18 +31,16 @@ public class SurveysDefFragment extends BaseFragment implements
 		Bundle savedInstanceState) {
 	
 	LinearLayout view = (LinearLayout) inflater.inflate(
-			R.layout.fragment_surveysdef,
-			null);
+			R.layout.fragment_surveysdef,null);
 	
-	//TODO
-	/*
 	ListView listView = (ListView) view.findViewById(R.id.list_surveysdef);
+	
 	mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-	mAdapter = new SurveyAdapter(getActivity(), mDataManager
-			.getSurveys());
+	mAdapter = new SurveyDefAdapter(getActivity(), mDataManager
+			.getSurveysDef());
 	listView.setOnItemClickListener(this);
 	listView.setAdapter(mAdapter);
-	*/
+	
 	return view;
 	}
 	
@@ -50,10 +49,10 @@ public class SurveysDefFragment extends BaseFragment implements
 	public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
 	//TODO
 	/*
-	Survey survey = (Survey) mAdapter.getItem(pos);
+	SurveyDefinition surveydef = (SurveyDefinition) mAdapter.getItem(pos);
 	
 	Bundle b = new Bundle();
-	b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, survey.getId());
+	b.putLong(SurveyDefDetailFragment.EXTRA_SURVEYDEF_ID, surveydef.getId());
 	startActivity(new Builder(getActivity(), SurveyDetailFragment.class)
 			.arguments(b).build());
 	*/
