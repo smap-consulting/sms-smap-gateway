@@ -36,5 +36,21 @@ public class Contact extends Model {
 	public List<SurveyContact> getSurveyContacts() {
 		return getMany(SurveyContact.class, "contact_id");
 	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public String getNumber(){
+		return number;
+	}
+	
+	public void setName(String Name){
+		this.name = Name;
+	}
+	
+	public void setNumber(String Number){
+		this.number = Number;
+	}
 
 }
