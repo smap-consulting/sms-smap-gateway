@@ -15,6 +15,10 @@ public class Contact extends Model {
 
 	@Column
 	private String name;
+
+	@Column
+	private int numberOfQuestions;
+	
 	
 	public Contact() {
 		
@@ -39,6 +43,14 @@ public class Contact extends Model {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getNumberOfQuestions() {
+		return numberOfQuestions;
+	}
+
+	public void setNumberOfQuestions(int numberOfQuestions) {
+		this.numberOfQuestions = numberOfQuestions;
 	}
 
 	public static Contact findById(Long id) {
