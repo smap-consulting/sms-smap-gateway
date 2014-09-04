@@ -43,9 +43,9 @@ public class ContactSelectionAdapter extends VelocAdapter implements
 		// clean up choice selections when scrolling
 		mListViewRef.recycle(view, position);
 
-		query.find(R.id.txt_name).text(mModel.get((position)).name);
+		query.find(R.id.txt_name).text(mModel.get((position)).getName());
 		query.find(R.id.txt_number)
-				.text("Ph: " + mModel.get((position)).number);
+				.text("Ph: " + mModel.get((position)).getNumber());
 
 	}
 
