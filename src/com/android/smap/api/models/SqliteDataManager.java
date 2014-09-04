@@ -20,10 +20,6 @@ public class SqliteDataManager implements DataManager {
 		if (getSurveys().isEmpty()) {
 			seedDevData();
 		}
-		
-		if (getSurveysDef().isEmpty()) {
-			createSampleDefinition();
-		}
 	}
 
 	@Override
@@ -36,17 +32,6 @@ public class SqliteDataManager implements DataManager {
 	public Survey getSurvey(long id) {
 
 		return Survey.findById((long) id);
-	}
-	
-	@Override
-	public List<SurveyDefinition> getSurveysDef() {
-		return SurveyDefinition.findAll();
-	}
-	
-	@Override
-	public SurveyDefinition getSurveyDef(long id) {
-
-		return SurveyDefinition.findById((long) id);
 	}
 
 	@Override
@@ -78,12 +63,18 @@ public class SqliteDataManager implements DataManager {
 
 		try {
 			
-			for (int n : IntRange.between(1, 10)) {
-				new Survey("Survey " + n).save();
-			}
+			Survey birdsSurvey = new Survey("Birds", "parse xml content here");
+			Survey householdSurvey = new Survey("Househould Survey", "parse xml content here");
 
+			birdsSurvey.save();
+			householdSurvey.save();
+			
 			for (int n : IntRange.between(1, 10)) {
-				new Contact("Contact " + n, "0123456789").save();
+				Contact contact = new Contact("Contact " + n, "0123456789");
+				contact.save();
+				
+				Survey survey = (n % 2 == 0) ? birdsSurvey : householdSurvey;
+				survey.addContact(contact);
 			}
 
 			ActiveAndroid.setTransactionSuccessful();
@@ -91,18 +82,6 @@ public class SqliteDataManager implements DataManager {
 		} finally {
 
 			ActiveAndroid.endTransaction();
-		}
-	}
-	
-	private void createSampleDefinition() {
-		try{
-		//String stringSurvey = getStringFromFile("/data/Birds.xml");
-		
-		new SurveyDefinition("Birds.xml", "parse xml content here").save();
-		new SurveyDefinition("Household Survey.xml", "parse xml content here").save();
-		
-		}catch (Exception e){
-			e.printStackTrace();
 		}
 	}
 	

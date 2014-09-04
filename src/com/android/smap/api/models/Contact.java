@@ -11,20 +11,36 @@ import com.activeandroid.query.Select;
 public class Contact extends Model {
 
 	@Column
-	public String number;
+	private String number;
 
 	@Column
-	public String name;
+	private String name;
 	
 	public Contact() {
 		
 	}
 	
 	public Contact(String name, String number) {
-		this.name = name;
+		this.name = name;;
 		this.number = number;
 	}
 	
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public static Contact findById(Long id) {
 		return Model.load(Contact.class, id);
 	}
@@ -37,20 +53,4 @@ public class Contact extends Model {
 		return getMany(SurveyContact.class, "contact_id");
 	}
 	
-	public String getName(){
-		return name;
-	}
-	
-	public String getNumber(){
-		return number;
-	}
-	
-	public void setName(String Name){
-		this.name = Name;
-	}
-	
-	public void setNumber(String Number){
-		this.number = Number;
-	}
-
 }

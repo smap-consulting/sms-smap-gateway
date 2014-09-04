@@ -40,7 +40,7 @@ public class SurveyAdapter extends VelocAdapter {
 		Survey survey = mModel.get((position));
 		
 		int completed = survey.getCompletedCount();
-		String surveyName = survey.name;
+		String surveyName = survey.getName();
 		int total = survey.getMembersCount();
 		int partial = survey.getPartialCount();
 		int unfinished = (total - completed) - partial;

@@ -1,6 +1,5 @@
 package com.android.smap.api.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.activeandroid.ActiveAndroid;
@@ -13,14 +12,43 @@ import com.activeandroid.query.Select;
 public class Survey extends Model {
 	
 	@Column
-	public String name;
+	private String name;
 	
-	public Survey() {}
+	/**
+	 * Raw XML string with JavaRosa form definition
+	 */
+	@Column
+	private String formContent;
 	
-	public Survey(String name) {
-		this.name = name;
+	public Survey() {
+		
 	}
 	
+	public Survey(String name) {
+		this.setName(name);
+	}
+
+	public Survey(String name, String formContent) {
+		this.name = name;
+		this.formContent = formContent;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFormContent() {
+		return formContent;
+	}
+
+	public void setFormContent(String content) {
+		this.formContent = content;
+	}
+
 	public int getMembersCount() {
 		return getSurveyContacts().size();
 	}
@@ -50,6 +78,18 @@ public class Survey extends Model {
 	public List<SurveyContact> getSurveyContacts() {
 		return getMany(SurveyContact.class, "survey_id");
 	}
+	
+	public void addContact(Contact contact) {
+		ActiveAndroid.beginTransaction();
+		try {
+			new SurveyContact(this, contact).save();
+			
+			ActiveAndroid.setTransactionSuccessful();
+		} finally {
+			ActiveAndroid.endTransaction();
+		}
+	}
+	
 
 	public void addContacts(List<Contact> contacts) {
 		ActiveAndroid.beginTransaction();
