@@ -17,7 +17,7 @@ import com.android.smap.api.models.Survey;
 import com.android.smap.controllers.ControllerError;
 import com.android.smap.controllers.ControllerErrorListener;
 import com.android.smap.controllers.ControllerListener;
-import com.android.smap.controllers.SurveyDefinitionsController;
+import com.android.smap.controllers.SurveyDefinitionController;
 import com.android.smap.di.DataManager;
 import com.android.smap.utils.MWUiUtils;
 import com.google.inject.Inject;
@@ -30,7 +30,7 @@ public class TestFragment extends BaseFragment implements
 	@Inject
 	private DataManager					mDataManager;
 	private SurveyAdapter				mAdapter;
-	private SurveyDefinitionsController	mController;
+	private SurveyDefinitionController	mController;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +46,7 @@ public class TestFragment extends BaseFragment implements
 				.getSurveys());
 		listView.setOnItemClickListener(this);
 		listView.setAdapter(mAdapter);
-		mController = new SurveyDefinitionsController(getActivity(), this, this);
+		mController = new SurveyDefinitionController(getActivity(), this, this);
 		return view;
 	}
 

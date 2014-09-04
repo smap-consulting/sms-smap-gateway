@@ -8,17 +8,16 @@ import com.android.volley.Response.Listener;
 public class SurveyDefinitionRequest extends SmapRawRequest {
 
 	public SurveyDefinitionRequest(Listener<String> listener,
-			ErrorListener errorListener) {
-		super(Method.GET, generateUrl(), listener, errorListener);
+			ErrorListener errorListener, String xmlFormKey) {
+		super(Method.GET, generateUrl(xmlFormKey), listener, errorListener);
 	}
 
-	private static String generateUrl() {
+	private static String generateUrl(String xmlKey) {
 		return new UriBuilder()
 				.scheme(SCHEME_HTTP)
 				.encodedAuthority(
 						GatewayApp.getAppConfig().getRequestEndpoint())
-				.appendEncodedPath(DEFINITION_LIST).build().toString();
+				.appendEncodedPath(FORM_XML)
+				.appendQueryParameter(FORM_XML_KEY, xmlKey).build().toString();
 	}
-
-
 }
