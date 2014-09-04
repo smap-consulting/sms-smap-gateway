@@ -36,7 +36,7 @@ public class SettingsFragment extends BaseFragment implements
 	public void onClick(View arg0) {
 		GatewayApp.getPreferenceWrapper().setUserName(
 				username.getText().toString());
-		GatewayApp.getPreferenceWrapper().setUserName(
+		GatewayApp.getPreferenceWrapper().setPassword(
 				password.getText().toString());
 	}
 
