@@ -9,8 +9,8 @@ public interface ApiConstants {
 
 	// URLs
 	/** Production Endpoint URL */
-	public static final String PRODUCTION_URL = "stub-loggr.herokuapp.com";
-	public static final String DEV_URL = "";
+	public static final String PRODUCTION_URL = "http://rmit.smap.com.au";
+	public static final String DEV_URL = "stub-loggr.herokuapp.com";
 
 	// REQUEST SCHEME
 	public static final String SCHEME_HTTP = "http";
@@ -24,6 +24,7 @@ public interface ApiConstants {
 
 	// API CALLs
 	public static final String API_TOKEN = "token";
+	public static final String DEFINITION_LIST = "formList";
 
 	// DEFAULTS
 	public static final int DEFAULT_TIMEOUT = 20000;

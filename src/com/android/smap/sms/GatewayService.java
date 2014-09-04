@@ -10,11 +10,9 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.android.smap.api.models.Gojo;
 import com.android.smap.commonsware.wakefull.WakefulIntentService;
 import com.android.smap.controllers.ControllerError;
 import com.android.smap.controllers.ControllerErrorListener;
-import com.android.smap.controllers.ControllerFactory;
 import com.android.smap.controllers.ControllerListener;
 import com.android.smap.models.TextMessage;
 import com.android.smap.samuel.Samuel;
@@ -149,10 +147,10 @@ public class GatewayService extends Service implements
 
 		// sendSMS or KickService basically...
 
-		// TODO: MW create GOJO Model, then call its action.
+		// TODO: MW 
 		if (Samuel.isSmapRelatedSMS(message)) {
-			Gojo gojo = Samuel.parse(message);
-			gojo.go();
+			//?? = Samuel.parse(message);
+			
 		}
 
 		// kickService();
