@@ -21,7 +21,7 @@ public class SurveyContact extends Model {
 	@Column
 	private String rawInstance;
 	
-	
+	// dummy fields for the moment
 	public int		answers;
 	public int		total;
 	public String	updatedAt;

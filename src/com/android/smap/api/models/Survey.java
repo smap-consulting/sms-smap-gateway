@@ -78,6 +78,18 @@ public class Survey extends Model {
 	public List<SurveyContact> getSurveyContacts() {
 		return getMany(SurveyContact.class, "survey_id");
 	}
+	
+	public void addContact(Contact contact) {
+		ActiveAndroid.beginTransaction();
+		try {
+			new SurveyContact(this, contact).save();
+			
+			ActiveAndroid.setTransactionSuccessful();
+		} finally {
+			ActiveAndroid.endTransaction();
+		}
+	}
+	
 
 	public void addContacts(List<Contact> contacts) {
 		ActiveAndroid.beginTransaction();

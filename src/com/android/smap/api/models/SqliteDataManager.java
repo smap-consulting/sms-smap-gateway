@@ -63,11 +63,18 @@ public class SqliteDataManager implements DataManager {
 
 		try {
 			
-			new Survey("Birds", "parse xml content here").save();
-			new Survey("Househould Survey", "parse xml content here").save();
+			Survey birdsSurvey = new Survey("Birds", "parse xml content here");
+			Survey householdSurvey = new Survey("Househould Survey", "parse xml content here");
+
+			birdsSurvey.save();
+			householdSurvey.save();
 			
 			for (int n : IntRange.between(1, 10)) {
-				new Contact("Contact " + n, "0123456789").save();
+				Contact contact = new Contact("Contact " + n, "0123456789");
+				contact.save();
+				
+				Survey survey = (n % 2 == 0) ? birdsSurvey : householdSurvey;
+				survey.addContact(contact);
 			}
 
 			ActiveAndroid.setTransactionSuccessful();
