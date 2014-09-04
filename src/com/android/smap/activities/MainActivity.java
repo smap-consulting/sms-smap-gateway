@@ -18,6 +18,7 @@ import com.android.smap.fragments.BaseFragment;
 import com.android.smap.fragments.ContactsFragment;
 import com.android.smap.fragments.SurveyDetailFragment;
 import com.android.smap.fragments.SurveysFragment;
+import com.android.smap.fragments.TestFragment;
 import com.android.smap.sms.GatewayService;
 import com.android.smap.ui.ViewQuery;
 
@@ -107,7 +108,10 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
 			return;
 		case 3:
 			setInitialFragment(SurveysFragment.class);
-			return;	
+			return;
+		case 4:
+			setInitialFragment(TestFragment.class);
+			return;
 		default:
 			return;
 		}

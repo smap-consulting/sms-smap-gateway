@@ -10,12 +10,20 @@ public class FormList extends Model {
 
 	public static class Form {
 
-		String	name;
+		private String	name;
 		String	url;
 
 		public Form(String name, String url) {
-			this.name = name;
+			this.setName(name);
 			this.url = url;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
 		}
 
 	}

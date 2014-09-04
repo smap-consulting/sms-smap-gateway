@@ -12,11 +12,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.activities.FragmentContainerActivity.Builder;
+import com.android.smap.adapters.FormListAdapter;
 import com.android.smap.adapters.SurveyAdapter;
 import com.android.smap.api.models.Survey;
 import com.android.smap.controllers.ControllerError;
 import com.android.smap.controllers.ControllerErrorListener;
 import com.android.smap.controllers.ControllerListener;
+import com.android.smap.controllers.FormListController;
 import com.android.smap.controllers.SurveyDefinitionController;
 import com.android.smap.di.DataManager;
 import com.android.smap.utils.MWUiUtils;
@@ -28,9 +30,9 @@ public class TestFragment extends BaseFragment implements
 		ControllerErrorListener {
 
 	@Inject
-	private DataManager					mDataManager;
-	private SurveyAdapter				mAdapter;
-	private SurveyDefinitionController	mController;
+	private DataManager			mDataManager;
+	private FormListAdapter		mAdapter;
+	private FormListController	mController;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,11 +44,10 @@ public class TestFragment extends BaseFragment implements
 
 		ListView listView = (ListView) view.findViewById(R.id.list_surveys);
 		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-		mAdapter = new SurveyAdapter(getActivity(), mDataManager
-				.getSurveys());
+		mAdapter = new FormListAdapter(getActivity(), null);
 		listView.setOnItemClickListener(this);
 		listView.setAdapter(mAdapter);
-		mController = new SurveyDefinitionController(getActivity(), this, this);
+		mController = new FormListController(getActivity(), this, this);
 		return view;
 	}
 
@@ -58,7 +59,7 @@ public class TestFragment extends BaseFragment implements
 
 	@Override
 	public void onControllerResult() {
-		mAdapter.setModel(mDataManager.getSurveys());
+		mAdapter.setModel(mController.getModel());
 	}
 
 	@Override

@@ -30,25 +30,13 @@ public class SurveyDefinitionController extends
 
 	@Override
 	protected Survey addResponseToDatabase(String rawXML) {
-		// TODO Auto-generated method stub
 
-		Survey survey= new Survey();
-		
-		SurveyModel sm = new SurveyModel(rawXML);
-		
-		
-		
-		String name = ;
-		
-		
-		survey.setName(name);
-		
-		
-		// save to db
-
-		// return the model, rturn true :
-
-		return null;
+		Survey survey = new Survey();
+		SurveyModel SurveyManager = new SurveyModel(rawXML);
+		survey.setName(SurveyManager.getSurveyName());
+		survey.setFormContent(rawXML);
+		survey.save();
+		return survey;
 	}
 
 }
