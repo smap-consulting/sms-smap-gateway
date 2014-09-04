@@ -19,6 +19,7 @@ import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.adapters.ContactSelectionAdapter;
 import com.android.smap.api.models.Contact;
+import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.ViewQuery;
 import com.google.inject.Inject;
@@ -33,6 +34,7 @@ public class ContactSelectFragment extends BaseFragment {
 	@Inject
 	private DataManager				mDataManager;
 	private List<Contact>			mModel;
+	private Survey                  mSurvey;
 	private ContactSelectionAdapter	mAdapter;
 	private SwipeListView			mSwipeListView;
 	private int						mSurveyId;
@@ -61,6 +63,7 @@ public class ContactSelectFragment extends BaseFragment {
 		// get all necessary local data
 		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
 		mModel = mDataManager.getContacts();
+		mSurvey = mDataManager.getSurvey(mSurveyId);
 		setupList();
 
 		// query.find(R.id.txt_completed_progress).text(completedProgress);
@@ -133,7 +136,7 @@ public class ContactSelectFragment extends BaseFragment {
 		for (Integer i : selected) {
 			contacts.add(mModel.get(i));
 		}
-		mDataManager.putContacts(contacts);
+		mDataManager.addContactsToSurvey(contacts, mSurvey);
 
 	}
 

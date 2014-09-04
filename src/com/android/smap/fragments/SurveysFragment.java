@@ -44,9 +44,10 @@ public class SurveysFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
 
+		Survey survey = (Survey) mAdapter.getItem(pos);
+
 		Bundle b = new Bundle();
-		int id = ((Survey) mAdapter.getItem(pos)).id;
-		b.putInt(SurveyDetailFragment.EXTRA_SURVEY_ID, id);
+		b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, survey.getId());
 		startActivity(new Builder(getActivity(), SurveyDetailFragment.class)
 				.arguments(b).build());
 

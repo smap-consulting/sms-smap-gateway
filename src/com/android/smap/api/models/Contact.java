@@ -1,8 +1,40 @@
 package com.android.smap.api.models;
 
-public class Contact {
+import java.util.List;
 
-	public String	number;
-	public String	name;
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+
+@Table(name = "contacts")
+public class Contact extends Model {
+
+	@Column
+	public String number;
+
+	@Column
+	public String name;
+	
+	public Contact() {
+		
+	}
+	
+	public Contact(String name, String number) {
+		this.name = name;
+		this.number = number;
+	}
+	
+	public static Contact findById(Long id) {
+		return Model.load(Contact.class, id);
+	}
+	
+	public static List<Contact> findAll() {
+		return new Select().from(Contact.class).execute(); 
+	}
+	
+	public List<SurveyContact> getSurveyContacts() {
+		return getMany(SurveyContact.class, "contact_id");
+	}
 
 }

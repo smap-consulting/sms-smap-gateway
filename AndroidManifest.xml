@@ -46,6 +46,9 @@
         <service
             android:name="com.android.smap.sms.GatewayService"
             android:enabled="true" />
+        
+        <meta-data android:name="AA_DB_NAME" android:value="smap-database.db" />
+        <meta-data android:name="AA_DB_VERSION" android:value="1" />
 
         <!-- Listen for boot events to make sure our service is running -->
         <receiver android:name="com.android.smap.sms.ServiceRebooter" >
@@ -69,7 +72,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:icon="@drawable/ic_menu"
-            android:label="" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

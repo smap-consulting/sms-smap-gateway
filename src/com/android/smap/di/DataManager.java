@@ -4,18 +4,22 @@ import java.util.List;
 
 import com.android.smap.api.models.Contact;
 import com.android.smap.api.models.Survey;
-import com.android.smap.api.models.SurveyDetail;
+import com.android.smap.api.models.SurveyDefinition;
 
 public interface DataManager {
 
 	List<Survey> getSurveys();
 
-	SurveyDetail getDetailsForSurvey(int mSurveyId);
+	Survey getSurvey(long id);
+	
+	List<SurveyDefinition> getSurveysDef();
+	
+	SurveyDefinition getSurveyDef(long id);
 
 	List<Contact> getContacts();
 
-	void putContacts(List<Contact> c);
+	void addContactsToSurvey(List<Contact> contacts, Survey survey);
 
-	void removeContactFromSurvey(int contact, int survey);
+	void removeContactFromSurvey(long contact, long survey);
 
 }

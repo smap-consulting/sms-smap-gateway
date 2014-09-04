@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
+import com.android.smap.api.models.Contact;
 import com.android.smap.api.models.SurveyContact;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.VelocAdapter;
@@ -20,16 +21,17 @@ import com.mjw.android.swipe.SwipeListView;
 public class SurveyContactAdapter extends VelocAdapter implements
 		MultiSelectActionAdapter {
 
-	private List<SurveyContact>	mModel;
-	private SwipeListView		mListViewRef;
+	private List<SurveyContact> mModel;
+	private SwipeListView mListViewRef;
+	private DataManager mDataManager;
 
 	@Inject
-	public SurveyContactAdapter(Context context,
-			List<SurveyContact> model,
+	public SurveyContactAdapter(Context context, List<SurveyContact> model,
 			SwipeListView ref) {
 		super(context);
 		this.mModel = model;
 		this.mListViewRef = ref;
+		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
 	}
 
 	@Override
@@ -45,19 +47,31 @@ public class SurveyContactAdapter extends VelocAdapter implements
 		// clean up choice selections when scrolling
 		mListViewRef.recycle(view, position);
 
-		int completed = mModel.get((position)).answers;
-		int total = mModel.get((position)).total;
+		SurveyContact surveyContact = getItem(position);
+
+		Contact contact;
+		String contactName, phoneNumber;
+		if ((contact = surveyContact.contact) != null) {
+			contactName = contact.name;
+			phoneNumber = contact.number;
+		} else {
+			contactName = "";
+			phoneNumber = "";
+		}
+
+		String updatedAt = surveyContact.updatedAt;
+		int completed = surveyContact.answers;
+		int total = surveyContact.total;
 
 		String template = getContext().getResources().getString(
 				R.string.surveys_of_total);
 		String totalCount = String.format(template, total);
 
-		query.find(R.id.txt_name).text(mModel.get((position)).name);
-		query.find(R.id.txt_number)
-				.text("Ph: " + mModel.get((position)).number);
+		query.find(R.id.txt_name).text(contactName);
+		query.find(R.id.txt_number).text("Ph: " + phoneNumber);
 		query.find(R.id.txt_completed_progress).text(String.valueOf(completed));
 		query.find(R.id.txt_completed_total).text(totalCount);
-		query.find(R.id.txt_timestamp).text(mModel.get((position)).updatedAt);
+		query.find(R.id.txt_timestamp).text(updatedAt);
 
 	}
 
@@ -87,8 +101,10 @@ public class SurveyContactAdapter extends VelocAdapter implements
 	@Override
 	public void action(int pos) {
 		mModel.remove(pos);
-		GatewayApp.getDependencyContainer().getDataManager()
-				.removeContactFromSurvey(pos, 1);
+		SurveyContact surveyContact = getItem(pos);
+		mDataManager.removeContactFromSurvey(
+				surveyContact.contact.getId(),
+				surveyContact.survey.getId());
 		notifyDataSetChanged();
 
 	}
