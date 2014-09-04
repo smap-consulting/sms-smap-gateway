@@ -16,6 +16,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    // don't fail the build if linting fails
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
