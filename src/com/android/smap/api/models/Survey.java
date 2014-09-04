@@ -1,6 +1,5 @@
 package com.android.smap.api.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.activeandroid.ActiveAndroid;
@@ -13,14 +12,40 @@ import com.activeandroid.query.Select;
 public class Survey extends Model {
 	
 	@Column
-	public String name;
+	private String name;
 	
-	public Survey() {}
+	@Column
+	private String content;
+	
+	public Survey() {
+		
+	}
 	
 	public Survey(String name) {
+		this.setName(name);
+	}
+
+	public Survey(String name, String content) {
+		this.content = content;
 		this.name = name;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
 	public int getMembersCount() {
 		return getSurveyContacts().size();
 	}
