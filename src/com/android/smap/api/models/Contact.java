@@ -64,5 +64,5 @@ public class Contact extends Model {
 	public List<SurveyContact> getSurveyContacts() {
 		return getMany(SurveyContact.class, "contact_id");
 	}
-
+	
 }
