@@ -15,6 +15,13 @@ public class SurveyContact extends Model {
 	@Column(name = "contact_id", onDelete = ForeignKeyAction.CASCADE)
 	public Contact contact;
 	
+	/**
+	 * Raw XML String to store JavaRosa response  
+	 */
+	@Column
+	private String rawInstance;
+	
+	
 	public int		answers;
 	public int		total;
 	public String	updatedAt;
@@ -28,6 +35,14 @@ public class SurveyContact extends Model {
 		this.contact = contact;
 	}
 	
+	public String getRawInstance() {
+		return rawInstance;
+	}
+
+	public void setRawInstance(String rawInstance) {
+		this.rawInstance = rawInstance;
+	}
+
 	public static SurveyContact findBySurveyAndContactIds(long surveyId, long contactId) {
 
 		return new Select()
