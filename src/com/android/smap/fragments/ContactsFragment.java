@@ -3,6 +3,7 @@ package com.android.smap.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.adapters.ContactAdapter;
 import com.android.smap.di.DataManager;
@@ -26,7 +27,7 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
 	@Inject
 	private DataManager		mDataManager;
 	private ContactAdapter	mAdapter;
-	private List<Contact> list = new ArrayList<Contact>();
+	private List<Contact> list;
 
 	
 	@Override
@@ -36,29 +37,30 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
 		LinearLayout view = (LinearLayout) inflater.inflate(
 				R.layout.fragment_contact,
 				null);
-		
+		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
 		ListView listView = (ListView) view.findViewById(R.id.list_contacts);
 		listView.setOnItemClickListener(this);
+		list = mDataManager.getContacts();
 		
-		Cursor phones = getActivity().getContentResolver().query(
-				ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null,
-				null, null);
-		
-		while (phones.moveToNext()) {
-			String name = phones
-					.getString(phones
-							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-
-			String phoneNumber = phones
-					.getString(phones
-							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));	
-			
-			Contact contacts = new Contact();
-			contacts.setName(name);
-			contacts.setNumber(phoneNumber);
-			list.add(contacts);
-		}		
-		phones.close();
+//		Cursor phones = getActivity().getContentResolver().query(
+//				ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null,
+//				null, null);
+//		
+//		while (phones.moveToNext()) {
+//			String name = phones
+//					.getString(phones
+//							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+//
+//			String phoneNumber = phones
+//					.getString(phones
+//							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));	
+//			
+//			Contact contacts = new Contact();
+//			contacts.setName(name);
+//			contacts.setNumber(phoneNumber);
+//			list.add(contacts);
+//		}		
+//		phones.close();
 		
 		ContactAdapter objAdapter = new ContactAdapter(getActivity(), R.layout.contact_allusers_rows, list);
 		listView.setAdapter(objAdapter);
