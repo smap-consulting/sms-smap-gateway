@@ -14,8 +14,11 @@ public class Survey extends Model {
 	@Column
 	private String name;
 	
+	/**
+	 * Raw XML string with JavaRosa form definition
+	 */
 	@Column
-	private String content;
+	private String formContent;
 	
 	public Survey() {
 		
@@ -25,9 +28,9 @@ public class Survey extends Model {
 		this.setName(name);
 	}
 
-	public Survey(String name, String content) {
-		this.content = content;
+	public Survey(String name, String formContent) {
 		this.name = name;
+		this.formContent = formContent;
 	}
 	
 	public String getName() {
@@ -38,12 +41,12 @@ public class Survey extends Model {
 		this.name = name;
 	}
 
-	public String getContent() {
-		return content;
+	public String getFormContent() {
+		return formContent;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setFormContent(String content) {
+		this.formContent = content;
 	}
 
 	public int getMembersCount() {
