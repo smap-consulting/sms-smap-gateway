@@ -52,8 +52,8 @@ public class SurveyContactAdapter extends VelocAdapter implements
 		Contact contact;
 		String contactName, phoneNumber;
 		if ((contact = surveyContact.contact) != null) {
-			contactName = contact.name;
-			phoneNumber = contact.number;
+			contactName = contact.getName();
+			phoneNumber = contact.getNumber();
 		} else {
 			contactName = "";
 			phoneNumber = "";
