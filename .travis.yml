@@ -1,21 +1,16 @@
 language: android
 
-notifications:
-  hipchat:
-    rooms:
-      secure: Y+WLKfRZ2bmeOkcyO9sGUxg/5Vw00qBFEUdloXl/wdMP/qR0NFxy2xzIeXxxBOv7CBYhUvCkcpfEjzSZdP6Sm0FaJa7fuPnXeL2QSQKVdIWZJlXt+EE4DnlIu2VfEATr6TSsgASW78NdwFeT4vpp7/c08i//SVy2RXt0jYNN1E4=
-
 env:
   matrix:
-    - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+  - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
 
 android:
   components:
-    - build-tools-19.0.0
+  - build-tools-20.0.0
 
-before_script:
-  # Create and start emulator
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - adb wait-for-device
-  - adb shell input keyevent 82 &
+script: ./gradlew build
+
+notifications:
+  hipchat:
+    rooms:
+      secure: e/Az18QMknrc6ixk+HZB5djFBzDNjXERE8pEZfoNY1ZN0VFJYf+HFw/XyOcLin3kRVASvhK5XsH6L4ih18YL8nhHONCEyvkoJieDvMVf7OeUnVizSL3hq3uY3TesE42av6H4M9oteaRHjLjWjaFBBOJCAdP4pVyQmHG8CPTSWcM=
