@@ -9,8 +9,8 @@ public interface ApiConstants {
 
 	// URLs
 	/** Production Endpoint URL */
-	public static final String	PRODUCTION_URL				= "http://rmit.smap.com.au";
-	public static final String	DEV_URL						= "stub-loggr.herokuapp.com";
+	public static final String	PRODUCTION_URL				= "rmit.smap.com.au";
+	public static final String	DEV_URL						= "rmit-smap-proxy.herokuapp.com";
 
 	// REQUEST SCHEME
 	public static final String	SCHEME_HTTP					= "http";

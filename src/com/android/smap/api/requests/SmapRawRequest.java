@@ -1,16 +1,13 @@
 package com.android.smap.api.requests;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import org.javarosa.core.util.MD5;
 
 import android.util.Base64;
 import android.util.Log;
 
-import com.activeandroid.Model;
 import com.android.smap.GatewayApp;
 import com.android.smap.api.ApiConstants;
-import com.android.smap.utils.PreferenceWrapper;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -41,11 +38,11 @@ public abstract class SmapRawRequest extends Request<String> implements
 	@Override
 	public Map<String, String> getHeaders() throws AuthFailureError {
 
-		Map<String, String> headers = super.getHeaders();
+		Map<String, String> headers = new HashMap<String, String>();
 		String usr = GatewayApp.getPreferenceWrapper().getUserName();
-		String psw = GatewayApp.getPreferenceWrapper().getUserName();
+		String psw = GatewayApp.getPreferenceWrapper().getPassword();
 		String creds = String.format("%s:%s", usr, psw);
-		String auth = "Basic " + MD5.hash(creds.getBytes());
+		String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
 		headers.put("Authorization", auth);
 		return headers;
 	}

@@ -2,6 +2,7 @@ package com.android.smap.controllers;
 
 import android.content.Context;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.android.smap.GatewayApp;
 import com.android.smap.api.requests.SmapRawRequest;
@@ -50,8 +51,18 @@ public abstract class RawRequestController<T extends Model> implements
 		/** USE ROSA TO SAVE TO DB */
 
 		/** RETURN SAVED OBJECT */
+		T model = null;
+		ActiveAndroid.beginTransaction();
+		try {
 
-		T model = addResponseToDatabase(response);
+			model = addResponseToDatabase(response);
+			ActiveAndroid.setTransactionSuccessful();
+
+		}
+		finally {
+
+			ActiveAndroid.endTransaction();
+		}
 
 		setModel(model);
 		getControllerListener().onControllerResult();

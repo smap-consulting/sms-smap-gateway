@@ -89,6 +89,7 @@ public class SurveyAdapter extends VelocAdapter {
 
 	public void setModel(List<Survey> model) {
 		this.mModel = model;
+		notifyDataSetChanged();
 	}
 
 }

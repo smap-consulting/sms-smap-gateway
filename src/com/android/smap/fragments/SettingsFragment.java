@@ -5,18 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.ui.ViewQuery;
+import com.android.smap.utils.MWUiUtils;
 
 public class SettingsFragment extends BaseFragment implements
 		OnClickListener {
 
-	private Button	password;
-	private Button	username;
+	private EditText	password;
+	private EditText	username;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,8 +28,8 @@ public class SettingsFragment extends BaseFragment implements
 				null);
 		ViewQuery query = new ViewQuery(view);
 		query.find(R.id.btn_submit).onClick(this).get();
-		username = (Button) query.find(R.id.txt_username).get();
-		password = (Button) query.find(R.id.txt_password).get();
+		username = (EditText) query.find(R.id.txt_username).get();
+		password = (EditText) query.find(R.id.txt_password).get();
 		return view;
 	}
 
@@ -38,6 +39,9 @@ public class SettingsFragment extends BaseFragment implements
 				username.getText().toString());
 		GatewayApp.getPreferenceWrapper().setPassword(
 				password.getText().toString());
+		MWUiUtils.hideKeyboard(getActivity());
+		MWUiUtils.showMessagePopup(getActivity(), "Details Saved");
+
 	}
 
 }

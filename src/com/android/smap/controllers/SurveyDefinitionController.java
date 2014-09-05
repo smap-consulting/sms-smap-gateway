@@ -11,7 +11,7 @@ import com.android.smap.api.requests.SurveyDefinitionRequest;
 public class SurveyDefinitionController extends
 		RawRequestController<Survey> {
 
-	private String	mFormKey;
+	private String	mFormUrl;
 
 	public SurveyDefinitionController(Context context,
 			ControllerListener listener,
@@ -20,17 +20,22 @@ public class SurveyDefinitionController extends
 		super(context, listener, errorListener);
 		mListener = listener;
 		mErrorListener = errorListener;
-		mFormKey = formKey;
+		mFormUrl = formKey;
+	}
+
+	public void setFormKey(String formKey) {
+		this.mFormUrl = formKey;
 	}
 
 	@Override
 	protected SmapRawRequest getRequest() {
-		return new SurveyDefinitionRequest(this, this, mFormKey);
+		return new SurveyDefinitionRequest(this, this, mFormUrl);
 	}
 
 	@Override
 	protected Survey addResponseToDatabase(String rawXML) {
 
+	
 		Survey survey = new Survey();
 		SurveyModel SurveyManager = new SurveyModel(rawXML);
 		survey.setName(SurveyManager.getSurveyName());

@@ -2,12 +2,16 @@ package com.android.smap.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
@@ -34,11 +38,16 @@ public class SurveysFragment extends BaseFragment implements
 
 		ListView listView = (ListView) view.findViewById(R.id.list_surveys);
 		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-		mAdapter = new SurveyAdapter(getActivity(), mDataManager
-				.getSurveys());
+		mAdapter = new SurveyAdapter(getActivity(), mDataManager.getSurveys());
 		listView.setOnItemClickListener(this);
 		listView.setAdapter(mAdapter);
 		return view;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		mAdapter.setModel(mDataManager.getSurveys());
 	}
 
 	@Override
@@ -52,4 +61,26 @@ public class SurveysFragment extends BaseFragment implements
 				.arguments(b).build());
 
 	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater = getActivity().getMenuInflater();
+		inflater.inflate(R.menu.menu_add, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		boolean handled = false;
+		switch (item.getItemId()) {
+		case android.R.id.home: // Actionbar home/up icon
+			getActivity().onBackPressed();
+			break;
+		case R.id.action_add: // Actionbar home/up icon
+			pushFragment(FormListFragment.class);
+			break;
+		}
+		return handled;
+	}
+
 }

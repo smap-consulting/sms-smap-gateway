@@ -11,7 +11,15 @@ public class FormList extends Model {
 	public static class Form {
 
 		private String	name;
-		String	url;
+		private String	url;
+
+		public String getUrl() {
+			return url;
+		}
+
+		public void setUrl(String url) {
+			this.url = url;
+		}
 
 		public Form(String name, String url) {
 			this.setName(name);

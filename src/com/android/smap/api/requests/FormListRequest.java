@@ -19,6 +19,4 @@ public class FormListRequest extends SmapRawRequest {
 						GatewayApp.getAppConfig().getRequestEndpoint())
 				.appendEncodedPath(FORM_LIST).build().toString();
 	}
-
-
 }

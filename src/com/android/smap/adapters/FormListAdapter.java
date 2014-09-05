@@ -39,11 +39,17 @@ public class FormListAdapter extends VelocAdapter {
 
 	@Override
 	public int getCount() {
+		if (mModel == null || mModel.getForms() == null) {
+			return 0;
+		}
 		return mModel.getForms().size();
 	}
 
 	@Override
 	public Object getItem(int position) {
+		if (mModel == null || mModel.getForms() == null) {
+			return null;
+		}
 		return mModel.getForms().get(position);
 	}
 

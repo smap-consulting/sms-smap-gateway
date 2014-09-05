@@ -13,10 +13,12 @@ import org.xml.sax.InputSource;
 
 import android.content.Context;
 
+import com.android.smap.GatewayApp;
 import com.android.smap.api.models.FormList;
 import com.android.smap.api.models.FormList.Form;
 import com.android.smap.api.requests.FormListRequest;
 import com.android.smap.api.requests.SmapRawRequest;
+import com.android.smap.api.requests.SurveyDefinitionRequest;
 
 public class FormListController extends
 		RawRequestController<FormList> {
@@ -24,7 +26,7 @@ public class FormListController extends
 	private static final String	XML_NAME	= "name";
 	private static final String	XML_URL		= "downloadUrl";
 
-	FormList					mModel;
+	private FormList			mModel;
 
 	public FormListController(Context context,
 			ControllerListener listener,
@@ -32,6 +34,7 @@ public class FormListController extends
 		super(context, listener, errorListener);
 		mListener = listener;
 		mErrorListener = errorListener;
+		mModel = new FormList();
 	}
 
 	@Override
@@ -49,8 +52,7 @@ public class FormListController extends
 	private List<Form> valuesFromTag(String xml) {
 
 		ArrayList<Form> list = new ArrayList<Form>();
-		DocumentBuilderFactory domFactory = DocumentBuilderFactory
-				.newInstance();
+
 		try {
 			Document doc = loadXMLFromString(xml);
 			NodeList nodeNameList = doc.getElementsByTagName(XML_NAME);
