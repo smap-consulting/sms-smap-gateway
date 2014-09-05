@@ -82,5 +82,6 @@ public class FormListFragment extends BaseFragment implements
 						popFragment();
 					}
 				}, this, form.getUrl());
+        controller.start();
 	}
 }
