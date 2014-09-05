@@ -24,7 +24,7 @@ public class FormListAdapter extends VelocAdapter {
 
 	@Override
 	public View newView(LayoutInflater inflator, int position, ViewGroup parent) {
-		return inflator.inflate(R.layout.item_survey, null, false);
+		return inflator.inflate(R.layout.item_form, null, false);
 
 	}
 
@@ -34,6 +34,7 @@ public class FormListAdapter extends VelocAdapter {
 
 		Form form = mModel.getForms().get((position));
 		query.find(R.id.txt_name).text(form.getName());
+		query.find(R.id.txt_url).text(form.getUrl());
 
 	}
 

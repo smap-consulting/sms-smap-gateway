@@ -6,30 +6,72 @@
     android:orientation="vertical"
     android:padding="12dp" >
 
-    <EditText
-        android:id="@+id/txt_username"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="USERNAME"
-        android:textColorHint="@color/smap_blue"
-        android:textSize="20sp" />
+        android:background="@color/smap_med_grey"
+        android:orientation="vertical"
+        android:paddingBottom="12dp" >
 
-    <EditText
-        android:id="@+id/txt_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="PASSWORD"
-        android:inputType="textPassword"
-        android:textColorHint="@color/smap_blue"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/txt_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="USERNAME"
+            android:textColorHint="@color/smap_blue"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btn_submit"
+        <EditText
+            android:id="@+id/txt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="PASSWORD"
+            android:inputType="textPassword"
+            android:textColorHint="@color/smap_blue"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/smap_cream"
+            android:text="SAVE"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/smap_light_green"
-        android:text="SUBMIT"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="12dp"
+        android:background="@color/smap_med_grey" >
+
+        <TextView
+            android:id="@+id/txt_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="12dp"
+            android:text="Auto-Refresh Enabled"
+            android:textColorHint="@color/smap_blue"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="6dp"
+            android:background="@color/smap_med_grey"
+         
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 </LinearLayout>
