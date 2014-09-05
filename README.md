@@ -13,7 +13,7 @@ Prerequisites
 
 - [Android Studio](https://developer.android.com/sdk/installing/studio.html)
 
-The following packages from the Android SDK Manager
+The following packages from the [Android SDK Manager](https://developer.android.com/tools/help/sdk-manager.html)
 
 - Tools > Android SDK Tools
 - Tools > Android SDK Platform Tools
