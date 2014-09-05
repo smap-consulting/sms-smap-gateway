@@ -2,13 +2,9 @@ package com.android.smap.activities;
 
 import java.util.List;
 
-import com.android.smap.R;
-
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 public abstract class BaseActivity extends FragmentActivity {

@@ -20,7 +20,7 @@ import com.android.volley.VolleyError;
  * @author matt witherow
  * @param <T>
  */
-public abstract class UIRequestController<T> implements
+public abstract class PojoRequestController<T> implements
 		Controller,
 		Listener<T>,
 		ErrorListener,
@@ -37,7 +37,7 @@ public abstract class UIRequestController<T> implements
 
 	protected abstract ApiRequest<?> getRequest();
 
-	public UIRequestController(Context context, ControllerListener listener,
+	public PojoRequestController(Context context, ControllerListener listener,
 			ControllerErrorListener errorListener) {
 
 		if (listener == null || errorListener == null || context == null) {
