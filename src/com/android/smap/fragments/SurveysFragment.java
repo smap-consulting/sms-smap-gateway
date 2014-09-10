@@ -16,6 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
@@ -53,14 +54,6 @@ public class SurveysFragment extends BaseFragment {
 		mModel = mDataManager.getSurveys();
 		setupSurveysList();
 
-		/*
-		ListView listView = (ListView) view.findViewById(R.id.list_surveys);
-		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-		mAdapter = new SurveyAdapter(getActivity(), mDataManager
-				.getSurveys());
-		listView.setOnItemClickListener(this);
-		listView.setAdapter(mAdapter);
-		*/
 		return view;
 	}
 	
@@ -103,7 +96,7 @@ public class SurveysFragment extends BaseFragment {
 						inflater.inflate(R.menu.menu_delete, menu);
 						return true;
 					}
-
+					
 					@Override
 					public void onDestroyActionMode(ActionMode mode) {
 						mSwipeListView.unselectedChoiceStates();
@@ -134,6 +127,13 @@ public class SurveysFragment extends BaseFragment {
 
 	}
 	
+	@Override
+	public void onResume() {
+		super.onResume();
+		mAdapter.setModel(mDataManager.getSurveys());
+	}
+
+	
 	private void removeSurveys() {
 
 		List<Integer> selected = mSwipeListView.getPositionsSelected();
@@ -144,13 +144,25 @@ public class SurveysFragment extends BaseFragment {
 		mDataManager.deleteSurveys(surveys);
 
 	}
-	
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater = getActivity().getMenuInflater();
+		inflater.inflate(R.menu.menu_add, menu);
+	}
+
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		boolean handled = false;
 		switch (item.getItemId()) {
-		case android.R.id.home:
+
+		case android.R.id.home: // Actionbar home/up icon
 			getActivity().onBackPressed();
+			break;
+		case R.id.action_add: // Actionbar home/up icon
+			pushFragment(FormListFragment.class);
 			break;
 		}
 		return handled;

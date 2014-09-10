@@ -17,7 +17,7 @@ import com.android.volley.VolleyError;
  * @author matt witherow
  */
 
-public abstract class UIPagingController<T, V> extends UIRequestController<V> {
+public abstract class PojoPagingController<T, V> extends PojoRequestController<V> {
 
 	public interface PagingStatusIndicator {
 		public void noMorePages();
@@ -50,7 +50,7 @@ public abstract class UIPagingController<T, V> extends UIRequestController<V> {
 	private ControllerState			mState			= ControllerState.FREE;
 	private boolean					mMorePages		= true;
 
-	public UIPagingController(Context context, ControllerListener listener,
+	public PojoPagingController(Context context, ControllerListener listener,
 			ControllerErrorListener errorListener,
 			PagingStatusIndicator indicator) {
 		super(context, listener, errorListener);

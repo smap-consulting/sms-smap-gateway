@@ -3,9 +3,6 @@ package com.android.smap.samuel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.android.smap.api.models.Goal.GoalUtil;
-import com.android.smap.api.models.Gojo;
-
 /**
  * Parser for inbound SMS's.
  * 
@@ -25,19 +22,8 @@ public class Samuel {
 		return message.startsWith(SMAP_IDENTIFIER);
 	}
 
-	public static Gojo parse(String message) {
-
-		// TODO
-		if (isMalformedMessage(message)) {
-			return null;
-		}
-
-		Gojo gojo = new Gojo();
-		gojo.goal = GoalUtil.goalForString(getGoalCommand(message));
-		gojo.reference = getGoalReference(message);
-		gojo.model = getModel(message);
-		return gojo;
-	}
+//	public static ??? parse(String message) {
+//	}
 
 	private static String getModel(String message) {
 		String regex = GOAL_PAYLOAD_STRING_REGEX;
