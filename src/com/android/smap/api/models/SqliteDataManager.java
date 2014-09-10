@@ -33,6 +33,19 @@ public class SqliteDataManager implements DataManager {
 
 		return Survey.findById((long) id);
 	}
+	
+	@Override
+	public void deleteSurveys(List<Survey> surveys) {
+		
+		for (Survey survey : surveys) {
+			survey.delete();
+		}
+	}
+	
+	@Override
+	public void deleteSurvey(Survey survey) {
+			survey.delete();
+	}
 
 	@Override
 	public List<Contact> getContacts() {
@@ -65,9 +78,13 @@ public class SqliteDataManager implements DataManager {
 			
 			Survey birdsSurvey = new Survey("Birds", "parse xml content here");
 			Survey householdSurvey = new Survey("Househould Survey", "parse xml content here");
+			Survey randomSurvey1 = new Survey("randomSurvey1", "parse xml content here");
+			Survey randomSurvey2 = new Survey("randomSurvey2", "parse xml content here");
 
 			birdsSurvey.save();
 			householdSurvey.save();
+			randomSurvey1.save();
+			randomSurvey2.save();
 			
 			for (int n : IntRange.between(1, 10)) {
 				Contact contact = new Contact("Contact " + n, "0123456789");
