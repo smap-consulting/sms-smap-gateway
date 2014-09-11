@@ -98,5 +98,8 @@ Temporary Items
 
 *~
 
+# Android Studio
+.idea
+*.iml
 # KDE directory preferences
 .directory
