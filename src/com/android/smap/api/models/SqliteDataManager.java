@@ -38,13 +38,19 @@ public class SqliteDataManager implements DataManager {
 	public void deleteSurveys(List<Survey> surveys) {
 		
 		for (Survey survey : surveys) {
-			survey.delete();
+			
+			if(survey != null) {
+				survey.delete();
+			}
 		}
 	}
 	
 	@Override
 	public void deleteSurvey(Survey survey) {
+		
+		if(survey != null) {
 			survey.delete();
+		}
 	}
 
 	@Override
@@ -85,6 +91,10 @@ public class SqliteDataManager implements DataManager {
 			householdSurvey.save();
 			randomSurvey1.save();
 			randomSurvey2.save();
+			
+			Contact contact1 = new Contact("Contact 1", "0123456789");
+			randomSurvey1.addContact(contact1);
+			randomSurvey2.addContact(contact1);
 			
 			for (int n : IntRange.between(1, 10)) {
 				Contact contact = new Contact("Contact " + n, "0123456789");
