@@ -42,15 +42,16 @@ public class SqliteDataManager implements DataManager {
 
 	@Override
 	public void addContactsToSurvey(List<Contact> contacts, Survey survey) {
-		survey.addContacts(contacts);
-
+        // TODO this needs to come from the distribution page
+        Distribution firstDist = survey.getDistributions().get(0);
+        firstDist.addContacts(contacts);
 	}
 
 	@Override
-	public void removeContactFromSurvey(long contactId, long surveyId) {
+	public void removeContactFromDistribution(long contactId, long distributionId) {
 
-		SurveyContact surveyContact = SurveyContact.findBySurveyAndContactIds(
-				surveyId, contactId);
+		SurveyContact surveyContact = SurveyContact.findByDistributionAndContactIds(
+                distributionId, contactId);
 
 		if (surveyContact != null) {
 			surveyContact.delete();
@@ -64,16 +65,18 @@ public class SqliteDataManager implements DataManager {
 		try {
 			
 			Survey birdsSurvey = new Survey("Birds", "parse xml content here");
-			Survey householdSurvey = new Survey("Househould Survey", "parse xml content here");
+            birdsSurvey.save();
+            Distribution summerBirds = birdsSurvey.createDistribution("Summer Birds");
 
-			birdsSurvey.save();
-			householdSurvey.save();
-			
+			Survey householdSurvey = new Survey("Household Survey", "parse xml content here");
+            householdSurvey.save();
+            Distribution householdDist = householdSurvey.createDistribution("Main Distribution");
+
 			for (int n : IntRange.between(1, 10)) {
 				Contact contact = new Contact("Contact " + n, "0123456789");
 				contact.save();
 				
-				Survey survey = (n % 2 == 0) ? birdsSurvey : householdSurvey;
+				Distribution survey = (n % 2 == 0) ? summerBirds: householdDist;
 				survey.addContact(contact);
 			}
 

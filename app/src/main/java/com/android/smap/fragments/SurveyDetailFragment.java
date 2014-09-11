@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.adapters.SurveyContactAdapter;
+import com.android.smap.api.models.Distribution;
 import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.ViewQuery;
@@ -82,7 +83,9 @@ public class SurveyDetailFragment extends BaseFragment {
 		super.onResume();
 		
 		mModel = mDataManager.getSurvey(mSurveyId);
-		mAdapter.setModel(mModel.getSurveyContacts());
+        // TODO get this from distribution
+        Distribution distribution = mModel.getDistributions().get(0);
+		mAdapter.setModel(distribution.getSurveyContacts());
 
 		if (mModel != null) {
 			float percent = mModel.getCompletionPercentage();
@@ -92,7 +95,10 @@ public class SurveyDetailFragment extends BaseFragment {
 
 	private void setupContactsList() {
 
-		mAdapter = new SurveyContactAdapter(getActivity(), mModel.getSurveyContacts(),
+        // TODO get this from distribution properly
+        Distribution distribution = mModel.getDistributions().get(0);
+
+		mAdapter = new SurveyContactAdapter(getActivity(), distribution.getSurveyContacts(),
 				mSwipeListView);
 		mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
