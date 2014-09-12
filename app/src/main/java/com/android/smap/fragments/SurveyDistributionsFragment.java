@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
@@ -21,19 +20,21 @@ import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
 import com.google.inject.Inject;
 
-public class SurveysFragment extends BaseFragment implements
+public class SurveyDistributionsFragment extends BaseFragment implements
 		OnItemClickListener {
 
 	@Inject
 	private DataManager		mDataManager;
-	private SurveyAdapter	mAdapter;
+
+    // TODO - Create Distribution Adapter
+    private SurveyAdapter	mAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
 		LinearLayout view = (LinearLayout) inflater.inflate(
-				R.layout.fragment_surveys,
+				R.layout.fragment_distributions,
 				null);
 
 		ListView listView = (ListView) view.findViewById(R.id.list_surveys);
@@ -57,7 +58,7 @@ public class SurveysFragment extends BaseFragment implements
 
 		Bundle b = new Bundle();
 		b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, survey.getId());
-		startActivity(new Builder(getActivity(), SurveyDistributionsFragment.class)
+		startActivity(new Builder(getActivity(), SurveyDistributionCreateFragment.class)
 				.arguments(b).build());
 
 	}
