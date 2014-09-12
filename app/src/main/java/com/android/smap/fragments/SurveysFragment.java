@@ -1,8 +1,5 @@
 package com.android.smap.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -11,25 +8,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.activities.FragmentContainerActivity.Builder;
 import com.android.smap.adapters.SurveyAdapter;
-import com.android.smap.adapters.SurveyContactAdapter;
-import com.android.smap.api.models.Contact;
 import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.ViewQuery;
 import com.google.inject.Inject;
 import com.mjw.android.swipe.MultiChoiceSwipeListener;
 import com.mjw.android.swipe.SwipeListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SurveysFragment extends BaseFragment {
 
