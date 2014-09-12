@@ -18,7 +18,7 @@ import com.android.smap.utils.MWUiUtils;
 public class SurveyDistributionCreateFragment extends BaseFragment implements
 		OnClickListener {
 
-    public static final String		EXTRA_SURVEY_ID	= SurveyDetailFragment.class
+    public static final String		EXTRA_SURVEY_ID	= SurveyDistributionsFragment.class
                                                   .getCanonicalName()
                                                 + "id";
 

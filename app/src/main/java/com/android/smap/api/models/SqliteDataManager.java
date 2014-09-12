@@ -28,6 +28,11 @@ public class SqliteDataManager implements DataManager {
 		return Survey.findAll();
 	}
 
+    @Override
+    public List<Distribution> getDistributions() {
+        return Distribution.findAll();
+    }
+
 	@Override
 	public Survey getSurvey(long id) {
 

@@ -1,6 +1,7 @@
 package com.android.smap.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,31 +16,48 @@ import android.widget.ListView;
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.activities.FragmentContainerActivity.Builder;
+import com.android.smap.adapters.DistributionAdapter;
 import com.android.smap.adapters.SurveyAdapter;
+import com.android.smap.api.models.Distribution;
 import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
+import com.android.smap.utils.MWUiUtils;
 import com.google.inject.Inject;
+
+import java.util.List;
 
 public class SurveyDistributionsFragment extends BaseFragment implements
 		OnItemClickListener {
 
-	@Inject
+    public static final String		EXTRA_SURVEY_ID	= SurveyDetailFragment.class
+            .getCanonicalName()
+            + "id";
+
+	private Survey             mSurvey;
+
+    @Inject
 	private DataManager		mDataManager;
 
+
+
     // TODO - Create Distribution Adapter
-    private SurveyAdapter	mAdapter;
+    private DistributionAdapter mAdapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
 		LinearLayout view = (LinearLayout) inflater.inflate(
 				R.layout.fragment_distributions,
 				null);
+        mDataManager = GatewayApp.getDependencyContainer().getDataManager();
+        Bundle b = getArguments();
+        if (b != null) {
+            mSurvey = mDataManager.getSurvey(b.getLong(EXTRA_SURVEY_ID));
+        }
 
 		ListView listView = (ListView) view.findViewById(R.id.list_surveys);
 		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-		mAdapter = new SurveyAdapter(getActivity(), mDataManager.getSurveys());
+		mAdapter = new DistributionAdapter(getActivity(), mDataManager.getDistributions());
 		listView.setOnItemClickListener(this);
 		listView.setAdapter(mAdapter);
 		return view;
@@ -48,14 +66,14 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		mAdapter.setModel(mDataManager.getSurveys());
+		mAdapter.setModel(mDataManager.getDistributions());
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
-		Survey survey = (Survey) mAdapter.getItem(pos);
+		Distribution distribution = (Distribution) mAdapter.getItem(pos);
 		Bundle b = new Bundle();
-		b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, survey.getId());
+		b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, distribution.getId());
 		startActivity(new Builder(getActivity(), SurveyDistributionCreateFragment.class)
 				.arguments(b).build());
 	}
@@ -75,10 +93,8 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 			getActivity().onBackPressed();
 			break;
 		case R.id.action_add:
-            //TODO replace the get(0) with
-            Survey survey = (Survey) mAdapter.getItem(0);
             Bundle b = new Bundle();
-            b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, survey.getId());
+            b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, mSurvey.getId());
             startActivity(new Builder(getActivity(), SurveyDistributionCreateFragment.class)
                     .arguments(b).build());
 			break;
