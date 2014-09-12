@@ -102,9 +102,9 @@ public class SurveyContactAdapter extends VelocAdapter implements
 	public void action(int pos) {
 		mModel.remove(pos);
 		SurveyContact surveyContact = getItem(pos);
-		mDataManager.removeContactFromSurvey(
-				surveyContact.contact.getId(),
-				surveyContact.survey.getId());
+		mDataManager.removeContactFromDistribution(
+                surveyContact.contact.getId(),
+                surveyContact.getDistribution().getId());
 		notifyDataSetChanged();
 
 	}
