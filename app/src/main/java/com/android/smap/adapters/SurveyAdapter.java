@@ -108,10 +108,10 @@ public class SurveyAdapter extends VelocAdapter
 
 	@Override
 	public void action(int pos) {
-		mModel.remove(pos);
 		Survey survey = getItem(pos);
 		mDataManager.deleteSurvey(survey);
-		notifyDataSetChanged();	
+        mModel.remove(pos);
+		notifyDataSetChanged();
 	}
 
 	@Override

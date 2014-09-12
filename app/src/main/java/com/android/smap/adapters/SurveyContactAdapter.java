@@ -100,11 +100,11 @@ public class SurveyContactAdapter extends VelocAdapter implements
 
 	@Override
 	public void action(int pos) {
-		mModel.remove(pos);
 		SurveyContact surveyContact = getItem(pos);
 		mDataManager.removeContactFromSurvey(
 				surveyContact.contact.getId(),
 				surveyContact.survey.getId());
+        mModel.remove(pos);
 		notifyDataSetChanged();
 
 	}
