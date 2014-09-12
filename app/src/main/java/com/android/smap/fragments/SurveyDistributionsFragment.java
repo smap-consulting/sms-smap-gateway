@@ -53,14 +53,11 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
-
 		Survey survey = (Survey) mAdapter.getItem(pos);
-
 		Bundle b = new Bundle();
 		b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, survey.getId());
 		startActivity(new Builder(getActivity(), SurveyDistributionCreateFragment.class)
 				.arguments(b).build());
-
 	}
 
 	@Override
@@ -77,11 +74,15 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 		case android.R.id.home: // Actionbar home/up icon
 			getActivity().onBackPressed();
 			break;
-		case R.id.action_add: // Actionbar home/up icon
-			pushFragment(FormListFragment.class);
+		case R.id.action_add:
+            //TODO replace the get(0) with
+            Survey survey = (Survey) mAdapter.getItem(0);
+            Bundle b = new Bundle();
+            b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, survey.getId());
+            startActivity(new Builder(getActivity(), SurveyDistributionCreateFragment.class)
+                    .arguments(b).build());
 			break;
 		}
 		return handled;
 	}
-
 }
