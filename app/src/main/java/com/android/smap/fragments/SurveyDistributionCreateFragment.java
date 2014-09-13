@@ -18,18 +18,18 @@ import com.android.smap.utils.MWUiUtils;
 public class SurveyDistributionCreateFragment extends BaseFragment implements
 		OnClickListener {
 
-    public static final String		EXTRA_SURVEY_ID	= SurveyDistributionsFragment.class
-                                                  .getCanonicalName()
-                                                + "id";
+    public static final String		EXTRA_SURVEY_ID	= SurveyDetailFragment.class
+            .getCanonicalName()
+            + "id";
 
 	private EditText	name;
-    private int			mSurveyId;
+    private long			mSurveyId;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
-        if (savedInstanceState != null) {
-            mSurveyId = (int) savedInstanceState.getLong(EXTRA_SURVEY_ID);
+        Bundle b = getArguments();
+        if (b != null) {
+            mSurveyId = b.getLong(EXTRA_SURVEY_ID);
         }
 
 		LinearLayout view = (LinearLayout) inflater.inflate(
@@ -44,10 +44,10 @@ public class SurveyDistributionCreateFragment extends BaseFragment implements
 	@Override
 	public void onClick(View arg0) {
         //Switch over to "create distribution" with name
-        Distribution distribution = new Distribution();
-        distribution.setName(name.getText().toString());
-        distribution.setSurvey(Survey.findById((long) mSurveyId));
-        distribution.save();
+        Survey survey = Survey.findById(mSurveyId);
+
+        survey.createDistribution(name.getText().toString());
+        survey.save();
 
 		MWUiUtils.hideKeyboard(getActivity());
 		MWUiUtils.showMessagePopup(getActivity(), "Distribution Created");

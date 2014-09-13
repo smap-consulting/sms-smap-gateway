@@ -9,7 +9,7 @@ import com.android.smap.api.models.Survey;
 public interface DataManager {
 
 	List<Survey> getSurveys();
-    List<Distribution> getDistributions();
+
 	Survey getSurvey(long id);
 
 	List<Contact> getContacts();
@@ -17,5 +17,5 @@ public interface DataManager {
 	void addContactsToSurvey(List<Contact> contacts, Survey survey);
 
 	void removeContactFromDistribution(long contactId, long distributionId);
-
+    List<Distribution> getDistributions();
 }

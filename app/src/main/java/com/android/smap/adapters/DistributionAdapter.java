@@ -27,7 +27,7 @@ public class DistributionAdapter extends VelocAdapter {
 
 	@Override
 	public View newView(LayoutInflater inflator, int position, ViewGroup parent) {
-		return inflator.inflate(R.layout.item_survey, null, false);
+		return inflator.inflate(R.layout.item_distribution, null, false);
 	}
 
 	@Override
@@ -40,6 +40,7 @@ public class DistributionAdapter extends VelocAdapter {
 
 		String distributionName = distribution.getName();
 		int totalContacts = distribution.getSurveyContacts().size();
+        query.find(R.id.txt_name).text(distributionName);
 
 		// String formatting
 		String template = getContext().getResources().getString(

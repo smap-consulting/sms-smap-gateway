@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
@@ -54,10 +55,11 @@ public class SurveyDistributionsFragment extends BaseFragment implements
         if (b != null) {
             mSurvey = mDataManager.getSurvey(b.getLong(EXTRA_SURVEY_ID));
         }
-
+        TextView textView = (TextView) view.findViewById(R.id.txt_survey_name);
+        textView.setText(mSurvey.getName());
 		ListView listView = (ListView) view.findViewById(R.id.list_surveys);
 		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-		mAdapter = new DistributionAdapter(getActivity(), mDataManager.getDistributions());
+		mAdapter = new DistributionAdapter(getActivity(), mSurvey.getDistributions());
 		listView.setOnItemClickListener(this);
 		listView.setAdapter(mAdapter);
 		return view;
@@ -94,7 +96,7 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 			break;
 		case R.id.action_add:
             Bundle b = new Bundle();
-            b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, mSurvey.getId());
+            b.putLong(EXTRA_SURVEY_ID, mSurvey.getId());
             startActivity(new Builder(getActivity(), SurveyDistributionCreateFragment.class)
                     .arguments(b).build());
 			break;
