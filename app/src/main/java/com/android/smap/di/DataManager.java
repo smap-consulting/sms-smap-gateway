@@ -17,4 +17,8 @@ public interface DataManager {
 
 	void removeContactFromDistribution(long contactId, long distributionId);
 
+	void deleteSurveys(List<Survey> surveys);
+
+	void deleteSurvey(Survey survey);
+
 }

@@ -33,6 +33,25 @@ public class SqliteDataManager implements DataManager {
 
 		return Survey.findById((long) id);
 	}
+	
+	@Override
+	public void deleteSurveys(List<Survey> surveys) {
+		
+		for (Survey survey : surveys) {
+			
+			if(survey != null) {
+				survey.delete();
+			}
+		}
+	}
+	
+	@Override
+	public void deleteSurvey(Survey survey) {
+		
+		if(survey != null) {
+			survey.delete();
+		}
+	}
 
 	@Override
 	public List<Contact> getContacts() {
