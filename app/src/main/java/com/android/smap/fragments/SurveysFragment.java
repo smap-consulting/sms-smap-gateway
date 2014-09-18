@@ -112,25 +112,24 @@ public class SurveysFragment extends BaseFragment {
 
 				Bundle b = new Bundle();
 				b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, survey.getId());
-				startActivity(new Builder(getActivity(), SurveyDetailFragment.class)
+				startActivity(new Builder(getActivity(), SurveyDistributionsFragment.class)
 						.arguments(b).build());
-		         
+
 		    }
 		});
-		
+
 		mSwipeListView.setAdapter(mAdapter);
 
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
 		mAdapter.setModel(mDataManager.getSurveys());
 	}
 
-	
-	private void removeSurveys() {
 
+	private void removeSurveys() {
 		List<Integer> selected = mSwipeListView.getPositionsSelected();
 		List<Survey> surveys = new ArrayList<Survey>();
 		for (Integer i : selected) {
