@@ -9,7 +9,7 @@ import com.activeandroid.query.Select;
 @Table(name = "surveys_contacts")
 public class SurveyContact extends Model {
 
-    @Column(name = "distribution_id")
+    @Column(name = "distribution_id", onDelete = ForeignKeyAction.CASCADE)
 	private Distribution distribution;
 	
 	@Column(name = "contact_id", onDelete = ForeignKeyAction.CASCADE)

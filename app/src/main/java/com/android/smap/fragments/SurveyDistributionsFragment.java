@@ -76,7 +76,7 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 		Distribution distribution = (Distribution) mAdapter.getItem(pos);
 		Bundle b = new Bundle();
 		b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, distribution.getId());
-		startActivity(new Builder(getActivity(), SurveyDistributionCreateFragment.class)
+		startActivity(new Builder(getActivity(), SurveyDetailFragment.class)
 				.arguments(b).build());
 	}
 
