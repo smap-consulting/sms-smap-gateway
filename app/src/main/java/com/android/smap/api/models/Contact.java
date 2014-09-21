@@ -15,7 +15,8 @@ public class Contact extends Model {
 
 	@Column
 	private String name;
-	
+
+
 	public Contact() {
 		
 	}

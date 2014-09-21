@@ -19,6 +19,14 @@ public class Survey extends Model {
 	 */
 	@Column
 	private String formContent;
+
+    /**
+     * Number of questions in the Survey
+     *
+     * Parsed from JavaRosa
+     */
+    @Column
+    private int numberOfQuestions;
 	
 	public Survey() {
 		
@@ -48,6 +56,14 @@ public class Survey extends Model {
 	public void setFormContent(String content) {
 		this.formContent = content;
 	}
+
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public void setNumberOfQuestions(int numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
+    }
 
 	public int getMembersCount() {
         // TODO delegate this to the distributions
@@ -96,4 +112,5 @@ public class Survey extends Model {
     public List<Distribution> getDistributions() {
         return getMany(Distribution.class, "survey_id");
     }
+
 }
