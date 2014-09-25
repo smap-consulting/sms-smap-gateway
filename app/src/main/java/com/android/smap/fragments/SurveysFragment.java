@@ -111,7 +111,7 @@ public class SurveysFragment extends BaseFragment {
 		 		Survey survey = (Survey) mAdapter.getItem(position);
 
 				Bundle b = new Bundle();
-				b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, survey.getId());
+				b.putLong(DistributionDetailFragment.EXTRA_DISTRIBUTION_ID, survey.getId());
 				startActivity(new Builder(getActivity(), SurveyDistributionsFragment.class)
 						.arguments(b).build());
 

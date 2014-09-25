@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.android.smap.GatewayApp;
 import com.android.smap.R;
-import com.android.smap.api.models.Distribution;
 import com.android.smap.api.models.Survey;
 import com.android.smap.ui.ViewQuery;
 import com.android.smap.utils.MWUiUtils;
@@ -18,7 +16,7 @@ import com.android.smap.utils.MWUiUtils;
 public class SurveyDistributionCreateFragment extends BaseFragment implements
 		OnClickListener {
 
-    public static final String		EXTRA_SURVEY_ID	= SurveyDetailFragment.class
+    public static final String		EXTRA_SURVEY_ID	= DistributionDetailFragment.class
             .getCanonicalName()
             + "id";
 
@@ -52,5 +50,13 @@ public class SurveyDistributionCreateFragment extends BaseFragment implements
 		MWUiUtils.hideKeyboard(getActivity());
 		MWUiUtils.showMessagePopup(getActivity(), "Distribution Created");
 	}
+    @Override
+    public boolean hasActionBarTitle() {
+        return true;
+    }
 
+    @Override
+    public String getActionBarTitle() {
+        return getResources().getString(R.string.ab_create_distribution);
+    }
 }

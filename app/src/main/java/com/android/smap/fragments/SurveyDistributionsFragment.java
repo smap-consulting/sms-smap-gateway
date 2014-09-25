@@ -1,7 +1,6 @@
 package com.android.smap.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,19 +17,15 @@ import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.activities.FragmentContainerActivity.Builder;
 import com.android.smap.adapters.DistributionAdapter;
-import com.android.smap.adapters.SurveyAdapter;
 import com.android.smap.api.models.Distribution;
 import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
-import com.android.smap.utils.MWUiUtils;
 import com.google.inject.Inject;
-
-import java.util.List;
 
 public class SurveyDistributionsFragment extends BaseFragment implements
 		OnItemClickListener {
 
-    public static final String		EXTRA_SURVEY_ID	= SurveyDetailFragment.class
+    public static final String		EXTRA_SURVEY_ID	= DistributionDetailFragment.class
             .getCanonicalName()
             + "id";
 
@@ -75,8 +70,8 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 	public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
 		Distribution distribution = (Distribution) mAdapter.getItem(pos);
 		Bundle b = new Bundle();
-		b.putLong(SurveyDetailFragment.EXTRA_SURVEY_ID, distribution.getId());
-		startActivity(new Builder(getActivity(), SurveyDetailFragment.class)
+		b.putLong(DistributionDetailFragment.EXTRA_DISTRIBUTION_ID, distribution.getId());
+		startActivity(new Builder(getActivity(), DistributionDetailFragment.class)
 				.arguments(b).build());
 	}
 
@@ -103,4 +98,14 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 		}
 		return handled;
 	}
+
+    @Override
+    public boolean hasActionBarTitle() {
+        return true;
+    }
+
+    @Override
+    public String getActionBarTitle() {
+        return getResources().getString(R.string.ab_distributions);
+    }
 }

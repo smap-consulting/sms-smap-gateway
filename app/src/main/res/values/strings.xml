@@ -9,7 +9,9 @@
     <string name="template_quotient">%1$d/%2$d</string>
 
     <!-- ActionBar titles -->
-    <string name="ab_survey_contacts">Survey Details</string>
+    <string name="ab_distribution_details">Distribution Details</string>
+    <string name="ab_distributions">Distributions</string>
+    <string name="ab_create_distribution">Create Distribution</string>
 
     <!-- Email -->
     <string name="contact_choose_email_client">Please choose your mail client</string>
