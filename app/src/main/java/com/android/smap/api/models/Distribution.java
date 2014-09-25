@@ -81,6 +81,26 @@ public class Distribution extends Model {
         }
     }
 
+    public int getMembersCount() {
+        // TODO delegate this to the distributions
+        return 0;
+    }
+
+    public int getCompletedCount() {
+        // TODO delegate this to the distributions
+        return 0;
+    }
+
+    public int getPartialCount() {
+        // TODO delegate this to the distributions
+        return 0;
+    }
+
+    public float getCompletionPercentage() {
+        // TODO delegate this to the distributions
+        return ((float) getPartialCount() / getCompletedCount()) * 100f;
+    }
+
     public static Distribution findById(Long id) {
         return Model.load(Distribution.class, id);
     }
