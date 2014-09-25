@@ -2,12 +2,14 @@ package com.android.smap.api.models;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
 import java.util.Date;
 
 /**
  * Audit table to hold a log of messages in a given survey dialogue
  */
+@Table(name = "log_messages")
 public class LogMessage extends Model {
 
     @Column(name = "dialogue_id", onDelete = Column.ForeignKeyAction.CASCADE)
