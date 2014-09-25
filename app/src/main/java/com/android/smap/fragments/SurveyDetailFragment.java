@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.telephony.SmsManager;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -208,10 +207,11 @@ public class SurveyDetailFragment extends BaseFragment implements
 
     @Override
     public void onClick(View arg0) {
-        //SmsManager smsManager = SmsManager.getDefault();
-        //smsManager.sendTextMessage("0451010604", null, "SMS text", null, null);
-        TextMessage text = new TextMessage("0451010604", "SMAP TEST SMS", 123);
-        mService.sendMessage(text);
+
+        //TextMessage text = new TextMessage("04xxxxxxx", "SMAP TEST SMS", 123);
+        //mService.sendMessage(text);
+        Toast.makeText(getActivity(), "Sent SMS", Toast.LENGTH_LONG)
+                .show();
     }
 
 
