@@ -1,6 +1,12 @@
 package com.android.smap.fragments;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.telephony.SmsManager;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -8,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -19,17 +26,24 @@ import com.android.smap.adapters.SurveyContactAdapter;
 import com.android.smap.api.models.Distribution;
 import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
+import com.android.smap.models.TextMessage;
+import com.android.smap.sms.GatewayService;
+import com.android.smap.sms.GatewayService.LocalBinder;
 import com.android.smap.ui.ViewQuery;
 import com.android.smap.utils.MWAnimUtil;
 import com.google.inject.Inject;
 import com.mjw.android.swipe.MultiChoiceSwipeListener;
 import com.mjw.android.swipe.SwipeListView;
 
-public class SurveyDetailFragment extends BaseFragment {
+public class SurveyDetailFragment extends BaseFragment implements
+        OnClickListener {
 
 	public static final String		EXTRA_SURVEY_ID	= SurveyDetailFragment.class
 															.getCanonicalName()
 															+ "id";
+    public GatewayService mService;
+    public boolean mBound = false;
+
 	@Inject
 	private DataManager				mDataManager;
 	private Survey					mModel;
@@ -71,12 +85,21 @@ public class SurveyDetailFragment extends BaseFragment {
 				R.string.template_quotient);
 		String completedProgress = String.format(template, completed, total);
 		query.find(R.id.txt_completed_progress).text(completedProgress);
-
+        query.find(R.id.btn_submit).onClick(this).get();
 		// grow the progress bar out
 		mProgressBar = query.find(R.id.view_progress).get();
 
 		return view;
 	}
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Bind to LocalService
+        Intent intent = new Intent(this.getActivity(), GatewayService.class);
+        this.getActivity().bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        //bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
 
 	@Override
 	public void onResume() {
@@ -183,7 +206,16 @@ public class SurveyDetailFragment extends BaseFragment {
 
 	}
 
-	@Override
+    @Override
+    public void onClick(View arg0) {
+        //SmsManager smsManager = SmsManager.getDefault();
+        //smsManager.sendTextMessage("0451010604", null, "SMS text", null, null);
+        TextMessage text = new TextMessage("0451010604", "SMAP TEST SMS", 123);
+        mService.sendMessage(text);
+    }
+
+
+    @Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt(EXTRA_SURVEY_ID, mSurveyId);
@@ -198,4 +230,22 @@ public class SurveyDetailFragment extends BaseFragment {
 	public String getActionBarTitle() {
 		return getResources().getString(R.string.ab_survey_contacts);
 	}
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to GatewayService, cast the IBinder and get LocalService instance
+            LocalBinder binder = (LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
 }
