@@ -19,6 +19,7 @@ import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.adapters.ContactSelectionAdapter;
 import com.android.smap.api.models.Contact;
+import com.android.smap.api.models.Distribution;
 import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.ViewQuery;
@@ -28,23 +29,23 @@ import com.mjw.android.swipe.SwipeListView;
 
 public class ContactSelectFragment extends BaseFragment {
 
-	public static final String		EXTRA_SURVEY_ID	= ContactSelectFragment.class
+	public static final String EXTRA_DISTRIBUTION_ID = ContactSelectFragment.class
 															.getCanonicalName()
 															+ "id";
 	@Inject
 	private DataManager				mDataManager;
 	private List<Contact>			mModel;
-	private Survey                  mSurvey;
+	private Distribution            mDistribution;
 	private ContactSelectionAdapter	mAdapter;
 	private SwipeListView			mSwipeListView;
-	private int						mSurveyId;
+	private int						mDistributionId;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle b = getArguments();
 		if (b != null) {
-			mSurveyId = b.getInt(EXTRA_SURVEY_ID);
+            mDistributionId = b.getInt(EXTRA_DISTRIBUTION_ID);
 		}
 
 	}
@@ -63,7 +64,7 @@ public class ContactSelectFragment extends BaseFragment {
 		// get all necessary local data
 		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
 		mModel = mDataManager.getContacts();
-		mSurvey = mDataManager.getSurvey(mSurveyId);
+		mDistribution = mDataManager.getDistribution(mDistributionId);
 		setupList();
 
 		// query.find(R.id.txt_completed_progress).text(completedProgress);
@@ -136,7 +137,7 @@ public class ContactSelectFragment extends BaseFragment {
 		for (Integer i : selected) {
 			contacts.add(mModel.get(i));
 		}
-		mDataManager.addContactsToSurvey(contacts, mSurvey);
+		mDataManager.addContactsToDistribution(contacts, mDistribution);
 
 	}
 
@@ -155,7 +156,7 @@ public class ContactSelectFragment extends BaseFragment {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		outState.putInt(EXTRA_SURVEY_ID, mSurveyId);
+		outState.putInt(EXTRA_DISTRIBUTION_ID, mDistributionId);
 	}
 
 	@Override

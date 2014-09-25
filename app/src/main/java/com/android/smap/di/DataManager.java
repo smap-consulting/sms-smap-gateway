@@ -16,7 +16,7 @@ public interface DataManager {
 
 	List<Contact> getContacts();
 
-	void addContactsToSurvey(List<Contact> contacts, Survey survey);
+	void addContactsToDistribution(List<Contact> contacts, Distribution distribution);
 
 	void removeContactFromDistribution(long contactId, long distributionId);
 

@@ -44,7 +44,7 @@ public class SqliteDataManager implements DataManager {
 
         return Distribution.findById((long) id);
     }
-	
+
 	@Override
 	public void deleteSurveys(List<Survey> surveys) {
 		
@@ -71,10 +71,8 @@ public class SqliteDataManager implements DataManager {
 	}
 
 	@Override
-	public void addContactsToSurvey(List<Contact> contacts, Survey survey) {
-        // TODO this needs to come from the distribution page
-        Distribution firstDist = survey.getDistributions().get(0);
-        firstDist.addContacts(contacts);
+	public void addContactsToDistribution(List<Contact> contacts, Distribution distribution) {
+        distribution.addContacts(contacts);
 	}
 
 	@Override

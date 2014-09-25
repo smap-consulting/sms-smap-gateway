@@ -174,7 +174,7 @@ public class DistributionDetailFragment extends BaseFragment {
 			break;
 		case R.id.action_add: // Actionbar home/up icon
 			Bundle b = new Bundle();
-			b.putInt(ContactSelectFragment.EXTRA_SURVEY_ID, mDistributionId);
+			b.putInt(ContactSelectFragment.EXTRA_DISTRIBUTION_ID, mDistributionId);
 			pushFragment(ContactSelectFragment.class, b);
 			Toast.makeText(getActivity(), "ADD CONTACT", Toast.LENGTH_LONG)
 					.show();
