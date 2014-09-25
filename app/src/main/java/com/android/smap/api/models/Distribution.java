@@ -6,6 +6,8 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Table(name = "distributions")
@@ -44,7 +46,14 @@ public class Distribution extends Model {
     }
 
     public List<SurveyContact> getSurveyContacts() {
-        return getMany(SurveyContact.class, "distribution_id");
+        List<SurveyContact> contacts = getMany(SurveyContact.class, "distribution_id");
+        Collections.sort(contacts,new Comparator<SurveyContact>() {
+            @Override
+            public int compare(SurveyContact surveyContact, SurveyContact surveyContact2) {
+                return surveyContact.contact.getName().compareTo(surveyContact2.contact.getName());
+            }
+        });
+        return contacts;
     }
 
     public void addContact(Contact contact) {
@@ -70,6 +79,26 @@ public class Distribution extends Model {
         } finally {
             ActiveAndroid.endTransaction();
         }
+    }
+
+    public int getMembersCount() {
+        // TODO delegate this to the distributions
+        return 0;
+    }
+
+    public int getCompletedCount() {
+        // TODO delegate this to the distributions
+        return 0;
+    }
+
+    public int getPartialCount() {
+        // TODO delegate this to the distributions
+        return 0;
+    }
+
+    public float getCompletionPercentage() {
+        // TODO delegate this to the distributions
+        return ((float) getPartialCount() / getCompletedCount()) * 100f;
     }
 
     public static Distribution findById(Long id) {

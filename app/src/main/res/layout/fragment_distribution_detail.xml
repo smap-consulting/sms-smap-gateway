@@ -6,7 +6,7 @@
     android:background="@color/smap_dark_grey"
     android:orientation="vertical" >
 
-    <include layout="@layout/layout_survey_detail_info" />
+    <include layout="@layout/layout_distribution_detail_info" />
 
     <com.mjw.android.swipe.SwipeListView
         xmlns:swipe="http://schemas.android.com/apk/res-auto"
