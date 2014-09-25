@@ -38,6 +38,12 @@ public class SqliteDataManager implements DataManager {
 
 		return Survey.findById((long) id);
 	}
+
+    @Override
+    public Distribution getDistribution(long id) {
+
+        return Distribution.findById((long) id);
+    }
 	
 	@Override
 	public void deleteSurveys(List<Survey> surveys) {
