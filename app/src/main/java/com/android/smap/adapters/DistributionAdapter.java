@@ -57,8 +57,12 @@ public class DistributionAdapter extends VelocAdapter {
 	}
 
 	@Override
-	public Object getItem(int position) {
-		return mModel.get(position);
+	public Distribution getItem(int position) {
+
+        if(mModel != null){
+            return mModel.get(position);
+        }
+        return null;
 	}
 
 	public void setModel(List<Distribution> model) {

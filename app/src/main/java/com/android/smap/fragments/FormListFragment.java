@@ -39,7 +39,7 @@ public class FormListFragment extends BaseFragment implements
 			Bundle savedInstanceState) {
 
 		LinearLayout view = (LinearLayout) inflater.inflate(
-				R.layout.fragment_surveys,
+				R.layout.fragment_form_list,
 				null);
 
 		ListView listView = (ListView) view.findViewById(R.id.list_surveys);
