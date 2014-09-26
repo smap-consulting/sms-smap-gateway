@@ -78,11 +78,11 @@ public class SqliteDataManager implements DataManager {
 	@Override
 	public void removeContactFromDistribution(long contactId, long distributionId) {
 
-		SurveyContact surveyContact = SurveyContact.findByDistributionAndContactIds(
+		Dialogue dialogue = Dialogue.findByDistributionAndContactIds(
                 distributionId, contactId);
 
-		if (surveyContact != null) {
-			surveyContact.delete();
+		if (dialogue != null) {
+			dialogue.delete();
 		}
 	}
 

@@ -10,8 +10,8 @@ import com.android.smap.models.TextMessage;
 
 import java.util.List;
 
-@Table(name = "surveys_contacts")
-public class SurveyContact extends Model {
+@Table(name = "dialogues")
+public class Dialogue extends Model {
 
     @Column(name = "distribution_id", onDelete = ForeignKeyAction.CASCADE)
 	private Distribution distribution;
@@ -30,11 +30,11 @@ public class SurveyContact extends Model {
 	public int		total;
 	public String	updatedAt;
 	
-	public SurveyContact() {
+	public Dialogue() {
 		
 	}
 
-    public SurveyContact(Distribution distribution, Contact contact) {
+    public Dialogue(Distribution distribution, Contact contact) {
         this.distribution = distribution;
         this.contact = contact;
     }
@@ -70,10 +70,10 @@ public class SurveyContact extends Model {
         }
     }
 
-	public static SurveyContact findByDistributionAndContactIds(long distributionId, long contactId) {
+	public static Dialogue findByDistributionAndContactIds(long distributionId, long contactId) {
 
 		return new Select()
-			.from(SurveyContact.class)
+			.from(Dialogue.class)
 			.where("distribution_id = ?", distributionId)
 			.where("contact_id = ?", contactId)
 			.executeSingle();
