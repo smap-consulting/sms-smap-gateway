@@ -112,7 +112,7 @@ public class DistributionDetailFragment extends BaseFragment implements
 
 		mModel = mDataManager.getDistribution(mDistributionId);
         // TODO get this from distribution
-		mAdapter.setModel(mModel.getSurveyContacts());
+		mAdapter.setModel(mModel.getDialogues());
 
 		if (mModel != null) {
 
@@ -123,7 +123,7 @@ public class DistributionDetailFragment extends BaseFragment implements
 	}
 
 	private void setupContactsList() {
-		mAdapter = new DialogueAdapter(getActivity(), mModel.getSurveyContacts(),
+		mAdapter = new DialogueAdapter(getActivity(), mModel.getDialogues(),
 				mSwipeListView);
 		mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
