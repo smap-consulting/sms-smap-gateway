@@ -13,7 +13,7 @@ import java.util.Date;
 public class LogMessage extends Model {
 
     @Column(name = "dialogue_id", onDelete = Column.ForeignKeyAction.CASCADE)
-    private SurveyContact dialogue;
+    private Dialogue dialogue;
 
     @Column
     private String body;
@@ -31,7 +31,7 @@ public class LogMessage extends Model {
 
     }
 
-    public LogMessage(SurveyContact dialogue, String body, String phoneNumber) {
+    public LogMessage(Dialogue dialogue, String body, String phoneNumber) {
         this.dialogue = dialogue;
         this.body = body;
         this.phoneNumber = phoneNumber;
@@ -62,11 +62,11 @@ public class LogMessage extends Model {
         this.time = time;
     }
 
-    public SurveyContact getDialogue() {
+    public Dialogue getDialogue() {
         return dialogue;
     }
 
-    public void setDialogue(SurveyContact dialogue) {
+    public void setDialogue(Dialogue dialogue) {
         this.dialogue = dialogue;
     }
 }
