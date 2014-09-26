@@ -10,7 +10,7 @@ import com.android.smap.models.TextMessage;
 
 import java.util.List;
 
-@Table(name = "surveys_contacts")
+@Table(name = "dialogues")
 public class Dialogue extends Model {
 
     @Column(name = "distribution_id", onDelete = ForeignKeyAction.CASCADE)
