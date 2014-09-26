@@ -56,7 +56,7 @@ public class Distribution extends Model {
         return dialogues;
     }
 
-    public void addContact(Contact contact) {
+    public void addDialogue(Contact contact) {
         ActiveAndroid.beginTransaction();
         try {
             new Dialogue(this, contact).save();
@@ -67,7 +67,7 @@ public class Distribution extends Model {
         }
     }
 
-    public void addContacts(List<Contact> contacts) {
+    public void addDialogues(List<Contact> contacts) {
         ActiveAndroid.beginTransaction();
         try {
 

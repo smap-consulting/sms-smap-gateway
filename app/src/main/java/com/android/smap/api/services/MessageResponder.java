@@ -68,7 +68,7 @@ public class MessageResponder {
         dialogue.logReceivedMessage(answer);
 
         //Inflate JR
-        String savedSurveyData = dialogue.getSurveyData();
+        String savedSurveyData = dialogue.getSavedSurveyData();
         SurveyConverser converser = SurveyConverser.resume(savedSurveyData);
 
         //Answer question
@@ -99,7 +99,6 @@ public class MessageResponder {
            sender.sendMessage(reply);
         }
         else{
-
            GatewayApp.getAppConfig().incrementCounter();
            contact.setActive(false);
            notifySenderNotActive(sender, message);
