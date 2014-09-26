@@ -7,7 +7,7 @@ import android.util.Log;
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.api.models.Contact;
-import com.android.smap.api.models.SurveyContact;
+import com.android.smap.api.models.Dialogue;
 import com.android.smap.di.DataManager;
 import com.android.smap.models.SmapTextMessage;
 import com.android.smap.samuel.Samuel;
