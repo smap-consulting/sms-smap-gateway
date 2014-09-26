@@ -26,4 +26,5 @@ public interface DataManager {
 
 	void deleteSurvey(Survey survey);
 
+    Contact findContactByPhoneNumber(String phoneNumber);
 }

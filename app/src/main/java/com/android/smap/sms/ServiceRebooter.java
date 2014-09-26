@@ -49,10 +49,11 @@ public class ServiceRebooter extends BroadcastReceiver {
 
 		for (RunningServiceInfo service : manager
 				.getRunningServices(Integer.MAX_VALUE)) {
-			if ("com.android.smap.services.RelayService"
+			if ("com.android.smap.sms.GatewayService"
 					.equals(service.service.getClassName())) {
 				return true;
 			}
+
 		}
 		return false;
 	}

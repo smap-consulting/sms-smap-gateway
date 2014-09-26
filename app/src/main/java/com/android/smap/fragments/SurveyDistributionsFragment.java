@@ -53,7 +53,7 @@ public class SurveyDistributionsFragment extends BaseFragment implements
         TextView textView = (TextView) view.findViewById(R.id.txt_survey_name);
         textView.setText(mSurvey.getName());
 		ListView listView = (ListView) view.findViewById(R.id.list_distributions);
-		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
+		//mDataManager = GatewayApp.getDependencyContainer().getDataManager();
         mAdapter = new DistributionAdapter(getActivity(), mSurvey.getDistributions());
 		listView.setOnItemClickListener(this);
 		listView.setAdapter(mAdapter);
