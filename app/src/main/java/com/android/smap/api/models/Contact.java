@@ -18,7 +18,7 @@ public class Contact extends Model {
 
     @Column
     private boolean isActive;
-	
+
 	public Contact() {
 		
 	}

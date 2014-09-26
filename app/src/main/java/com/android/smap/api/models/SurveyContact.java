@@ -8,9 +8,9 @@ import com.activeandroid.query.Select;
 
 @Table(name = "surveys_contacts")
 public class SurveyContact extends Model {
-	
-	@Column(name = "survey_id", onDelete = ForeignKeyAction.CASCADE)
-	public Survey survey;
+
+    @Column(name = "distribution_id", onDelete = ForeignKeyAction.CASCADE)
+	private Distribution distribution;
 	
 	@Column(name = "contact_id", onDelete = ForeignKeyAction.CASCADE)
 	public Contact contact;
@@ -29,12 +29,12 @@ public class SurveyContact extends Model {
 	public SurveyContact() {
 		
 	}
-	
-	public SurveyContact(Survey survey, Contact contact) {
-		this.survey = survey;
-		this.contact = contact;
-	}
-	
+
+    public SurveyContact(Distribution distribution, Contact contact) {
+        this.distribution = distribution;
+        this.contact = contact;
+    }
+
 	public String getRawInstance() {
 		return rawInstance;
 	}
@@ -43,12 +43,21 @@ public class SurveyContact extends Model {
 		this.rawInstance = rawInstance;
 	}
 
-	public static SurveyContact findBySurveyAndContactIds(long surveyId, long contactId) {
+    public Distribution getDistribution() {
+        return distribution;
+    }
+
+    public void setDistribution(Distribution distribution) {
+        this.distribution = distribution;
+    }
+
+	public static SurveyContact findByDistributionAndContactIds(long distributionId, long contactId) {
 
 		return new Select()
 			.from(SurveyContact.class)
-			.where("survey_id = ?", surveyId)
+			.where("distribution_id = ?", distributionId)
 			.where("contact_id = ?", contactId)
 			.executeSingle();
 	}
+
 }

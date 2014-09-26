@@ -3,6 +3,7 @@ package com.android.smap.di;
 import java.util.List;
 
 import com.android.smap.api.models.Contact;
+import com.android.smap.api.models.Distribution;
 import com.android.smap.api.models.Survey;
 
 public interface DataManager {
@@ -11,11 +12,19 @@ public interface DataManager {
 
 	Survey getSurvey(long id);
 
+    Distribution getDistribution(long id);
+
 	List<Contact> getContacts();
 
-	void addContactsToSurvey(List<Contact> contacts, Survey survey);
+	void addContactsToDistribution(List<Contact> contacts, Distribution distribution);
 
-	void removeContactFromSurvey(long contact, long survey);
+	void removeContactFromDistribution(long contactId, long distributionId);
+
+    List<Distribution> getDistributions();
+
+	void deleteSurveys(List<Survey> surveys);
+
+	void deleteSurvey(Survey survey);
 
     Contact findContactByPhoneNumber(String phoneNumber);
 }
