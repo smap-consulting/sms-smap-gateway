@@ -7,10 +7,13 @@ import android.util.Log;
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.api.models.Contact;
+import com.android.smap.api.models.SurveyContact;
 import com.android.smap.di.DataManager;
 import com.android.smap.models.SmapTextMessage;
 import com.android.smap.samuel.Samuel;
 import com.google.inject.Inject;
+
+import org.smap.surveyConverser.SurveyConverser;
 
 public class MessageResponder {
 
@@ -54,33 +57,53 @@ public class MessageResponder {
             return;
         }
 
-        //get survey contact is actually active for
-
-        //get 'dialog' from survey + contact?
+        /*
+        //get Dialogue is actually active for
+        Dialogue dialogue = contact.getActiveDialogue();
 
         //parse answer
+        String answer = message.getMessageBody();
 
+        //Log answer
+        dialogue.logReceivedMessage(answer);
 
-        //add answer to blob w/ rosa ?
+        //Inflate JR
+        String savedSurveyData = dialogue.getSurveyData();
+        SurveyConverser converser = SurveyConverser.resume(savedSurveyData);
 
-        //
-       int index = GatewayApp.getAppConfig().getCount();
-       if(index < 3){
+        //Answer question
+        converser.answerCurrentQuestion(answer);
+
+        if(converser.isComplete()) {
+            //Contact has completed survey
+            contact.setActive(false);
+            return;
+        }
+
+        //Get question to send back
+        String nextQuestionText = converser.getCurrentQuestion();
+
+        //Send next message
+        SmapTextMessage reply = new SmapTextMessage(message.getPhoneNumber(), nextQuestionText);
+        sender.sendMessage(reply);
+
+        //Log response
+        dialogue.logSentMessage(nextQuestionText);
+        */
+
+        int index = GatewayApp.getAppConfig().getCount();
+        if(index < 3){
            String replyMessage =  testConversation[index];
            GatewayApp.getAppConfig().incrementCounter();
            SmapTextMessage reply = new SmapTextMessage(message.getPhoneNumber(), replyMessage);
            sender.sendMessage(reply);
-       }
+        }
         else{
 
            GatewayApp.getAppConfig().incrementCounter();
            contact.setActive(false);
            notifySenderNotActive(sender, message);
        }
-
-
-
-
     }
 
     public void notifySenderNotActive(IMessageSender sender, SmapTextMessage message){

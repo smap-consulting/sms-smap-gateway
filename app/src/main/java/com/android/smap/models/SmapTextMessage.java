@@ -7,6 +7,7 @@ public class SmapTextMessage extends TextMessage{
 
     private boolean isValid;
     private boolean isCommand;
+    public static String messageBodyRegex="^#!{1,2}";
 
     public SmapTextMessage(String number, String message){
         super(number, message);
@@ -22,5 +23,9 @@ public class SmapTextMessage extends TextMessage{
 
     public void setCommand(boolean command) {
         this.isCommand = command;
+    }
+
+    public String getMessageBody(){
+        return this.text.replaceFirst(messageBodyRegex,"");
     }
 }
