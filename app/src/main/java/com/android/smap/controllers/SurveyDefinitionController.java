@@ -37,7 +37,7 @@ public class SurveyDefinitionController extends
 
 	
 		Survey survey = new Survey();
-		SurveyModel SurveyManager = new SurveyModel(rawXML);
+		SurveyModel SurveyManager = SurveyModel.createSurveyModelFromXform(rawXML);
 		survey.setName(SurveyManager.getSurveyName());
 		survey.setFormContent(rawXML);
 		survey.save();
