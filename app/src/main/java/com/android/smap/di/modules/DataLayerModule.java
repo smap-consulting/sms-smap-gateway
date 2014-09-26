@@ -21,12 +21,6 @@ public class DataLayerModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(DataManager.class).to(SqliteDataManager.class);
-<<<<<<< Updated upstream
-
-||||||| merged common ancestors
-      // bind(MessageResponder.class).to(MessageResponder.class);
-=======
->>>>>>> Stashed changes
 	}
 
 }
