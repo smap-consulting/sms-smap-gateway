@@ -19,6 +19,14 @@ public class Survey extends Model {
 	 */
 	@Column
 	private String formContent;
+
+    /**
+     * Number of questions in the Survey
+     *
+     * Parsed from JavaRosa
+     */
+    @Column
+    private int numberOfQuestions;
 	
 	public Survey() {
 		
@@ -49,21 +57,31 @@ public class Survey extends Model {
 		this.formContent = content;
 	}
 
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public void setNumberOfQuestions(int numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
+    }
+
 	public int getMembersCount() {
-		return getSurveyContacts().size();
+        // TODO delegate this to the distributions
+		return 0;
 	}
 	
 	public int getCompletedCount() {
-		// need to filter by completed
-		return getSurveyContacts().size();
+        // TODO delegate this to the distributions
+		return 0;
 	}
 	
 	public int getPartialCount() {
-		// need to filter by partially completed
-		return getSurveyContacts().size();
+        // TODO delegate this to the distributions
+		return 0;
 	}
 	
 	public float getCompletionPercentage() {
+        // TODO delegate this to the distributions
 		return ((float) getPartialCount() / getCompletedCount()) * 100f;
 	}
 	
@@ -74,34 +92,25 @@ public class Survey extends Model {
 	public static List<Survey> findAll() {
 		return new Select().from(Survey.class).execute();
 	}
-	
-	public List<SurveyContact> getSurveyContacts() {
-		return getMany(SurveyContact.class, "survey_id");
-	}
-	
-	public void addContact(Contact contact) {
-		ActiveAndroid.beginTransaction();
-		try {
-			new SurveyContact(this, contact).save();
-			
-			ActiveAndroid.setTransactionSuccessful();
-		} finally {
-			ActiveAndroid.endTransaction();
-		}
-	}
-	
 
-	public void addContacts(List<Contact> contacts) {
-		ActiveAndroid.beginTransaction();
-		try {
-			
-			for (Contact contact : contacts) {
-				new SurveyContact(this, contact).save();
-			}
-			
-			ActiveAndroid.setTransactionSuccessful();
-		} finally {
-			ActiveAndroid.endTransaction();
-		}		
-	}
+    // relations
+    public Distribution createDistribution(String name) {
+        ActiveAndroid.beginTransaction();
+        Distribution distribution = null;
+        try {
+            distribution = new Distribution(this, name);
+            distribution.save();
+
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+
+        return distribution;
+    }
+
+    public List<Distribution> getDistributions() {
+        return getMany(Distribution.class, "survey_id");
+    }
+
 }

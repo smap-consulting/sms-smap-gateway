@@ -1,16 +1,20 @@
 package com.android.smap.api.models;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Column.ForeignKeyAction;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.android.smap.models.TextMessage;
+
+import java.util.List;
 
 @Table(name = "surveys_contacts")
 public class SurveyContact extends Model {
-	
-	@Column(name = "survey_id", onDelete = ForeignKeyAction.CASCADE)
-	public Survey survey;
+
+    @Column(name = "distribution_id", onDelete = ForeignKeyAction.CASCADE)
+	private Distribution distribution;
 	
 	@Column(name = "contact_id", onDelete = ForeignKeyAction.CASCADE)
 	public Contact contact;
@@ -29,12 +33,12 @@ public class SurveyContact extends Model {
 	public SurveyContact() {
 		
 	}
-	
-	public SurveyContact(Survey survey, Contact contact) {
-		this.survey = survey;
-		this.contact = contact;
-	}
-	
+
+    public SurveyContact(Distribution distribution, Contact contact) {
+        this.distribution = distribution;
+        this.contact = contact;
+    }
+
 	public String getRawInstance() {
 		return rawInstance;
 	}
@@ -43,12 +47,36 @@ public class SurveyContact extends Model {
 		this.rawInstance = rawInstance;
 	}
 
-	public static SurveyContact findBySurveyAndContactIds(long surveyId, long contactId) {
+    public Distribution getDistribution() {
+        return distribution;
+    }
+
+    public void setDistribution(Distribution distribution) {
+        this.distribution = distribution;
+    }
+
+    public List<LogMessage> getMessages() {
+        return getMany(LogMessage.class, "dialogue_id");
+    }
+
+    public void logMessage(TextMessage message) {
+        ActiveAndroid.beginTransaction();
+        try {
+            LogMessage newMessage = new LogMessage(this, message.text, message.number);
+            newMessage.save();
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+    }
+
+	public static SurveyContact findByDistributionAndContactIds(long distributionId, long contactId) {
 
 		return new Select()
 			.from(SurveyContact.class)
-			.where("survey_id = ?", surveyId)
+			.where("distribution_id = ?", distributionId)
 			.where("contact_id = ?", contactId)
 			.executeSingle();
 	}
+
 }

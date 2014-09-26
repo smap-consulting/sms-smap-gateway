@@ -6,8 +6,10 @@ import java.util.List;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Binder;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.telephony.SmsManager;
 import android.util.Log;
 
 import com.android.smap.commonsware.wakefull.WakefulIntentService;
@@ -35,10 +37,7 @@ public class GatewayService extends Service implements
 
 	public static boolean	doReset	= false;
 
-	@Override
-	public IBinder onBind(Intent intent) {
-		return null;
-	}
+    private final IBinder mBinder = new LocalBinder();
 
 	@Override
 	public void onCreate() {
@@ -48,6 +47,20 @@ public class GatewayService extends Service implements
 		promoteErroredMessages();
 		kickService();
 	}
+
+    public class LocalBinder extends Binder {
+        public GatewayService getService() {
+            // Return this instance of LocalService so clients can call public methods
+            return GatewayService.this;
+        }
+    }
+
+
+    @Override
+    public IBinder onBind(Intent intent) {
+
+        return mBinder;
+    }
 
 	/***
 	 * This should be run only when our service starts, and takes care of
@@ -147,7 +160,8 @@ public class GatewayService extends Service implements
 
 		// sendSMS or KickService basically...
 
-		// TODO: MW 
+
+		// TODO: MW
 		if (Samuel.isSmapRelatedSMS(message)) {
 			//?? = Samuel.parse(message);
 			
