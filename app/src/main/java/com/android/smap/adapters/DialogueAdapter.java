@@ -18,7 +18,7 @@ import com.google.inject.Inject;
 import com.mjw.android.swipe.MultiChoiceSwipeListener.MultiSelectActionAdapter;
 import com.mjw.android.swipe.SwipeListView;
 
-public class SurveyContactAdapter extends VelocAdapter implements
+public class DialogueAdapter extends VelocAdapter implements
 		MultiSelectActionAdapter {
 
 	private List<Dialogue> mModel;
@@ -26,8 +26,8 @@ public class SurveyContactAdapter extends VelocAdapter implements
 	private DataManager mDataManager;
 
 	@Inject
-	public SurveyContactAdapter(Context context, List<Dialogue> model,
-			SwipeListView ref) {
+	public DialogueAdapter(Context context, List<Dialogue> model,
+                           SwipeListView ref) {
 		super(context);
 		this.mModel = model;
 		this.mListViewRef = ref;

@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
-import com.android.smap.adapters.SurveyContactAdapter;
+import com.android.smap.adapters.DialogueAdapter;
 import com.android.smap.api.models.Distribution;
 import com.android.smap.di.DataManager;
 import com.android.smap.sms.GatewayService;
@@ -46,7 +46,7 @@ public class DistributionDetailFragment extends BaseFragment implements
 	@Inject
 	private DataManager				mDataManager;
 	private Distribution			mModel;
-	private SurveyContactAdapter	mAdapter;
+	private DialogueAdapter mAdapter;
 	private int						mDistributionId;
 	private SwipeListView			mSwipeListView;
 	private View					mProgressBar;
@@ -123,7 +123,7 @@ public class DistributionDetailFragment extends BaseFragment implements
 	}
 
 	private void setupContactsList() {
-		mAdapter = new SurveyContactAdapter(getActivity(), mModel.getSurveyContacts(),
+		mAdapter = new DialogueAdapter(getActivity(), mModel.getSurveyContacts(),
 				mSwipeListView);
 		mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
