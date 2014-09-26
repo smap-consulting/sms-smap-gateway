@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
@@ -44,7 +43,6 @@ public class SurveysFragment extends BaseFragment {
 		
 		ViewQuery query = new ViewQuery(view);
 		mSwipeListView = (SwipeListView) query.find(R.id.list_surveys).get();
-		
 		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
 		mModel = mDataManager.getSurveys();
 		setupSurveysList();
@@ -56,7 +54,9 @@ public class SurveysFragment extends BaseFragment {
 
 		mAdapter = new SurveyAdapter(getActivity(), mModel,
 				mSwipeListView);
-		mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        mSwipeListView.setAdapter(mAdapter);
+
+		mSwipeListView.setChoiceMode(SwipeListView.CHOICE_MODE_MULTIPLE);
 
 		mSwipeListView
 				.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -118,7 +118,7 @@ public class SurveysFragment extends BaseFragment {
 		    }
 		});
 
-		mSwipeListView.setAdapter(mAdapter);
+
 
 	}
 
