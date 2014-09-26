@@ -150,12 +150,9 @@ public class GatewayService extends Service implements
 		// modem.sendSMS(num, "resetting");
 		// kickService(reset);
 
-
-
-//		// TODO: MW
-
-            MessageResponder responder = getResponder();
-		    responder.handleMessage(this, Samuel.parse(number, message));
+        MessageResponder responder = getResponder();
+        responder.setResource(this.getApplicationContext().getResources());
+		responder.handleMessage(this, Samuel.parse(number, message));
 
 
 		// kickService();

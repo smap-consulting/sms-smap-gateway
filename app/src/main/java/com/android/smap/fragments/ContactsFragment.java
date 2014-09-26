@@ -109,6 +109,7 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
                     number = contactsManager.getContactPhone();
 
                     Contact contact = new Contact(name, number);
+                    contact.setActive(true);
                     contact.save();
                 } catch (Exception e) {
                     Log.e("CONTACTS", e.getMessage());

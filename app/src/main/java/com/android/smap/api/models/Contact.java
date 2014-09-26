@@ -15,14 +15,18 @@ public class Contact extends Model {
 
 	@Column
 	private String name;
+
+    @Column
+    private boolean isActive;
 	
 	public Contact() {
 		
 	}
 	
 	public Contact(String name, String number) {
-		this.name = name;;
+		this.name = name;
 		this.number = number;
+        this.isActive = false;
 	}
 	
 	public String getNumber() {
@@ -40,6 +44,10 @@ public class Contact extends Model {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+    public boolean isActive() {return isActive;}
+
+    public void setActive(boolean isActive) {this.isActive = isActive;}
 
 	public static Contact findById(Long id) {
 		return Model.load(Contact.class, id);

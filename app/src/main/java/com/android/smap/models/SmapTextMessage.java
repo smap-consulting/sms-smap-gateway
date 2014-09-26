@@ -6,6 +6,7 @@ package com.android.smap.models;
 public class SmapTextMessage extends TextMessage{
 
     private boolean isValid;
+    private boolean isCommand;
 
     public SmapTextMessage(String number, String message){
         super(number, message);
@@ -13,9 +14,13 @@ public class SmapTextMessage extends TextMessage{
     public boolean isValid() {
         return isValid;
     }
+    public boolean isCommandSMS() {return isCommand;}
 
     public void setValid(boolean isValid) {
         this.isValid = isValid;
     }
 
+    public void setCommand(boolean command) {
+        this.isCommand = command;
+    }
 }
