@@ -57,7 +57,12 @@ public class SqliteDataManager implements DataManager {
 		}
 	}
 
-	private void seedDevData() {
+    @Override
+    public Contact findContactByPhoneNumber(String phoneNumber) {
+        return Contact.findByPhoneNumber(phoneNumber);
+    }
+
+    private void seedDevData() {
 
 		ActiveAndroid.beginTransaction();
 

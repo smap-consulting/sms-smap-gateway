@@ -71,7 +71,7 @@ public class SurveysFragment extends BaseFragment implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		boolean handled = false;
+
 		switch (item.getItemId()) {
 		case android.R.id.home: // Actionbar home/up icon
 			getActivity().onBackPressed();
@@ -80,7 +80,7 @@ public class SurveysFragment extends BaseFragment implements
 			pushFragment(FormListFragment.class);
 			break;
 		}
-		return handled;
+		return super.onOptionsItemSelected(item);
 	}
 
 }

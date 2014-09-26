@@ -52,5 +52,11 @@ public class Contact extends Model {
 	public List<SurveyContact> getSurveyContacts() {
 		return getMany(SurveyContact.class, "contact_id");
 	}
-	
+
+    public static Contact findByPhoneNumber(String phoneNumber) {
+        return new Select()
+                .from(Contact.class)
+                .where("number = ?", phoneNumber)
+                .executeSingle();
+    }
 }

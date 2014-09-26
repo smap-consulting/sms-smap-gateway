@@ -17,4 +17,5 @@ public interface DataManager {
 
 	void removeContactFromSurvey(long contact, long survey);
 
+    Contact findContactByPhoneNumber(String phoneNumber);
 }

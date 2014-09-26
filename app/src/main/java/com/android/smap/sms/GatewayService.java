@@ -10,17 +10,22 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.android.smap.GatewayApp;
+import com.android.smap.api.services.IMessageSender;
+import com.android.smap.api.services.MessageResponder;
 import com.android.smap.commonsware.wakefull.WakefulIntentService;
 import com.android.smap.controllers.ControllerError;
 import com.android.smap.controllers.ControllerErrorListener;
 import com.android.smap.controllers.ControllerListener;
+import com.android.smap.models.SmapTextMessage;
 import com.android.smap.models.TextMessage;
 import com.android.smap.samuel.Samuel;
 
 public class GatewayService extends Service implements
 		CellularModem.SmsModemListener,
 		ControllerListener,
-		ControllerErrorListener {
+		ControllerErrorListener,
+        IMessageSender {
 
 	public static final String		TAG		= GatewayService.class
 													.getCanonicalName();
@@ -137,7 +142,7 @@ public class GatewayService extends Service implements
 
 	}
 
-	// SMS recieved by gateway
+	// SMS received by gateway
 	public void onNewSMS(String number, String message) {
 
 		// commands could be called, return feedback straight away
@@ -145,18 +150,22 @@ public class GatewayService extends Service implements
 		// modem.sendSMS(num, "resetting");
 		// kickService(reset);
 
-		// sendSMS or KickService basically...
 
-		// TODO: MW 
-		if (Samuel.isSmapRelatedSMS(message)) {
-			//?? = Samuel.parse(message);
-			
-		}
+
+//		// TODO: MW
+
+            MessageResponder responder = getResponder();
+		    responder.handleMessage(this, Samuel.parse(number, message));
+
 
 		// kickService();
 	}
 
-	public void onSMSSendError(String token, String errorDetails) {
+    private MessageResponder getResponder() {
+        return GatewayApp.getDependencyContainer().getInjector().getInstance(MessageResponder.class);
+    }
+
+    public void onSMSSendError(String token, String errorDetails) {
 		TextMessage msg = null;
 
 		// change status, add to backlog

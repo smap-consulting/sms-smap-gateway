@@ -47,13 +47,12 @@ public class TextMessage {
 
 	public TextMessage() {}
 
-	public TextMessage(String number, String text, long serverId) {
+	public TextMessage(String number, String text) {
 		this.number = number;
 		this.text = text;
 		this.created = new Date();
 		this.direction = OUTGOING;
 		this.status = QUEUED;
-		this.serverId = serverId;
 	}
 
 	public TextMessage respond(String number, String text) {
@@ -106,5 +105,8 @@ public class TextMessage {
 	public Date		created;
 	public char		direction;
 	public char		status;
-	public long		serverId;
+
+    public String getPhoneNumber() {
+        return number;
+    }
 }

@@ -1,6 +1,7 @@
 package com.android.smap.di.modules;
 
 import com.android.smap.api.models.SqliteDataManager;
+import com.android.smap.api.services.MessageResponder;
 import com.android.smap.di.DataManager;
 import com.google.inject.AbstractModule;
 
@@ -21,7 +22,7 @@ public class DataLayerModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(DataManager.class).to(SqliteDataManager.class);
-
+      // bind(MessageResponder.class).to(MessageResponder.class);
 	}
 
 }
