@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.api.models.Contact;
-import com.android.smap.api.models.SurveyContact;
+import com.android.smap.api.models.Dialogue;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.VelocAdapter;
 import com.android.smap.ui.ViewQuery;
@@ -21,12 +21,12 @@ import com.mjw.android.swipe.SwipeListView;
 public class SurveyContactAdapter extends VelocAdapter implements
 		MultiSelectActionAdapter {
 
-	private List<SurveyContact> mModel;
+	private List<Dialogue> mModel;
 	private SwipeListView mListViewRef;
 	private DataManager mDataManager;
 
 	@Inject
-	public SurveyContactAdapter(Context context, List<SurveyContact> model,
+	public SurveyContactAdapter(Context context, List<Dialogue> model,
 			SwipeListView ref) {
 		super(context);
 		this.mModel = model;
@@ -47,11 +47,11 @@ public class SurveyContactAdapter extends VelocAdapter implements
 		// clean up choice selections when scrolling
 		mListViewRef.recycle(view, position);
 
-		SurveyContact surveyContact = getItem(position);
+		Dialogue dialogue = getItem(position);
 
 		Contact contact;
 		String contactName, phoneNumber;
-		if ((contact = surveyContact.contact) != null) {
+		if ((contact = dialogue.contact) != null) {
 			contactName = contact.getName();
 			phoneNumber = contact.getNumber();
 		} else {
@@ -59,9 +59,9 @@ public class SurveyContactAdapter extends VelocAdapter implements
 			phoneNumber = "";
 		}
 
-		String updatedAt = surveyContact.updatedAt;
-		int completed = surveyContact.answers;
-		int total = surveyContact.total;
+		String updatedAt = dialogue.updatedAt;
+		int completed = dialogue.answers;
+		int total = dialogue.total;
 
 		String template = getContext().getResources().getString(
 				R.string.surveys_of_total);
@@ -81,11 +81,11 @@ public class SurveyContactAdapter extends VelocAdapter implements
 	}
 
 	@Override
-	public SurveyContact getItem(int position) {
+	public Dialogue getItem(int position) {
 		return mModel.get(position);
 	}
 
-	public void setModel(List<SurveyContact> model) {
+	public void setModel(List<Dialogue> model) {
 		this.mModel = model;
 		notifyDataSetChanged();
 	}
@@ -100,10 +100,10 @@ public class SurveyContactAdapter extends VelocAdapter implements
 
 	@Override
 	public void action(int pos) {
-		SurveyContact surveyContact = getItem(pos);
+		Dialogue dialogue = getItem(pos);
 		mDataManager.removeContactFromDistribution(
-                surveyContact.contact.getId(),
-                surveyContact.getDistribution().getId());
+                dialogue.contact.getId(),
+                dialogue.getDistribution().getId());
         mModel.remove(pos);
 		notifyDataSetChanged();
 

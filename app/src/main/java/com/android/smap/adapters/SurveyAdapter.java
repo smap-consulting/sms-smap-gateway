@@ -11,7 +11,6 @@ import android.view.ViewGroup.LayoutParams;
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.api.models.Survey;
-import com.android.smap.api.models.SurveyContact;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.VelocAdapter;
 import com.android.smap.ui.ViewQuery;

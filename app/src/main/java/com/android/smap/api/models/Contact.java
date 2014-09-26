@@ -50,8 +50,8 @@ public class Contact extends Model {
 		return new Select().from(Contact.class).execute(); 
 	}
 	
-	public List<SurveyContact> getSurveyContacts() {
-		return getMany(SurveyContact.class, "contact_id");
+	public List<Dialogue> getSurveyContacts() {
+		return getMany(Dialogue.class, "contact_id");
 	}
 	
 }

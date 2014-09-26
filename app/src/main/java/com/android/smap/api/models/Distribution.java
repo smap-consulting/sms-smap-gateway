@@ -45,12 +45,12 @@ public class Distribution extends Model {
         this.survey = survey;
     }
 
-    public List<SurveyContact> getSurveyContacts() {
-        List<SurveyContact> contacts = getMany(SurveyContact.class, "distribution_id");
-        Collections.sort(contacts,new Comparator<SurveyContact>() {
+    public List<Dialogue> getSurveyContacts() {
+        List<Dialogue> contacts = getMany(Dialogue.class, "distribution_id");
+        Collections.sort(contacts,new Comparator<Dialogue>() {
             @Override
-            public int compare(SurveyContact surveyContact, SurveyContact surveyContact2) {
-                return surveyContact.contact.getName().compareTo(surveyContact2.contact.getName());
+            public int compare(Dialogue dialogue, Dialogue dialogue2) {
+                return dialogue.contact.getName().compareTo(dialogue2.contact.getName());
             }
         });
         return contacts;
@@ -59,7 +59,7 @@ public class Distribution extends Model {
     public void addContact(Contact contact) {
         ActiveAndroid.beginTransaction();
         try {
-            new SurveyContact(this, contact).save();
+            new Dialogue(this, contact).save();
 
             ActiveAndroid.setTransactionSuccessful();
         } finally {
@@ -72,7 +72,7 @@ public class Distribution extends Model {
         try {
 
             for (Contact contact : contacts) {
-                new SurveyContact(this, contact).save();
+                new Dialogue(this, contact).save();
             }
 
             ActiveAndroid.setTransactionSuccessful();
