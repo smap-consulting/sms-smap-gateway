@@ -19,6 +19,9 @@ public class Contact extends Model {
     @Column
     private boolean isActive;
 
+    @Column(name = "active_dialogue_id")
+    private Dialogue activeDialogue;
+
 	public Contact() {
 		
 	}
