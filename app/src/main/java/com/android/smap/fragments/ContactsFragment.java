@@ -51,7 +51,7 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
 //		Cursor phones = getActivity().getContentResolver().query(
 //				ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null,
 //				null, null);
-//		
+//
 //		while (phones.moveToNext()) {
 //			String name = phones
 //					.getString(phones
@@ -59,13 +59,13 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
 //
 //			String phoneNumber = phones
 //					.getString(phones
-//							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));	
-//			
+//							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+//
 //			Contact contacts = new Contact();
 //			contacts.setName(name);
 //			contacts.setNumber(phoneNumber);
 //			list.add(contacts);
-//		}		
+//		}
 //		phones.close();
 
         ContactAdapter objAdapter = new ContactAdapter(getActivity(), R.layout.contact_allusers_rows, list);
@@ -109,7 +109,6 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
                     number = contactsManager.getContactPhone();
 
                     Contact contact = new Contact(name, number);
-                    contact.setActive(true);
                     contact.save();
                 } catch (Exception e) {
                     Log.e("CONTACTS", e.getMessage());
