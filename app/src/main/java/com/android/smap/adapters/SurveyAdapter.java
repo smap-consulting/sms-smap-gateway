@@ -51,24 +51,12 @@ public class SurveyAdapter extends VelocAdapter
 		mListViewRef.recycle(view, position);
 		
 		Survey survey = mModel.get((position));
-		
-		int completed = survey.getCompletedCount();
-		String surveyName = survey.getName();
-		int total = survey.getMembersCount();
-		int partial = survey.getPartialCount();
-		int unfinished = (total - completed) - partial;
-		boolean isFinished = completed == total ? true : false;
 
-		// String formatting
-		String template = getContext().getResources().getString(
-				R.string.template_quotient);
-		String totalTemplate = getContext().getResources().getString(
-				R.string.surveys_of_total);
-		String partialProgress = String.format(template, partial, unfinished);
-		String totalCount = String.format(totalTemplate, total);
+        int distributionCount = survey.getDistributions().size();
+		String surveyName = survey.getName();
 
 		query.find(R.id.txt_name).text(surveyName);
-		query.find(R.id.txt_total_distribution).text(String.valueOf(completed));
+		query.find(R.id.txt_total_distribution).text(String.valueOf(distributionCount));
 	}
 
 	@Override
