@@ -66,8 +66,7 @@ public class Survey extends Model {
     }
 
 	public int getMembersCount() {
-        // TODO delegate this to the distributions
-		return 0;
+        return getDistributions().size();
 	}
 	
 	public int getCompletedCount() {

@@ -29,9 +29,10 @@ public class Dialogue extends Model {
 	public int		answers;
 	public int		total;
 	public String	updatedAt;
+    public boolean  completed;
 	
 	public Dialogue() {
-		
+		completed = false;
 	}
 
     public Dialogue(Distribution distribution, Contact contact) {
@@ -49,6 +50,14 @@ public class Dialogue extends Model {
 
     public Distribution getDistribution() {
         return distribution;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public void setDistribution(Distribution distribution) {

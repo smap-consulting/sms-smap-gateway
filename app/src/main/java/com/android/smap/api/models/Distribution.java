@@ -82,13 +82,20 @@ public class Distribution extends Model {
     }
 
     public int getMembersCount() {
-        // TODO delegate this to the distributions
-        return 0;
+        return getSurveyContacts().size();
     }
 
     public int getCompletedCount() {
-        // TODO delegate this to the distributions
-        return 0;
+        List <Dialogue> dialogueList = getSurveyContacts();
+
+        int completedCount = 0;
+
+        for (Dialogue dialogue : dialogueList) {
+            if(dialogue.isCompleted())
+                completedCount++;
+        }
+
+        return completedCount;
     }
 
     public int getPartialCount() {

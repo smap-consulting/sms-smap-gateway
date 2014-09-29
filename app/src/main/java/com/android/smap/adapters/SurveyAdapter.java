@@ -52,7 +52,7 @@ public class SurveyAdapter extends VelocAdapter
 		
 		Survey survey = mModel.get((position));
 
-        int distributionCount = survey.getDistributions().size();
+        int distributionCount = survey.getMembersCount();
 		String surveyName = survey.getName();
 
 		query.find(R.id.txt_name).text(surveyName);

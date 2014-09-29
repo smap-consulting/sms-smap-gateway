@@ -39,16 +39,16 @@ public class DistributionAdapter extends VelocAdapter {
 		// TODO - Revisit when percentage bar when complete / incomplete is implemented
 
 		String distributionName = distribution.getName();
-		int totalContacts = distribution.getSurveyContacts().size();
+		int totalDialogue = distribution.getMembersCount();
+        int completedDialogue = distribution.getCompletedCount();
         query.find(R.id.txt_name).text(distributionName);
-        //query.find(R.id.txt_completed_progress).text(String.valueOf(totalContacts));
 
 		// String formatting
 		String template = getContext().getResources().getString(
 				R.string.template_quotient);
-		String totalTemplate = getContext().getResources().getString(
-				R.string.surveys_of_total);
-		String totalCount = String.format(totalTemplate, totalContacts);
+
+        String progress = String.format(template, completedDialogue, totalDialogue);
+        query.find(R.id.txt_member_progress).text(String.valueOf(progress));
 
 	}
 
