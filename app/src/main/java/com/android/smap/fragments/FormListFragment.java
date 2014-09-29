@@ -84,4 +84,14 @@ public class FormListFragment extends BaseFragment implements
 				}, this, form.getUrl());
         controller.start();
 	}
+
+    @Override
+    public boolean hasActionBarTitle() {
+        return true;
+    }
+
+    @Override
+    public String getActionBarTitle() {
+        return getActivity().getResources().getString(R.string.ab_distributions);
+    }
 }

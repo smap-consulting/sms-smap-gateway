@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 
 import com.android.smap.R;
+import com.android.smap.fragments.BaseFragment;
 
 public class FragmentContainerActivity extends BaseActivity {
 
@@ -66,18 +67,20 @@ public class FragmentContainerActivity extends BaseActivity {
 
 		if (!TextUtils.isEmpty(title)) {
 			setTitle(title);
+
 		}
 	}
 
 	private void setFragment() {
-		setContentView(R.layout.activity_single_fragment);
 
 		String fragmentName = getIntent().getStringExtra(KEY_FRAGMENT_NAME);
-		Fragment fragment = Fragment.instantiate(this, fragmentName);
+		BaseFragment fragment = (BaseFragment)Fragment.instantiate(this, fragmentName);
 		fragment.setArguments(getIntent().getBundleExtra(KEY_ARGUMENTS));
 
 		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		ft.add(R.id.container, fragment);
 		ft.commit();
 	}
+
+
 }

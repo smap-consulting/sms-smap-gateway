@@ -41,34 +41,13 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
 		ListView listView = (ListView) view.findViewById(R.id.list_contacts);
 		listView.setOnItemClickListener(this);
 		list = mDataManager.getContacts();
-		
-//		Cursor phones = getActivity().getContentResolver().query(
-//				ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null,
-//				null, null);
-//		
-//		while (phones.moveToNext()) {
-//			String name = phones
-//					.getString(phones
-//							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-//
-//			String phoneNumber = phones
-//					.getString(phones
-//							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));	
-//			
-//			Contact contacts = new Contact();
-//			contacts.setName(name);
-//			contacts.setNumber(phoneNumber);
-//			list.add(contacts);
-//		}		
-//		phones.close();
-		
-		ContactAdapter objAdapter = new ContactAdapter(getActivity(), R.layout.contact_allusers_rows, list);
-		listView.setAdapter(objAdapter);
+
+		mAdapter = new ContactAdapter(getActivity(), R.layout.contact_allusers_rows, list);
+		listView.setAdapter(mAdapter);
 		
 		return view;	
 	}
-	
-	// to implement functionality based on contact selected.
+
 	@Override
 	public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
 		// TODO Auto-generated method stub
@@ -76,4 +55,13 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
 		
 	}
 
+    @Override
+    public boolean hasActionBarTitle() {
+        return true;
+    }
+
+    @Override
+    public String getActionBarTitle() {
+        return getResources().getString(R.string.ab_all_contacts);
+    }
 }

@@ -8,6 +8,7 @@ import android.view.Menu;
 
 import com.android.smap.R;
 import com.android.smap.activities.BaseActivity;
+import com.android.smap.ui.views.FontableTextView;
 
 /**
  * <pre>
@@ -35,7 +36,10 @@ public class BaseFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		if (hasActionBarTitle()) {
-			getActionBar().setTitle(getActionBarTitle());
+            getActionBar().setTitle("");
+            getActionBar().setCustomView(R.layout.view_action_bar);
+            ((FontableTextView)(getActionBar().getCustomView())).setText(getActionBarTitle());
+
 		}
 
 	}
@@ -44,7 +48,7 @@ public class BaseFragment extends Fragment {
 	public void onDetach() {
 		super.onDetach();
 		if (hasActionBarTitle()) {
-			getActionBar().setTitle(getString(R.string.app_name));
+            ((FontableTextView)(getActionBar().getCustomView())).setText("");
 		}
 	}
 

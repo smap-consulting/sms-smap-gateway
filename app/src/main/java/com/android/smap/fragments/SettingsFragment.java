@@ -14,34 +14,43 @@ import com.android.smap.ui.ViewQuery;
 import com.android.smap.utils.MWUiUtils;
 
 public class SettingsFragment extends BaseFragment implements
-		OnClickListener {
+        OnClickListener {
 
-	private EditText	password;
-	private EditText	username;
+    private EditText password;
+    private EditText username;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-		LinearLayout view = (LinearLayout) inflater.inflate(
-				R.layout.fragment_settings,
-				null);
-		ViewQuery query = new ViewQuery(view);
-		query.find(R.id.btn_submit).onClick(this).get();
-		username = (EditText) query.find(R.id.txt_username).get();
-		password = (EditText) query.find(R.id.txt_password).get();
-		return view;
-	}
+        LinearLayout view = (LinearLayout) inflater.inflate(
+                R.layout.fragment_settings,
+                null);
+        ViewQuery query = new ViewQuery(view);
+        query.find(R.id.btn_submit).onClick(this).get();
+        username = (EditText) query.find(R.id.txt_username).get();
+        password = (EditText) query.find(R.id.txt_password).get();
+        return view;
+    }
 
-	@Override
-	public void onClick(View arg0) {
-		GatewayApp.getPreferenceWrapper().setUserName(
-				username.getText().toString());
-		GatewayApp.getPreferenceWrapper().setPassword(
-				password.getText().toString());
-		MWUiUtils.hideKeyboard(getActivity());
-		MWUiUtils.showMessagePopup(getActivity(), "Details Saved");
+    @Override
+    public void onClick(View arg0) {
+        GatewayApp.getPreferenceWrapper().setUserName(
+                username.getText().toString());
+        GatewayApp.getPreferenceWrapper().setPassword(
+                password.getText().toString());
+        MWUiUtils.hideKeyboard(getActivity());
+        MWUiUtils.showMessagePopup(getActivity(), "Details Saved");
 
-	}
+    }
 
+    @Override
+    public boolean hasActionBarTitle() {
+        return true;
+    }
+
+    @Override
+    public String getActionBarTitle() {
+        return getActivity().getResources().getString(R.string.ab_settings);
+    }
 }

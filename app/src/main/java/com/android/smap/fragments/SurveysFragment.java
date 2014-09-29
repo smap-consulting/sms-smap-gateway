@@ -61,62 +61,62 @@ public class SurveysFragment extends BaseFragment {
 		mSwipeListView
 				.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 
-					@Override
-					public void onItemCheckedStateChanged(ActionMode mode,
-							int position,
-							long id, boolean checked) {
-						mode.setTitle("Remove ("
-								+ mSwipeListView.getCountSelected()+ ")");
-					}
+                    @Override
+                    public void onItemCheckedStateChanged(ActionMode mode,
+                                                          int position,
+                                                          long id, boolean checked) {
+                        mode.setTitle("Remove ("
+                                + mSwipeListView.getCountSelected() + ")");
+                    }
 
-					@Override
-					public boolean onActionItemClicked(ActionMode mode,
-							MenuItem item) {
-						switch (item.getItemId()) {
-						case R.id.menu_delete_survey:
-							//removeSurveys();
-							mSwipeListView.dismissSelected();
-							mode.finish();
-							return true;
-						default:
-							return false;
-						}
+                    @Override
+                    public boolean onActionItemClicked(ActionMode mode,
+                                                       MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_delete_survey:
+                                //removeSurveys();
+                                mSwipeListView.dismissSelected();
+                                mode.finish();
+                                return true;
+                            default:
+                                return false;
+                        }
 
-					}
+                    }
 
-					@Override
-					public boolean onCreateActionMode(ActionMode mode,
-							Menu menu) {
-						MenuInflater inflater = mode.getMenuInflater();
-						inflater.inflate(R.menu.menu_delete, menu);
-						return true;
-					}
-					
-					@Override
-					public void onDestroyActionMode(ActionMode mode) {
-						mSwipeListView.unselectedChoiceStates();
-					}
+                    @Override
+                    public boolean onCreateActionMode(ActionMode mode,
+                                                      Menu menu) {
+                        MenuInflater inflater = mode.getMenuInflater();
+                        inflater.inflate(R.menu.menu_delete, menu);
+                        return true;
+                    }
 
-					@Override
-					public boolean onPrepareActionMode(ActionMode mode,
-							Menu menu) {
-						return false;
-					}
-				});
+                    @Override
+                    public void onDestroyActionMode(ActionMode mode) {
+                        mSwipeListView.unselectedChoiceStates();
+                    }
+
+                    @Override
+                    public boolean onPrepareActionMode(ActionMode mode,
+                                                       Menu menu) {
+                        return false;
+                    }
+                });
 		
 		mSwipeListView.setSwipeListViewListener(new MultiChoiceSwipeListener(mAdapter) {
-		    @Override
-		    public void onClickFrontView(int position) {
-		         super.onClickFrontView(position);
-		 		Survey survey = (Survey) mAdapter.getItem(position);
+            @Override
+            public void onClickFrontView(int position) {
+                super.onClickFrontView(position);
+                Survey survey = (Survey) mAdapter.getItem(position);
 
-				Bundle b = new Bundle();
-				b.putLong(DistributionDetailFragment.EXTRA_DISTRIBUTION_ID, survey.getId());
-				startActivity(new Builder(getActivity(), SurveyDistributionsFragment.class)
-						.arguments(b).build());
+                Bundle b = new Bundle();
+                b.putLong(DistributionDetailFragment.EXTRA_DISTRIBUTION_ID, survey.getId());
+                startActivity(new Builder(getActivity(), SurveyDistributionsFragment.class)
+                        .arguments(b).build());
 
-		    }
-		});
+            }
+        });
 
 		mSwipeListView.setAdapter(mAdapter);
 
@@ -163,4 +163,13 @@ public class SurveysFragment extends BaseFragment {
 
 	}
 
+    @Override
+    public boolean hasActionBarTitle() {
+        return true;
+    }
+
+    @Override
+    public String getActionBarTitle() {
+        return getActivity().getResources().getString(R.string.ab_distributions);
+    }
 }

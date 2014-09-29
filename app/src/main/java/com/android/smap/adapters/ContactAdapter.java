@@ -25,7 +25,6 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 	@Inject
 	public ContactAdapter(Activity Act, int Row, List<Contact> Item) {
 		super(Act, Row, Item);
-		// TODO Auto-generated constructor stub
 		this.activity = Act;
 		this.row = Row;
 		this.items = Item;
@@ -35,6 +34,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 	public View getView(final int position, View convertView, ViewGroup parent){
 		View view = convertView;
 		ViewHolder holder;
+
 		if(view == null){
 			LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = inflater.inflate(row, null);
@@ -55,7 +55,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 			holder.contactname.setText(Html.fromHtml(objContact.getName()));
 		}
 		if(holder.contactPhoneNo != null && null != objContact.getNumber() && objContact.getNumber().trim().length() > 0){
-			holder.contactPhoneNo.setText(Html.fromHtml(objContact.getNumber()));
+			holder.contactPhoneNo.setText(objContact.getNumber());
 		}
 		
 		return view;
