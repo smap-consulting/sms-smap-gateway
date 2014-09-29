@@ -68,26 +68,7 @@ public class SurveyAdapter extends VelocAdapter
 		String totalCount = String.format(totalTemplate, total);
 
 		query.find(R.id.txt_name).text(surveyName);
-		query.find(R.id.txt_completed_progress).text(String.valueOf(completed));
-		query.find(R.id.txt_completed_total).text(totalCount);
-		query.find(R.id.txt_member_progress).text(partialProgress);
-
-		// set progress bar length
-		View progress = query.find(R.id.view_progress).get();
-		float percent = (float) ((float) completed / (float) total);
-		LayoutParams params = progress.getLayoutParams();
-		params.width = (int) (mProgressBarTotal * percent);
-		progress.setLayoutParams(params);
-
-		if (isFinished) {
-			query.find(R.id.img_tick).invisible(false);
-			query.find(R.id.view_progress).invisible(true);
-			query.find(R.id.view_progress_total).invisible(true);
-		} else {
-			query.find(R.id.img_tick).invisible(true);
-			query.find(R.id.view_progress).invisible(false);
-			query.find(R.id.view_progress_total).invisible(false);
-		}
+		query.find(R.id.txt_total_distribution).text(String.valueOf(completed));
 	}
 
 	@Override
