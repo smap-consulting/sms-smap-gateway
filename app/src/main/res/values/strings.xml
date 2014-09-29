@@ -10,6 +10,7 @@
     <!-- Surveys -->
     <string name="ab_distribution_details">Distribution Details</string>
     <string name="ab_distributions">Distributions</string>
+    <string name="ab_surveys">Surveys</string>
     <string name="ab_create_distribution">Create Distribution</string>
 
     <!-- Email -->

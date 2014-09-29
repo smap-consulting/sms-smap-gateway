@@ -48,8 +48,7 @@ public class SurveyDistributionCreateFragment extends BaseFragment implements
         survey.save();
 
 		MWUiUtils.hideKeyboard(getActivity());
-		MWUiUtils.showMessagePopup(getActivity(), "Distribution Created");
-        popFragment();
+        getActivity().onBackPressed();
 	}
     @Override
     public boolean hasActionBarTitle() {

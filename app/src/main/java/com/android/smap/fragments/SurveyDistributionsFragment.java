@@ -84,12 +84,13 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		boolean handled = false;
+		boolean handled = true;
 		switch (item.getItemId()) {
 		case android.R.id.home: // Actionbar home/up icon
 			getActivity().onBackPressed();
 			break;
 		case R.id.action_add:
+
             Bundle b = new Bundle();
             b.putLong(EXTRA_SURVEY_ID, mSurvey.getId());
             startActivity(new Builder(getActivity(), SurveyDistributionCreateFragment.class)
