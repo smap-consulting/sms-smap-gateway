@@ -20,8 +20,7 @@ public class SettingsFragment extends BaseFragment implements
     private EditText username;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
 
         LinearLayout view = (LinearLayout) inflater.inflate(
                 R.layout.fragment_settings,

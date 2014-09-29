@@ -6,15 +6,12 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
+import com.android.smap.R;
 
 public abstract class BaseActivity extends FragmentActivity {
-
-	private View	mLoadingLayout;
-
-	@Override
-	public void setContentView(int layoutResID) {
-		super.setContentView(layoutResID);
-	}
 
 	public void setupActionBar() {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -25,11 +22,7 @@ public abstract class BaseActivity extends FragmentActivity {
 		return true;
 	}
 
-	public void setLoading(boolean loading) {
-		if (mLoadingLayout != null) {
-			mLoadingLayout.setVisibility(loading ? View.VISIBLE : View.GONE);
-		}
-	}
+
 
 	// for maintaining a fragment stack that all need to know about the result
 	@Override

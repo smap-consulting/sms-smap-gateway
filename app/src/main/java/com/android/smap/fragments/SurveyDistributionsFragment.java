@@ -39,9 +39,8 @@ public class SurveyDistributionsFragment extends BaseFragment implements
     // TODO - Create Distribution Adapter
     private DistributionAdapter mAdapter;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
 		LinearLayout view = (LinearLayout) inflater.inflate(
 				R.layout.fragment_distributions,
 				null);

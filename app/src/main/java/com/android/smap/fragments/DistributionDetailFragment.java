@@ -63,9 +63,8 @@ public class DistributionDetailFragment extends BaseFragment implements
 		mModel = mDataManager.getDistribution(mDistributionId);
 	}
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
 
 		LinearLayout view = (LinearLayout) inflater.inflate(
 				R.layout.fragment_distribution_detail,

@@ -29,7 +29,8 @@ import com.mjw.android.swipe.SwipeListView;
 
 public class ContactSelectFragment extends BaseFragment {
 
-	public static final String EXTRA_DISTRIBUTION_ID = ContactSelectFragment.class
+
+    public static final String EXTRA_DISTRIBUTION_ID = ContactSelectFragment.class
 															.getCanonicalName()
 															+ "id";
 	@Inject
@@ -50,9 +51,8 @@ public class ContactSelectFragment extends BaseFragment {
 
 	}
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
 
 		LinearLayout view = (LinearLayout) inflater.inflate(
 				R.layout.fragment_select_contacts,

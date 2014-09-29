@@ -34,10 +34,8 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
     private ContactAdapter mAdapter;
     private List<Contact> list;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
 
         LinearLayout view = (LinearLayout) inflater.inflate(
                 R.layout.fragment_contact,

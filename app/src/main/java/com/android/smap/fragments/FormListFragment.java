@@ -34,9 +34,8 @@ public class FormListFragment extends BaseFragment implements
 	private FormListAdapter		mAdapter;
 	private FormListController	mController;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
 
 		LinearLayout view = (LinearLayout) inflater.inflate(
 				R.layout.fragment_form_list,
@@ -54,34 +53,38 @@ public class FormListFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
+        showLoading(true);
 		mController.start();
 	}
 
 	@Override
 	public void onControllerResult() {
 		mAdapter.setModel(mController.getModel());
+        showLoading(false);
 	}
 
 	@Override
 	public void onControllerError(ControllerError error) {
 		MWUiUtils.showMessagePopup(getActivity(), "Failed to retrieve Surveys");
+        showLoading(false);
+        popFragment();
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
 
+        showLoading(true);
 		Form form = (Form) mAdapter.getItem(pos);
 		SurveyDefinitionController controller = new SurveyDefinitionController(
 				getActivity(),
 				new ControllerListener() {
 					@Override
 					public void onControllerResult() {
-						
-						MWUiUtils.showMessagePopup(getActivity(),
-								"Form Retrieved");
+                        showLoading(false);
 						popFragment();
 					}
 				}, this, form.getUrl());
+
         controller.start();
 	}
 
