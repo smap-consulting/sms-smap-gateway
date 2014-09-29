@@ -14,6 +14,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -54,6 +56,13 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
 		Bundle B = new Bundle();
 		
 	}
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_add, menu);
+    }
 
     @Override
     public boolean hasActionBarTitle() {

@@ -60,11 +60,6 @@ public class MainActivity extends BaseActivity implements OnItemClickListener {
         startService(new Intent(this, GatewayService.class));
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
