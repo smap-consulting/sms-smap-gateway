@@ -41,6 +41,7 @@ public class DistributionAdapter extends VelocAdapter {
 		String distributionName = distribution.getName();
 		int totalContacts = distribution.getSurveyContacts().size();
         query.find(R.id.txt_name).text(distributionName);
+        //query.find(R.id.txt_completed_progress).text(String.valueOf(totalContacts));
 
 		// String formatting
 		String template = getContext().getResources().getString(
