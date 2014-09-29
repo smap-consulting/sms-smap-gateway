@@ -38,8 +38,6 @@ public class DistributionAdapter extends VelocAdapter {
 			int position) {
 
         Distribution distribution = mModel.get((position));
-		
-		// TODO - Revisit when percentage bar when complete / incomplete is implemented
 
 		String distributionName = distribution.getName();
 		int totalDialogue = distribution.getMembersCount();
@@ -58,6 +56,9 @@ public class DistributionAdapter extends VelocAdapter {
         View progressBar = query.find(R.id.view_progress).get();
         LayoutParams params = progressBar.getLayoutParams();
         params.width = (int) (mProgressBarTotal * completionPercent/100);
+
+        if(params.width == 0)
+        params.width = (int) (mProgressBarTotal * 0.01); //Shows some green
         progressBar.setLayoutParams(params);
 
 	}
