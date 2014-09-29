@@ -104,8 +104,18 @@ public class Distribution extends Model {
     }
 
     public float getCompletionPercentage() {
-        // TODO delegate this to the distributions
-        return ((float) getPartialCount() / getCompletedCount()) * 100f;
+
+        List <Dialogue> dialogueList = getSurveyContacts();
+
+        int totalAnswered = 0;
+        int totalQuestion = 0;
+
+        for (Dialogue dialogue : dialogueList) {
+            totalAnswered += dialogue.getAnswers();
+            totalQuestion += dialogue.getTotal();
+        }
+
+        return ((float) totalAnswered / totalQuestion) * 100f;
     }
 
     public static Distribution findById(Long id) {

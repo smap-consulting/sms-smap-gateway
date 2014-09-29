@@ -18,11 +18,14 @@ import java.util.List;
 public class DistributionAdapter extends VelocAdapter {
 
 	private List<Distribution>	mModel;
+    private float	            mProgressBarTotal;
 
 	@Inject
 	public DistributionAdapter(Context context, List<Distribution> model) {
 		super(context);
 		this.mModel = model;
+        mProgressBarTotal = getContext()
+                .getResources().getDimension(R.dimen.survey_progress_width);
 	}
 
 	@Override
@@ -41,6 +44,7 @@ public class DistributionAdapter extends VelocAdapter {
 		String distributionName = distribution.getName();
 		int totalDialogue = distribution.getMembersCount();
         int completedDialogue = distribution.getCompletedCount();
+        float completionPercent = distribution.getCompletionPercentage();
         query.find(R.id.txt_name).text(distributionName);
 
 		// String formatting
@@ -49,6 +53,12 @@ public class DistributionAdapter extends VelocAdapter {
 
         String progress = String.format(template, completedDialogue, totalDialogue);
         query.find(R.id.txt_member_progress).text(String.valueOf(progress));
+
+        //Setting progress bar
+        View progressBar = query.find(R.id.view_progress).get();
+        LayoutParams params = progressBar.getLayoutParams();
+        params.width = (int) (mProgressBarTotal * completionPercent/100);
+        progressBar.setLayoutParams(params);
 
 	}
 

@@ -52,6 +52,14 @@ public class Dialogue extends Model {
         return distribution;
     }
 
+    public int getAnswers() {
+        return answers;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
     public boolean isCompleted() {
         return completed;
     }
