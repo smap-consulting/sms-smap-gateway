@@ -78,15 +78,20 @@ public class SqliteDataManager implements DataManager {
 	@Override
 	public void removeContactFromDistribution(long contactId, long distributionId) {
 
-		SurveyContact surveyContact = SurveyContact.findByDistributionAndContactIds(
+		Dialogue dialogue = Dialogue.findByDistributionAndContactIds(
                 distributionId, contactId);
 
-		if (surveyContact != null) {
-			surveyContact.delete();
+		if (dialogue != null) {
+			dialogue.delete();
 		}
 	}
 
-	private void seedDevData() {
+    @Override
+    public Contact findContactByPhoneNumber(String phoneNumber) {
+        return Contact.findByPhoneNumber(phoneNumber);
+    }
+
+    private void seedDevData() {
 
 		ActiveAndroid.beginTransaction();
 
