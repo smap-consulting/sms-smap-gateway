@@ -1,26 +1,28 @@
 package com.android.smap.models;
 
-/**
- * Created by matt on 25/09/14.
- */
 public class SmapTextMessage extends TextMessage{
 
-    private boolean isValid;
-    private boolean isCommand;
+    public static String messageBodyRegex="^#!{1,2}";
+    public static String smapMessageRegex="^#!{1,2}.*";
+    public static String commandMessageRegex="^#!!.*";
 
     public SmapTextMessage(String number, String message){
         super(number, message);
-    }
-    public boolean isValid() {
-        return isValid;
-    }
-    public boolean isCommandSMS() {return isCommand;}
 
-    public void setValid(boolean isValid) {
-        this.isValid = isValid;
+        // smap messages are always incoming
+        this.direction = TextMessage.INCOMING;
+        this.status = TextMessage.RECEIVED;
     }
 
-    public void setCommand(boolean command) {
-        this.isCommand = command;
+    public boolean isSmapMessage() {
+        return this.text.matches(smapMessageRegex);
+    }
+
+    public boolean isCommandSMS() {
+        return this.text.matches(commandMessageRegex);
+    }
+
+    public String getMessageBody(){
+        return this.text.replaceFirst(messageBodyRegex,"").trim();
     }
 }

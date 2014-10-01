@@ -15,65 +15,35 @@ public class Dialogue extends Model {
 
     @Column(name = "distribution_id", onDelete = ForeignKeyAction.CASCADE)
 	private Distribution distribution;
-	
-	@Column(name = "contact_id", onDelete = ForeignKeyAction.CASCADE)
+
+    @Column(name = "contact_id", onDelete = ForeignKeyAction.CASCADE)
 	public Contact contact;
-	
+
 	/**
-	 * Raw XML String to store JavaRosa response  
+	 * Serialized JavaRosa converser
 	 */
 	@Column
-	private String rawInstance;
-	
+	private String serializedState;
+
+    @Column
+    private String instanceXml;
+
+    @Column
+    private boolean completed;
+
 	// dummy fields for the moment
 	public int		answers;
 	public int		total;
 	public String	updatedAt;
-    public boolean  completed;
-	
+
 	public Dialogue() {
-		completed = false;
+
 	}
 
     public Dialogue(Distribution distribution, Contact contact) {
         this.distribution = distribution;
         this.contact = contact;
-    }
-
-	public String getRawInstance() {
-		return rawInstance;
-	}
-
-	public void setRawInstance(String rawInstance) {
-		this.rawInstance = rawInstance;
-	}
-
-    public Distribution getDistribution() {
-        return distribution;
-    }
-
-    public int getAnswers() {
-        return answers;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public boolean isCompleted() {
-        return completed;
-    }
-
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    public void setDistribution(Distribution distribution) {
-        this.distribution = distribution;
-    }
-
-    public List<LogMessage> getMessages() {
-        return getMany(LogMessage.class, "dialogue_id");
+        this.completed = false;
     }
 
     public void logMessage(TextMessage message) {
@@ -96,4 +66,90 @@ public class Dialogue extends Model {
 			.executeSingle();
 	}
 
+    public List<LogMessage> getMessages() {
+        return getMany(LogMessage.class, "dialogue_id");
+    }
+
+    public void markAsComplete() {
+        try {
+            completed = true;
+            contact.setActiveDialogue(null);
+            contact.save();
+            save();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void saveData(String data, String answers) {
+        try {
+            setSerializedState(data);
+            setInstanceXml(answers);
+            save();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // getters and setters
+    public String getFormXML() {
+        return getSurvey().getFormXml();
+    }
+
+    public Survey getSurvey() {
+        return distribution.getSurvey();
+    }
+
+    public Distribution getDistribution() {
+        return distribution;
+    }
+
+    public void setDistribution(Distribution distribution) {
+        this.distribution = distribution;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public String getSerializedState() {
+        return serializedState;
+    }
+
+    public void setSerializedState(String serializedState) {
+        this.serializedState = serializedState;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public int getAnswers() {
+        return answers;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public String getInstanceXml() {
+        return instanceXml;
+    }
+
+    public void setInstanceXml(String instanceXml) {
+        this.instanceXml = instanceXml;
+    }
+
+    public String getPhoneNumber() {
+        return this.contact.getNumber();
+    }
 }

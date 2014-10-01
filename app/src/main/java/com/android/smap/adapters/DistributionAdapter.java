@@ -6,9 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 
+
 import com.android.smap.R;
 import com.android.smap.api.models.Distribution;
-import com.android.smap.api.models.Survey;
 import com.android.smap.ui.VelocAdapter;
 import com.android.smap.ui.ViewQuery;
 import com.google.inject.Inject;
@@ -40,9 +40,11 @@ public class DistributionAdapter extends VelocAdapter {
         Distribution distribution = mModel.get((position));
 
 		String distributionName = distribution.getName();
+
 		int totalDialogue = distribution.getMembersCount();
         int completedDialogue = distribution.getCompletedCount();
         float completionPercent = distribution.getCompletionPercentage();
+
         query.find(R.id.txt_name).text(distributionName);
 
 		// String formatting
