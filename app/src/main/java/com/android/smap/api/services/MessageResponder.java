@@ -42,6 +42,7 @@ public class MessageResponder {
             notifySenderNotActive(sender, message);
             return;
         }
+
         if(message.isCommandSMS()){
             handleCommandSMS(contact, message);
             return;

@@ -160,6 +160,7 @@ public class GatewayService extends Service implements
         SmapTextMessage textMessage = new SmapTextMessage(number, message);
 
         if (!textMessage.isSmapMessage()) {
+            Log.i(TAG,"Not a SMAP Message");
             return;
         }
 

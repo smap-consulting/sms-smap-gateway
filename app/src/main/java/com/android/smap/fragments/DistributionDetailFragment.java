@@ -224,6 +224,7 @@ public class DistributionDetailFragment extends BaseFragment implements
 
         for (Dialogue dialogue : dialogues) {
             Contact contact = dialogue.getContact();
+            contact.setActiveDialogue(dialogue);
             DialogueHandler handler = new SmsDialogueHandler(dialogue, mService, null);
             SurveyConverser.beginDialogue(handler);
 

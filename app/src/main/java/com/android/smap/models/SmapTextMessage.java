@@ -3,7 +3,8 @@ package com.android.smap.models;
 public class SmapTextMessage extends TextMessage{
 
     public static String messageBodyRegex="^#!{1,2}";
-    public static String commandMessageRegex="^#!!";
+    public static String smapMessageRegex="^#!{1,2}.*";
+    public static String commandMessageRegex="^#!!.*";
 
     public SmapTextMessage(String number, String message){
         super(number, message);
@@ -14,7 +15,7 @@ public class SmapTextMessage extends TextMessage{
     }
 
     public boolean isSmapMessage() {
-        return this.text.matches(messageBodyRegex);
+        return this.text.matches(smapMessageRegex);
     }
 
     public boolean isCommandSMS() {
@@ -22,6 +23,6 @@ public class SmapTextMessage extends TextMessage{
     }
 
     public String getMessageBody(){
-        return this.text.replaceFirst(messageBodyRegex,"");
+        return this.text.replaceFirst(messageBodyRegex,"").trim();
     }
 }
