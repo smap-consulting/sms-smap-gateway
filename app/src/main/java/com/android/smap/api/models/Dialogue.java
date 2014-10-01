@@ -33,9 +33,9 @@ public class Dialogue extends Model {
 
 	// dummy fields for the moment
 	public int		answers;
+	public int		total;
+	public String	updatedAt;
 
-    public int		total;
-    public String	updatedAt;
 	public Dialogue() {
 
 	}
@@ -43,6 +43,7 @@ public class Dialogue extends Model {
     public Dialogue(Distribution distribution, Contact contact) {
         this.distribution = distribution;
         this.contact = contact;
+        this.completed = false;
     }
 
     public void logMessage(TextMessage message) {
@@ -130,6 +131,14 @@ public class Dialogue extends Model {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public int getAnswers() {
+        return answers;
+    }
+
+    public int getTotal() {
+        return total;
     }
 
     public String getInstanceXml() {

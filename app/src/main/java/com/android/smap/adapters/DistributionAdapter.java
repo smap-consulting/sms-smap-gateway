@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+
 
 import com.android.smap.R;
 import com.android.smap.api.models.Distribution;
@@ -16,11 +18,14 @@ import java.util.List;
 public class DistributionAdapter extends VelocAdapter {
 
 	private List<Distribution>	mModel;
+    private float	            mProgressBarTotal;
 
 	@Inject
 	public DistributionAdapter(Context context, List<Distribution> model) {
 		super(context);
 		this.mModel = model;
+        mProgressBarTotal = getContext()
+                .getResources().getDimension(R.dimen.survey_progress_width);
 	}
 
 	@Override
@@ -33,19 +38,30 @@ public class DistributionAdapter extends VelocAdapter {
 			int position) {
 
         Distribution distribution = mModel.get((position));
-		
-		// TODO - Revisit when percentage bar when complete / incomplete is implemented
 
 		String distributionName = distribution.getName();
-		int totalContacts = distribution.getDialogues().size();
+
+		int totalDialogue = distribution.getMembersCount();
+        int completedDialogue = distribution.getCompletedCount();
+        float completionPercent = distribution.getCompletionPercentage();
+
         query.find(R.id.txt_name).text(distributionName);
 
 		// String formatting
 		String template = getContext().getResources().getString(
 				R.string.template_quotient);
-		String totalTemplate = getContext().getResources().getString(
-				R.string.surveys_of_total);
-		String totalCount = String.format(totalTemplate, totalContacts);
+
+        String progress = String.format(template, completedDialogue, totalDialogue);
+        query.find(R.id.txt_member_progress).text(String.valueOf(progress));
+
+        //Setting progress bar
+        View progressBar = query.find(R.id.view_progress).get();
+        LayoutParams params = progressBar.getLayoutParams();
+        params.width = (int) (mProgressBarTotal * completionPercent/100);
+
+        if(params.width == 0)
+        params.width = (int) (mProgressBarTotal * 0.01); //Shows some green
+        progressBar.setLayoutParams(params);
 
 	}
 

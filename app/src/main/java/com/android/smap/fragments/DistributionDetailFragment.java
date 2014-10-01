@@ -55,7 +55,7 @@ public class DistributionDetailFragment extends BaseFragment implements
 	@Inject
 	private DataManager				mDataManager;
 	private Distribution			mModel;
-	private DialogueAdapter mAdapter;
+	private DialogueAdapter         mAdapter;
 	private int						mDistributionId;
 	private SwipeListView			mSwipeListView;
 	private View					mProgressBar;
