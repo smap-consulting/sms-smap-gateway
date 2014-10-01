@@ -90,25 +90,19 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
         if (resultCode == Activity.RESULT_OK) {
             ContactImportController contactsManager = new ContactImportController(getActivity(), data);
             String name = "";
             String number = "";
             try {
-                name = contactsManager.getContactName();
-                number = contactsManager.getContactPhone();
-
-                Contact contact = new Contact(name, number);
-                contact.setActive(true);
-                contact.save();
-            } catch (Exception e) {
-                Log.e("CONTACTS", e.getMessage());
-            }
-
+                    name = contactsManager.getContactName();
+                    number = contactsManager.getContactPhone();
+                    Contact contact = new Contact(name, number);
+                    contact.save();
+                } catch (Exception e) {
+                    Log.e("CONTACTS", e.getMessage());
+                }
         }
-
-
     }
 }
 

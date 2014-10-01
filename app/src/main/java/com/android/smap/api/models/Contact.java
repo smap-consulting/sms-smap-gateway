@@ -16,19 +16,18 @@ public class Contact extends Model {
 	@Column
 	private String name;
 
-    @Column
-    private boolean isActive;
+    @Column(name = "active_dialogue_id")
+    private Dialogue activeDialogue;
 
 	public Contact() {
-		
+
 	}
-	
+
 	public Contact(String name, String number) {
 		this.name = name;
 		this.number = number;
-        this.isActive = false;
 	}
-	
+
 	public String getNumber() {
 		return number;
 	}
@@ -45,18 +44,14 @@ public class Contact extends Model {
 		this.name = name;
 	}
 
-    public boolean isActive() {return isActive;}
-
-    public void setActive(boolean isActive) {this.isActive = isActive;}
-
 	public static Contact findById(Long id) {
 		return Model.load(Contact.class, id);
 	}
-	
+
 	public static List<Contact> findAll() {
-		return new Select().from(Contact.class).execute(); 
+		return new Select().from(Contact.class).execute();
 	}
-	
+
 	public List<Dialogue> getSurveyContacts() {
 		return getMany(Dialogue.class, "contact_id");
 	}
@@ -66,5 +61,17 @@ public class Contact extends Model {
                 .from(Contact.class)
                 .where("number = ?", phoneNumber)
                 .executeSingle();
+    }
+
+    public Dialogue getActiveDialogue() {
+        return activeDialogue;
+    }
+
+    public void setActiveDialogue(Dialogue activeDialogue) {
+        this.activeDialogue = activeDialogue;
+    }
+
+    public boolean isActive() {
+        return activeDialogue != null;
     }
 }

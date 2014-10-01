@@ -24,8 +24,12 @@ import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.activities.FragmentContainerActivity;
 import com.android.smap.adapters.DialogueAdapter;
+import com.android.smap.api.models.Contact;
+import com.android.smap.api.models.Dialogue;
 import com.android.smap.api.models.Distribution;
+import com.android.smap.api.services.SmsDialogueHandler;
 import com.android.smap.di.DataManager;
+import com.android.smap.models.SmapTextMessage;
 import com.android.smap.sms.GatewayService;
 import com.android.smap.sms.GatewayService.LocalBinder;
 import com.android.smap.ui.ViewQuery;
@@ -33,6 +37,11 @@ import com.android.smap.utils.MWAnimUtil;
 import com.google.inject.Inject;
 import com.mjw.android.swipe.MultiChoiceSwipeListener;
 import com.mjw.android.swipe.SwipeListView;
+
+import org.smap.DialogueHandler;
+import org.smap.surveyConverser.SurveyConverser;
+
+import java.util.List;
 
 
 public class DistributionDetailFragment extends BaseFragment implements
@@ -47,7 +56,7 @@ public class DistributionDetailFragment extends BaseFragment implements
 	@Inject
 	private DataManager				mDataManager;
 	private Distribution			mModel;
-	private DialogueAdapter mAdapter;
+	private DialogueAdapter         mAdapter;
 	private int						mDistributionId;
 	private SwipeListView			mSwipeListView;
 	private View					mProgressBar;
@@ -112,7 +121,7 @@ public class DistributionDetailFragment extends BaseFragment implements
 
 		mModel = mDataManager.getDistribution(mDistributionId);
         // TODO get this from distribution
-		mAdapter.setModel(mModel.getSurveyContacts());
+		mAdapter.setModel(mModel.getDialogues());
 
 		if (mModel != null) {
 
@@ -123,7 +132,7 @@ public class DistributionDetailFragment extends BaseFragment implements
 	}
 
 	private void setupContactsList() {
-		mAdapter = new DialogueAdapter(getActivity(), mModel.getSurveyContacts(),
+		mAdapter = new DialogueAdapter(getActivity(), mModel.getDialogues(),
 				mSwipeListView);
 		mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
@@ -211,11 +220,18 @@ public class DistributionDetailFragment extends BaseFragment implements
 
     @Override
     public void onClick(View arg0) {
+        // each dialogue in distribution
+        List<Dialogue> dialogues = mModel.getDialogues();
 
-        //TextMessage text = new TextMessage("04xxxxxxx", "SMAP TEST SMS", 123);
-        //mService.sendMessage(text);
-        Toast.makeText(getActivity(), "Sent SMS", Toast.LENGTH_LONG)
-                .show();
+        for (Dialogue dialogue : dialogues) {
+            Contact contact = dialogue.getContact();
+            contact.setActiveDialogue(dialogue);
+            DialogueHandler handler = new SmsDialogueHandler(dialogue, mService, null);
+            SurveyConverser.beginDialogue(handler);
+
+        }
+//        Toast.makeText(getActivity(), "Sent SMS", Toast.LENGTH_LONG)
+//                .show();
     }
 
 

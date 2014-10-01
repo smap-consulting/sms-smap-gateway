@@ -10,15 +10,15 @@ import com.activeandroid.query.Select;
 
 @Table(name = "surveys")
 public class Survey extends Model {
-	
+
 	@Column
 	private String name;
-	
+
 	/**
 	 * Raw XML string with JavaRosa form definition
 	 */
 	@Column
-	private String formContent;
+	private String formXml;
 
     /**
      * Number of questions in the Survey
@@ -27,20 +27,20 @@ public class Survey extends Model {
      */
     @Column
     private int numberOfQuestions;
-	
+
 	public Survey() {
-		
+
 	}
-	
+
 	public Survey(String name) {
 		this.setName(name);
 	}
 
-	public Survey(String name, String formContent) {
+	public Survey(String name, String formXml) {
 		this.name = name;
-		this.formContent = formContent;
+		this.formXml = formXml;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -49,12 +49,15 @@ public class Survey extends Model {
 		this.name = name;
 	}
 
-	public String getFormContent() {
-		return formContent;
+    /**
+     * @return javarosa form xml
+     */
+	public String getFormXml() {
+		return formXml;
 	}
 
-	public void setFormContent(String content) {
-		this.formContent = content;
+	public void setFormXml(String content) {
+		this.formXml = content;
 	}
 
     public int getNumberOfQuestions() {
@@ -66,29 +69,28 @@ public class Survey extends Model {
     }
 
 	public int getMembersCount() {
-        // TODO delegate this to the distributions
-		return 0;
+        return getDistributions().size();
 	}
-	
+
 	public int getCompletedCount() {
         // TODO delegate this to the distributions
 		return 0;
 	}
-	
+
 	public int getPartialCount() {
         // TODO delegate this to the distributions
 		return 0;
 	}
-	
+
 	public float getCompletionPercentage() {
         // TODO delegate this to the distributions
 		return ((float) getPartialCount() / getCompletedCount()) * 100f;
 	}
-	
+
 	public static Survey findById(Long id) {
 		return Model.load(Survey.class, id);
 	}
-	
+
 	public static List<Survey> findAll() {
 		return new Select().from(Survey.class).execute();
 	}

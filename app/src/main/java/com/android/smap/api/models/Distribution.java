@@ -45,18 +45,18 @@ public class Distribution extends Model {
         this.survey = survey;
     }
 
-    public List<Dialogue> getSurveyContacts() {
-        List<Dialogue> contacts = getMany(Dialogue.class, "distribution_id");
-        Collections.sort(contacts,new Comparator<Dialogue>() {
+    public List<Dialogue> getDialogues() {
+        List<Dialogue> dialogues = getMany(Dialogue.class, "distribution_id");
+        Collections.sort(dialogues,new Comparator<Dialogue>() {
             @Override
             public int compare(Dialogue dialogue, Dialogue dialogue2) {
                 return dialogue.contact.getName().compareTo(dialogue2.contact.getName());
             }
         });
-        return contacts;
+        return dialogues;
     }
 
-    public void addContact(Contact contact) {
+    public void addDialogue(Contact contact) {
         ActiveAndroid.beginTransaction();
         try {
             new Dialogue(this, contact).save();
@@ -67,7 +67,7 @@ public class Distribution extends Model {
         }
     }
 
-    public void addContacts(List<Contact> contacts) {
+    public void addDialogues(List<Contact> contacts) {
         ActiveAndroid.beginTransaction();
         try {
 
@@ -82,13 +82,20 @@ public class Distribution extends Model {
     }
 
     public int getMembersCount() {
-        // TODO delegate this to the distributions
-        return 0;
+        return getDialogues().size();
     }
 
     public int getCompletedCount() {
-        // TODO delegate this to the distributions
-        return 0;
+        List <Dialogue> dialogueList = getDialogues();
+
+        int completedCount = 0;
+
+        for (Dialogue dialogue : dialogueList) {
+            if(dialogue.isCompleted())
+                completedCount++;
+        }
+
+        return completedCount;
     }
 
     public int getPartialCount() {
@@ -97,8 +104,18 @@ public class Distribution extends Model {
     }
 
     public float getCompletionPercentage() {
-        // TODO delegate this to the distributions
-        return ((float) getPartialCount() / getCompletedCount()) * 100f;
+
+        List <Dialogue> dialogueList = getDialogues();
+
+        int totalAnswered = 0;
+        int totalQuestion = 0;
+
+        for (Dialogue dialogue : dialogueList) {
+            totalAnswered += dialogue.getAnswers();
+            totalQuestion += dialogue.getTotal();
+        }
+
+        return ((float) totalAnswered / totalQuestion) * 100f;
     }
 
     public static Distribution findById(Long id) {
