@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
+import com.android.smap.activities.FragmentContainerActivity;
 import com.android.smap.adapters.DialogueAdapter;
 import com.android.smap.api.models.Distribution;
 import com.android.smap.di.DataManager;
@@ -197,10 +198,11 @@ public class DistributionDetailFragment extends BaseFragment implements
 			break;
 		case R.id.action_add: // Actionbar home/up icon
 			Bundle b = new Bundle();
-			b.putInt(ContactSelectFragment.EXTRA_DISTRIBUTION_ID, mDistributionId);
-			pushFragment(ContactSelectFragment.class, b);
-			Toast.makeText(getActivity(), "ADD CONTACT", Toast.LENGTH_LONG)
-					.show();
+            b.putInt(ContactSelectFragment.EXTRA_DISTRIBUTION_ID, mDistributionId);
+            startActivity(new FragmentContainerActivity.Builder(getActivity(), ContactSelectFragment.class)
+                    .arguments(b)
+                    .title(R.string.ab_select_contacts).build());
+
 			break;
 		}
 		return handled;
@@ -223,15 +225,6 @@ public class DistributionDetailFragment extends BaseFragment implements
 		outState.putInt(EXTRA_DISTRIBUTION_ID, mDistributionId);
 	}
 
-	@Override
-	public boolean hasActionBarTitle(    ) {
-        return true;
-    }
-
-	@Override
-	public String getActionBarTitle() {
-		return getResources().getString(R.string.ab_distribution_details);
-	}
 
     /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection mConnection = new ServiceConnection() {

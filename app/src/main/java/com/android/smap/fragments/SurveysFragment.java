@@ -110,7 +110,7 @@ public class SurveysFragment extends BaseFragment {
                 Bundle b = new Bundle();
                 b.putLong(DistributionDetailFragment.EXTRA_DISTRIBUTION_ID, survey.getId());
                 startActivity(new Builder(getActivity(), SurveyDistributionsFragment.class)
-                        .arguments(b).build());
+                        .arguments(b).title(R.string.ab_distributions).build());
 
             }
         });
@@ -121,8 +121,9 @@ public class SurveysFragment extends BaseFragment {
 
     @Override
     public void onResume() {
-        super.onResume();
         mAdapter.setModel(mDataManager.getSurveys());
+        super.onResume();
+
     }
 
 
@@ -153,7 +154,8 @@ public class SurveysFragment extends BaseFragment {
                 getActivity().onBackPressed();
                 break;
             case R.id.action_add: // Actionbar home/up icon
-                pushFragment(FormListFragment.class);
+                startActivity(new Builder(getActivity(), FormListFragment.class)
+                        .title(R.string.ab_surveys).build());
                 break;
         }
         return handled;

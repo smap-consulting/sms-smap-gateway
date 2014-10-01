@@ -67,7 +67,7 @@ public class FormListFragment extends BaseFragment implements
 	public void onControllerError(ControllerError error) {
 		MWUiUtils.showMessagePopup(getActivity(), "Failed to retrieve Surveys");
         showLoading(false);
-        popFragment();
+        getActivity().onBackPressed();
 	}
 
 	@Override
@@ -81,20 +81,12 @@ public class FormListFragment extends BaseFragment implements
 					@Override
 					public void onControllerResult() {
                         showLoading(false);
-						popFragment();
+						getActivity().onBackPressed();
 					}
 				}, this, form.getUrl());
 
         controller.start();
 	}
 
-    @Override
-    public boolean hasActionBarTitle() {
-        return true;
-    }
 
-    @Override
-    public String getActionBarTitle() {
-        return getActivity().getResources().getString(R.string.ab_distributions);
-    }
 }

@@ -159,14 +159,4 @@ public class ContactSelectFragment extends BaseFragment {
 		outState.putInt(EXTRA_DISTRIBUTION_ID, mDistributionId);
 	}
 
-	@Override
-	public boolean hasActionBarTitle() {
-		return true;
-	}
-
-	@Override
-	public String getActionBarTitle() {
-		return getResources().getString(R.string.ab_select_contacts);
-	}
-
 }

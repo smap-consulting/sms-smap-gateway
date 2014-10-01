@@ -12,75 +12,76 @@ import com.android.smap.fragments.BaseFragment;
 
 public class FragmentContainerActivity extends BaseActivity {
 
-	private static final String	KEY_ARGUMENTS		= "KEY_ARGUMENTS";
-	private static final String	KEY_FRAGMENT_NAME	= "KEY_FRAGMENT_NAME";
-	private static final String	KEY_TITLE_ID		= "KEY_TITLE_ID";
-	private static final String	KEY_TITLE			= "KEY_TITLE";
+    private static final String KEY_ARGUMENTS = "KEY_ARGUMENTS";
+    private static final String KEY_FRAGMENT_NAME = "KEY_FRAGMENT_NAME";
+    private static final String KEY_TITLE_ID = "KEY_TITLE_ID";
+    private static final String KEY_TITLE = "KEY_TITLE";
 
-	public static class Builder {
 
-		private final Intent	mIntent;
+    public static class Builder {
 
-		public Builder(Context context, Class<?> cls) {
-			mIntent = new Intent(context, FragmentContainerActivity.class);
-			mIntent.putExtra(KEY_FRAGMENT_NAME, cls.getName());
-		}
+        private final Intent mIntent;
 
-		public Builder title(int titleId) {
-			mIntent.putExtra(KEY_TITLE_ID, titleId);
-			return this;
-		}
 
-		public Builder title(String title) {
-			mIntent.putExtra(KEY_TITLE, title);
-			return this;
-		}
+        public Builder(Context context, Class<?> cls) {
+            mIntent = new Intent(context, FragmentContainerActivity.class);
+            mIntent.putExtra(KEY_FRAGMENT_NAME, cls.getName());
+        }
 
-		public Builder arguments(Bundle args) {
-			mIntent.putExtra(KEY_ARGUMENTS, args);
-			return this;
-		}
+        public Builder title(int titleId) {
+            mIntent.putExtra(KEY_TITLE_ID, titleId);
+            return this;
+        }
 
-		public Intent build() {
-			return mIntent;
-		}
-	}
+        public Builder title(String title) {
+            mIntent.putExtra(KEY_TITLE, title);
+            return this;
+        }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_single_fragment);
-		setTitle();
-		setFragment();
-	}
+        public Builder arguments(Bundle args) {
+            mIntent.putExtra(KEY_ARGUMENTS, args);
+            return this;
+        }
 
-	private void setTitle() {
-		String title = "";
+        public Intent build() {
+            return mIntent;
+        }
+    }
 
-		int titleId = getIntent().getIntExtra(KEY_TITLE_ID, 0);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_single_fragment);
+        setTitle();
+        setFragment();
 
-		if (titleId != 0) {
-			title = getString(titleId);
-		} else {
-			title = getIntent().getStringExtra(KEY_TITLE);
-		}
+    }
 
-		if (!TextUtils.isEmpty(title)) {
-			setTitle(title);
+    private void setTitle() {
+        String title = "";
 
-		}
-	}
+        int titleId = getIntent().getIntExtra(KEY_TITLE_ID, 0);
 
-	private void setFragment() {
+        if (titleId != 0) {
+            title = getResources().getString(titleId);
+        } else {
+            title = getIntent().getStringExtra(KEY_TITLE);
+        }
 
-		String fragmentName = getIntent().getStringExtra(KEY_FRAGMENT_NAME);
-		BaseFragment fragment = (BaseFragment)Fragment.instantiate(this, fragmentName);
-		fragment.setArguments(getIntent().getBundleExtra(KEY_ARGUMENTS));
+        if (!TextUtils.isEmpty(title)) {
+            getActionBar().setTitle(title);
+        }
+    }
 
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		ft.add(R.id.container, fragment);
-		ft.commit();
-	}
+    private void setFragment() {
+
+        String fragmentName = getIntent().getStringExtra(KEY_FRAGMENT_NAME);
+        BaseFragment fragment = (BaseFragment) Fragment.instantiate(this, fragmentName);
+        fragment.setArguments(getIntent().getBundleExtra(KEY_ARGUMENTS));
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.container, fragment);
+        ft.commit();
+    }
 
 
 }

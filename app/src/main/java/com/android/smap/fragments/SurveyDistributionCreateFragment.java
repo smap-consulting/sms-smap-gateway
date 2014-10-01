@@ -49,13 +49,5 @@ public class SurveyDistributionCreateFragment extends BaseFragment implements
 		MWUiUtils.hideKeyboard(getActivity());
         getActivity().onBackPressed();
 	}
-    @Override
-    public boolean hasActionBarTitle() {
-        return true;
-    }
 
-    @Override
-    public String getActionBarTitle() {
-        return getResources().getString(R.string.ab_create_distribution);
-    }
 }
