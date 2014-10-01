@@ -72,7 +72,7 @@ public class SqliteDataManager implements DataManager {
 
 	@Override
 	public void addContactsToDistribution(List<Contact> contacts, Distribution distribution) {
-        distribution.addContacts(contacts);
+        distribution.addDialogues(contacts);
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class SqliteDataManager implements DataManager {
 				contact.save();
 				
 				Distribution survey = (n % 2 == 0) ? summerBirds: householdDist;
-				survey.addContact(contact);
+				survey.addDialogue(contact);
 			}
 
 			ActiveAndroid.setTransactionSuccessful();

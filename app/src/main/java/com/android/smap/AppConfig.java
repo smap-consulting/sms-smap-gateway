@@ -4,16 +4,6 @@ import com.android.smap.api.ApiConstants;
 
 public class AppConfig {
 
-    private int testCounter = 0;
-
-    public void incrementCounter(){
-        testCounter++;
-    }
-
-    public int getCount(){
-        return testCounter;
-    }
-
 	public AppConfig(GatewayApp gatewayApp) {
 		// convenience wrapper for android's application settings.
 	}

@@ -7,9 +7,9 @@ import com.android.smap.models.TextMessage;
 
 /**
  * Parser for inbound SMS's.
- * 
+ *
  * @author Matt Witherow
- * 
+ *
  */
 public class Samuel {
 
@@ -27,16 +27,10 @@ public class Samuel {
 
     public static SmapTextMessage parse(String number, String message){
 
-        if(Samuel.isSmapRelatedSMS(message)){
-            SmapTextMessage smapMessage = new SmapTextMessage(number, message);
-            smapMessage.setValid(true);
-            smapMessage.direction = TextMessage.INCOMING;
-            smapMessage.status = TextMessage.RECEIVED;
-            if(Samuel.isSmapCommandSMS(message)){
-                smapMessage.setCommand(true);
-            }
-            return smapMessage;
-        }
-        return null;
+        SmapTextMessage smapMessage = new SmapTextMessage(number, message);
+        smapMessage.direction = TextMessage.INCOMING;
+        smapMessage.status = TextMessage.RECEIVED;
+
+        return smapMessage;
     }
 }

@@ -4,11 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 
 import com.android.smap.R;
 import com.android.smap.api.models.Distribution;
-import com.android.smap.api.models.Survey;
 import com.android.smap.ui.VelocAdapter;
 import com.android.smap.ui.ViewQuery;
 import com.google.inject.Inject;
@@ -39,7 +37,7 @@ public class DistributionAdapter extends VelocAdapter {
 		// TODO - Revisit when percentage bar when complete / incomplete is implemented
 
 		String distributionName = distribution.getName();
-		int totalContacts = distribution.getSurveyContacts().size();
+		int totalContacts = distribution.getDialogues().size();
         query.find(R.id.txt_name).text(distributionName);
 
 		// String formatting
