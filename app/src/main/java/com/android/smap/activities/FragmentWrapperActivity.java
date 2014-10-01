@@ -46,18 +46,4 @@ public class FragmentWrapperActivity extends BaseActivity {
 		ft.commit();
 	}
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		// save all stuff from fragment to pass down when reconstructed?
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == android.R.id.home) {
-			this.finish();
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 }

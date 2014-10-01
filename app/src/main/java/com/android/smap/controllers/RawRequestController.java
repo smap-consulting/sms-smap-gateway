@@ -57,15 +57,16 @@ public abstract class RawRequestController<T extends Model> implements
 
 			model = addResponseToDatabase(response);
 			ActiveAndroid.setTransactionSuccessful();
+            setModel(model);
 
 		}
 		finally {
+            ActiveAndroid.endTransaction();
+            getControllerListener().onControllerResult();
 
-			ActiveAndroid.endTransaction();
 		}
 
-		setModel(model);
-		getControllerListener().onControllerResult();
+
 	}
 
 	@Override

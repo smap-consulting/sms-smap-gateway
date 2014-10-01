@@ -22,7 +22,6 @@ public class DataLayerModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(DataManager.class).to(SqliteDataManager.class);
-      // bind(MessageResponder.class).to(MessageResponder.class);
 	}
 
 }

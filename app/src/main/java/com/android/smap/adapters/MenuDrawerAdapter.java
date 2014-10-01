@@ -27,9 +27,6 @@ public class MenuDrawerAdapter extends ArrayVelocAdapter<MenuDrawerItem> {
 	private static final MenuDrawerItem	MENUITEM_INFO		= new MenuDrawerItem(
 																	"Info",
 																	R.drawable.ic_action_info);
-	private static final MenuDrawerItem	MENUITEM_TEST		= new MenuDrawerItem(
-																	"TEST",
-																	R.drawable.ic_action_survey);
 
 	public MenuDrawerAdapter(Context context) {
 		super(context);
@@ -38,7 +35,7 @@ public class MenuDrawerAdapter extends ArrayVelocAdapter<MenuDrawerItem> {
 		add(MENUITEM_SERVERS);
 		add(MENUITEM_SETTINGS);
 		add(MENUITEM_INFO);
-		add(MENUITEM_TEST);
+
 	}
 
 	@Override

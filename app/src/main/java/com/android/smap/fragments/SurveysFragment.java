@@ -7,9 +7,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
@@ -27,141 +27,148 @@ import java.util.List;
 
 public class SurveysFragment extends BaseFragment {
 
-	@Inject
-	private DataManager		mDataManager;
-	private List<Survey>	mModel;
-	private SurveyAdapter	mAdapter;
-	private SwipeListView	mSwipeListView;
+    @Inject
+    private DataManager mDataManager;
+    private List<Survey> mModel;
+    private SurveyAdapter mAdapter;
+    private SwipeListView mSwipeListView;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
 
-		LinearLayout view = (LinearLayout) inflater.inflate(
-				R.layout.fragment_surveys,
-				null);
-		
-		ViewQuery query = new ViewQuery(view);
-		mSwipeListView = (SwipeListView) query.find(R.id.list_surveys).get();
-		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-		mModel = mDataManager.getSurveys();
-		setupSurveysList();
+        LinearLayout view = (LinearLayout) inflater.inflate(
+                R.layout.fragment_surveys,
+                null);
 
-		return view;
-	}
-	
-	private void setupSurveysList() {
+        ViewQuery query = new ViewQuery(view);
+        mSwipeListView = (SwipeListView) query.find(R.id.list_surveys).get();
 
-		mAdapter = new SurveyAdapter(getActivity(), mModel,
-				mSwipeListView);
+        mDataManager = GatewayApp.getDependencyContainer().getDataManager();
+        mModel = mDataManager.getSurveys();
+        setupSurveysList();
+
+        return view;
+    }
+
+    private void setupSurveysList() {
+
+        mAdapter = new SurveyAdapter(getActivity(), mModel,
+                mSwipeListView);
+        mSwipeListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+        mSwipeListView
+                .setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
+                    @Override
+                    public void onItemCheckedStateChanged(ActionMode mode,
+                                                          int position,
+                                                          long id, boolean checked) {
+                        mode.setTitle("Remove ("
+                                + mSwipeListView.getCountSelected() + ")");
+                    }
+
+                    @Override
+                    public boolean onActionItemClicked(ActionMode mode,
+                                                       MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.menu_delete_survey:
+                                //removeSurveys();
+                                mSwipeListView.dismissSelected();
+                                mode.finish();
+                                return true;
+                            default:
+                                return false;
+                        }
+
+                    }
+
+                    @Override
+                    public boolean onCreateActionMode(ActionMode mode,
+                                                      Menu menu) {
+                        MenuInflater inflater = mode.getMenuInflater();
+                        inflater.inflate(R.menu.menu_delete, menu);
+                        return true;
+                    }
+
+                    @Override
+                    public void onDestroyActionMode(ActionMode mode) {
+                        mSwipeListView.unselectedChoiceStates();
+                    }
+
+                    @Override
+                    public boolean onPrepareActionMode(ActionMode mode,
+                                                       Menu menu) {
+                        return false;
+                    }
+                });
+
+        mSwipeListView.setSwipeListViewListener(new MultiChoiceSwipeListener(mAdapter) {
+            @Override
+            public void onClickFrontView(int position) {
+                super.onClickFrontView(position);
+                Survey survey = (Survey) mAdapter.getItem(position);
+                Bundle b = new Bundle();
+                b.putLong(DistributionDetailFragment.EXTRA_DISTRIBUTION_ID, survey.getId());
+                startActivity(new Builder(getActivity(), SurveyDistributionsFragment.class)
+                        .arguments(b).title(R.string.ab_distributions).build());
+
+            }
+        });
+
         mSwipeListView.setAdapter(mAdapter);
 
-		mSwipeListView.setChoiceMode(SwipeListView.CHOICE_MODE_MULTIPLE);
+    }
 
-		mSwipeListView
-				.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+    @Override
+    public void onResume() {
+        mAdapter.setModel(mDataManager.getSurveys());
+        super.onResume();
 
-					@Override
-					public void onItemCheckedStateChanged(ActionMode mode,
-							int position,
-							long id, boolean checked) {
-						mode.setTitle("Remove ("
-								+ mSwipeListView.getCountSelected()+ ")");
-					}
-
-					@Override
-					public boolean onActionItemClicked(ActionMode mode,
-							MenuItem item) {
-						switch (item.getItemId()) {
-						case R.id.menu_delete_survey:
-							//removeSurveys();
-							mSwipeListView.dismissSelected();
-							mode.finish();
-							return true;
-						default:
-							return false;
-						}
-
-					}
-
-					@Override
-					public boolean onCreateActionMode(ActionMode mode,
-							Menu menu) {
-						MenuInflater inflater = mode.getMenuInflater();
-						inflater.inflate(R.menu.menu_delete, menu);
-						return true;
-					}
-					
-					@Override
-					public void onDestroyActionMode(ActionMode mode) {
-						mSwipeListView.unselectedChoiceStates();
-					}
-
-					@Override
-					public boolean onPrepareActionMode(ActionMode mode,
-							Menu menu) {
-						return false;
-					}
-				});
-		
-		mSwipeListView.setSwipeListViewListener(new MultiChoiceSwipeListener(mAdapter) {
-		    @Override
-		    public void onClickFrontView(int position) {
-		         super.onClickFrontView(position);
-		 		Survey survey = (Survey) mAdapter.getItem(position);
-
-				Bundle b = new Bundle();
-				b.putLong(DistributionDetailFragment.EXTRA_DISTRIBUTION_ID, survey.getId());
-				startActivity(new Builder(getActivity(), SurveyDistributionsFragment.class)
-						.arguments(b).build());
-
-		    }
-		});
+    }
 
 
+    private void removeSurveys() {
+        List<Integer> selected = mSwipeListView.getPositionsSelected();
+        List<Survey> surveys = new ArrayList<Survey>();
+        for (Integer i : selected) {
+            surveys.add(mModel.get(i));
+        }
+        mDataManager.deleteSurveys(surveys);
 
-	}
+    }
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		mAdapter.setModel(mDataManager.getSurveys());
-	}
-
-
-	private void removeSurveys() {
-		List<Integer> selected = mSwipeListView.getPositionsSelected();
-		List<Survey> surveys = new ArrayList<Survey>();
-		for (Integer i : selected) {
-			surveys.add(mModel.get(i));
-		}
-		mDataManager.deleteSurveys(surveys);
-
-	}
-
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater = getActivity().getMenuInflater();
-		inflater.inflate(R.menu.menu_add, menu);
-	}
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_add, menu);
+    }
 
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean handled = false;
+        switch (item.getItemId()) {
 
-		switch (item.getItemId()) {
+            case android.R.id.home: // Actionbar home/up icon
+                getActivity().onBackPressed();
+                break;
+            case R.id.action_add: // Actionbar home/up icon
+                startActivity(new Builder(getActivity(), FormListFragment.class)
+                        .title(R.string.ab_surveys).build());
+                break;
+        }
+        return handled;
 
-		case android.R.id.home: // Actionbar home/up icon
-			getActivity().onBackPressed();
-			break;
-		case R.id.action_add: // Actionbar home/up icon
-			pushFragment(FormListFragment.class);
-			break;
-		}
+    }
 
-		return super.onOptionsItemSelected(item);
+    @Override
+    public boolean hasActionBarTitle() {
+        return true;
+    }
 
-	}
-
+    @Override
+    public String getActionBarTitle() {
+        return getActivity().getResources().getString(R.string.ab_surveys);
+    }
 }

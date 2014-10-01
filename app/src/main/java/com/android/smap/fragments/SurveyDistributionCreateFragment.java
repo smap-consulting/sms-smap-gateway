@@ -22,9 +22,8 @@ public class SurveyDistributionCreateFragment extends BaseFragment implements
 
 	private EditText	name;
     private long			mSurveyId;
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
         Bundle b = getArguments();
         if (b != null) {
             mSurveyId = b.getLong(EXTRA_SURVEY_ID);
@@ -48,15 +47,7 @@ public class SurveyDistributionCreateFragment extends BaseFragment implements
         survey.save();
 
 		MWUiUtils.hideKeyboard(getActivity());
-		MWUiUtils.showMessagePopup(getActivity(), "Distribution Created");
+        getActivity().onBackPressed();
 	}
-    @Override
-    public boolean hasActionBarTitle() {
-        return true;
-    }
 
-    @Override
-    public String getActionBarTitle() {
-        return getResources().getString(R.string.ab_create_distribution);
-    }
 }

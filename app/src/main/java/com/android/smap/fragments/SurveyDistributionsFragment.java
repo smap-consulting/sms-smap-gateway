@@ -39,9 +39,8 @@ public class SurveyDistributionsFragment extends BaseFragment implements
     // TODO - Create Distribution Adapter
     private DistributionAdapter mAdapter;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
 		LinearLayout view = (LinearLayout) inflater.inflate(
 				R.layout.fragment_distributions,
 				null);
@@ -68,11 +67,12 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
-		Distribution distribution = (Distribution) mAdapter.getItem(pos);
+		Distribution distribution = mAdapter.getItem(pos);
 		Bundle b = new Bundle();
 		b.putLong(DistributionDetailFragment.EXTRA_DISTRIBUTION_ID, distribution.getId());
-		startActivity(new Builder(getActivity(), DistributionDetailFragment.class)
-				.arguments(b).build());
+
+        startActivity(new Builder(getActivity(), DistributionDetailFragment.class)
+				.arguments(b).title(R.string.ab_distribution_details).build());
 	}
 
 	@Override
@@ -84,28 +84,20 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		boolean handled = false;
+		boolean handled = true;
 		switch (item.getItemId()) {
 		case android.R.id.home: // Actionbar home/up icon
 			getActivity().onBackPressed();
 			break;
 		case R.id.action_add:
+
             Bundle b = new Bundle();
             b.putLong(EXTRA_SURVEY_ID, mSurvey.getId());
             startActivity(new Builder(getActivity(), SurveyDistributionCreateFragment.class)
-                    .arguments(b).build());
+                    .arguments(b).title(R.string.ab_create_distribution).build());
 			break;
 		}
 		return handled;
 	}
 
-    @Override
-    public boolean hasActionBarTitle() {
-        return true;
-    }
-
-    @Override
-    public String getActionBarTitle() {
-        return getResources().getString(R.string.ab_distributions);
-    }
 }

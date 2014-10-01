@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,27 +20,22 @@ import com.android.smap.GatewayApp;
 import com.android.smap.R;
 import com.android.smap.adapters.ContactAdapter;
 import com.android.smap.api.models.Contact;
-import com.android.smap.api.models.Survey;
 import com.android.smap.controllers.ContactImportController;
 import com.android.smap.di.DataManager;
 import com.google.inject.Inject;
 
-import org.smap.surveyModel.SurveyModel;
-
 import java.util.List;
 
-
 public class ContactsFragment extends BaseFragment implements OnItemClickListener {
+
 
     @Inject
     private DataManager mDataManager;
     private ContactAdapter mAdapter;
     private List<Contact> list;
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
 
         LinearLayout view = (LinearLayout) inflater.inflate(
                 R.layout.fragment_contact,
@@ -48,33 +45,12 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
         listView.setOnItemClickListener(this);
         list = mDataManager.getContacts();
 
-//		Cursor phones = getActivity().getContentResolver().query(
-//				ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null,
-//				null, null);
-//
-//		while (phones.moveToNext()) {
-//			String name = phones
-//					.getString(phones
-//							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-//
-//			String phoneNumber = phones
-//					.getString(phones
-//							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-//
-//			Contact contacts = new Contact();
-//			contacts.setName(name);
-//			contacts.setNumber(phoneNumber);
-//			list.add(contacts);
-//		}
-//		phones.close();
-
-        ContactAdapter objAdapter = new ContactAdapter(getActivity(), R.layout.contact_allusers_rows, list);
-        listView.setAdapter(objAdapter);
+        mAdapter = new ContactAdapter(getActivity(), R.layout.contact_allusers_rows, list);
+        listView.setAdapter(mAdapter);
 
         return view;
     }
 
-    // to implement functionality based on contact selected.
     @Override
     public void onItemClick(AdapterView<?> av, View parent, int pos, long viewId) {
         // TODO Auto-generated method stub
@@ -83,40 +59,50 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_add, menu);
+    }
+
+    @Override
+    public boolean hasActionBarTitle() {
+        return true;
+    }
+
+    @Override
+    public String getActionBarTitle() {
+        return getResources().getString(R.string.ab_all_contacts);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.menu_settings) {
+        if (item.getItemId() == R.id.action_add) {
 
             Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
             startActivityForResult(contactPickerIntent, ContactImportController.PICK_CONTACTS);
-
-        } else {
-            getActivity().onBackPressed();
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
-            if (resultCode == Activity.RESULT_OK) {
-                ContactImportController contactsManager = new ContactImportController(getActivity(), data);
-                String name = "";
-                String number = "";
-                try {
+        if (resultCode == Activity.RESULT_OK) {
+            ContactImportController contactsManager = new ContactImportController(getActivity(), data);
+            String name = "";
+            String number = "";
+            try {
                     name = contactsManager.getContactName();
                     number = contactsManager.getContactPhone();
-
                     Contact contact = new Contact(name, number);
                     contact.save();
                 } catch (Exception e) {
                     Log.e("CONTACTS", e.getMessage());
                 }
-
-            }
-
-
+        }
     }
 }
 
