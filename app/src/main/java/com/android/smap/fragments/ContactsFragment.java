@@ -78,15 +78,13 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.menu.menu_add) {
+        if (item.getItemId() == R.id.action_add) {
 
             Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
             startActivityForResult(contactPickerIntent, ContactImportController.PICK_CONTACTS);
-
-        } else {
-            getActivity().onBackPressed();
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
