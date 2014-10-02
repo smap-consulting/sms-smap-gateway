@@ -18,11 +18,13 @@ import android.widget.ListView;
 
 import com.android.smap.GatewayApp;
 import com.android.smap.R;
+import com.android.smap.activities.FragmentContainerActivity;
 import com.android.smap.adapters.ContactAdapter;
 import com.android.smap.api.models.Contact;
 import com.android.smap.controllers.ContactImportController;
 import com.android.smap.di.DataManager;
 import com.google.inject.Inject;
+import com.android.smap.activities.FragmentContainerActivity.Builder;
 
 import java.util.List;
 
@@ -80,8 +82,11 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
 
         if (item.getItemId() == R.id.action_add) {
 
-            Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-            startActivityForResult(contactPickerIntent, ContactImportController.PICK_CONTACTS);
+//            Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+//            startActivityForResult(contactPickerIntent, ContactImportController.PICK_CONTACTS);
+//            return true;
+            Bundle b = new Bundle();
+            startActivity(new Builder(getActivity(), ContactLocalFragment.class).arguments(b).title(R.string.ab_create_distribution).build());
             return true;
         }
         return false;
