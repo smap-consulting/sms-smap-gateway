@@ -35,6 +35,7 @@ import com.android.smap.sms.GatewayService.LocalBinder;
 import com.android.smap.ui.ViewQuery;
 import com.android.smap.utils.MWAnimUtil;
 import com.google.inject.Inject;
+import com.mjw.android.swipe.DistributionDetailsSwipeListener;
 import com.mjw.android.swipe.MultiChoiceSwipeListener;
 import com.mjw.android.swipe.SwipeListView;
 
@@ -181,9 +182,11 @@ public class DistributionDetailFragment extends BaseFragment implements
 							Menu menu) {
 						return false;
 					}
+
+
 				});
 
-		mSwipeListView.setSwipeListViewListener(new MultiChoiceSwipeListener(
+		mSwipeListView.setSwipeListViewListener(new DistributionDetailsSwipeListener(
 				mAdapter));
 		mSwipeListView.setAdapter(mAdapter);
 
@@ -230,8 +233,6 @@ public class DistributionDetailFragment extends BaseFragment implements
             SurveyConverser.beginDialogue(handler);
 
         }
-//        Toast.makeText(getActivity(), "Sent SMS", Toast.LENGTH_LONG)
-//                .show();
     }
 
 
