@@ -20,6 +20,7 @@ import com.android.smap.adapters.DistributionAdapter;
 import com.android.smap.api.models.Distribution;
 import com.android.smap.api.models.Survey;
 import com.android.smap.di.DataManager;
+import com.android.smap.ui.ViewQuery;
 import com.google.inject.Inject;
 
 public class SurveyDistributionsFragment extends BaseFragment implements
@@ -56,7 +57,13 @@ public class SurveyDistributionsFragment extends BaseFragment implements
         mAdapter = new DistributionAdapter(getActivity(), mSurvey.getDistributions());
 		listView.setOnItemClickListener(this);
 		listView.setAdapter(mAdapter);
-		return view;
+
+        //ViewQuery query = new ViewQuery(view);
+        if(mSurvey.getDistributions().size() == 0)
+            listView.setVisibility(View.GONE);
+        else
+            listView.setVisibility(View.VISIBLE);
+        return view;
 	}
 
 	@Override
