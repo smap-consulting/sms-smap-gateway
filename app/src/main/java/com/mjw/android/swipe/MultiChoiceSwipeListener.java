@@ -5,12 +5,11 @@ package com.mjw.android.swipe;
  * Could be redesigned.
  * 
  * @author Matt Witherow
- * 
- * @param <T>
+ *
  */
 public class MultiChoiceSwipeListener implements SwipeListViewListener {
 
-	private MultiSelectActionAdapter	mAdapter;
+    private MultiSelectActionAdapter	mAdapter;
 
 	public interface MultiSelectActionAdapter {
 
@@ -72,4 +71,8 @@ public class MultiChoiceSwipeListener implements SwipeListViewListener {
 
 	@Override
 	public void onLastListItem() {}
+
+    public MultiSelectActionAdapter getAdapter() {
+        return mAdapter;
+    }
 }
