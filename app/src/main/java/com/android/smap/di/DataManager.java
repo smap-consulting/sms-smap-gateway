@@ -20,6 +20,8 @@ public interface DataManager {
 
 	void removeContactFromDistribution(long contactId, long distributionId);
 
+    void addPhoneContactToSmapContact(List<Contact> contacts);
+
     List<Distribution> getDistributions();
 
 	void deleteSurveys(List<Survey> surveys);

@@ -140,7 +140,7 @@ public class ContactLocalFragment extends BaseFragment {
         for (Integer i : selected) {
             contacts.add(mModel.get(i));
         }
-       // mDataManager.
+        mDataManager.addPhoneContactToSmapContact(contacts);
     }
 
     @Override
