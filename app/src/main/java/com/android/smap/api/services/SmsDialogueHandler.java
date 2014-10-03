@@ -37,8 +37,8 @@ public class SmsDialogueHandler implements DialogueHandler {
     }
 
     @Override
-    public void saveData(String data, String answers) {
-        dialogue.saveData(data, answers);
+    public void saveData(String data, String answers,int questionNumber) {
+        dialogue.saveData(data, answers,questionNumber);
     }
 
     @Override
@@ -48,6 +48,8 @@ public class SmsDialogueHandler implements DialogueHandler {
 
     @Override
     public void reply(String response) {
+        response = response.replace("[","(");
+        response = response.replace("]",")");
         TextMessage replyMessage = new TextMessage(dialogue.getPhoneNumber(), response);
         dialogue.logMessage(replyMessage);
         sender.sendMessage(replyMessage);

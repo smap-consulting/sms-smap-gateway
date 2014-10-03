@@ -31,6 +31,9 @@ public class Dialogue extends Model {
     @Column
     private boolean completed;
 
+    @Column
+    private int questionNumber;
+
 	// dummy fields for the moment
 	public int		answers;
 	public int		total;
@@ -82,10 +85,11 @@ public class Dialogue extends Model {
 
     }
 
-    public void saveData(String data, String answers) {
+    public void saveData(String data, String answers, int questionNumber) {
         try {
             setSerializedState(data);
             setInstanceXml(answers);
+            setQuestionNumber(questionNumber);
             save();
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,10 +133,6 @@ public class Dialogue extends Model {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
     public int getAnswers() {
         return answers;
     }
@@ -151,5 +151,13 @@ public class Dialogue extends Model {
 
     public String getPhoneNumber() {
         return this.contact.getNumber();
+    }
+
+    public int getQuestionNumber() {
+        return questionNumber;
+    }
+
+    public void setQuestionNumber(int questionNumber) {
+        this.questionNumber = questionNumber;
     }
 }
