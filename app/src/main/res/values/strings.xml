@@ -20,6 +20,7 @@
     <!-- Contacts -->
     <string name="ab_select_contacts">Select Contacts</string>
     <string name="ab_all_contacts">All Contacts</string>
+    <string name="ab_all_local_contacts">Phone Contacts</string>
 
     <!-- Settings -->
     <string name="ab_settings">Settings</string>
