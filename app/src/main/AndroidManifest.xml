@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".GatewayApp"
@@ -33,7 +34,7 @@
 
         <!-- Services to support SMS commands -->
         <service
-            android:name=".RebootService"
+            android:name=".sms.ServiceRebooter"
             android:enabled="true" />
 
         <!-- Our primary check service -->
@@ -50,7 +51,7 @@
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
 
         <!-- Listen for boot events to make sure our service is running -->
-        <receiver android:name="com.android.smap.sms.ServiceRebooter" >
+        <receiver android:name=".sms.ServiceRebooter" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
