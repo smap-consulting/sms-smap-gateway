@@ -140,7 +140,19 @@ public class ContactLocalFragment extends BaseFragment {
         for (Integer i : selected) {
             contacts.add(mModel.get(i));
         }
-    //    mDataManager.
+       // mDataManager.
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean handled = false;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                break;
+        }
+        return handled;
+
     }
 
 }

@@ -86,7 +86,7 @@ public class ContactsFragment extends BaseFragment implements OnItemClickListene
 //            startActivityForResult(contactPickerIntent, ContactImportController.PICK_CONTACTS);
 //            return true;
             Bundle b = new Bundle();
-            startActivity(new Builder(getActivity(), ContactLocalFragment.class).arguments(b).title(R.string.ab_create_distribution).build());
+            startActivity(new Builder(getActivity(), ContactLocalFragment.class).arguments(b).title(R.string.ab_all_local_contacts).build());
             return true;
         }
         return false;
