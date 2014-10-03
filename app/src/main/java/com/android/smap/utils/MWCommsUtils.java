@@ -2,9 +2,11 @@ package com.android.smap.utils;
 
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
-public class MWEmailUtils {
+public class MWCommsUtils {
 
 	/**
 	 * Easily create email intent
@@ -37,5 +39,12 @@ public class MWEmailUtils {
 
 		return emailIntent;
 	}
+
+    public static void call(Context cxt, String number){
+        String phoneUri = "tel:";
+        phoneUri = phoneUri.concat(number);
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(phoneUri));
+        cxt.startActivity(intent);
+    }
 
 }

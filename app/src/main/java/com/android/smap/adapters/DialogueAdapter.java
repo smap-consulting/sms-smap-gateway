@@ -1,7 +1,5 @@
 package com.android.smap.adapters;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,99 +12,108 @@ import com.android.smap.api.models.Dialogue;
 import com.android.smap.di.DataManager;
 import com.android.smap.ui.VelocAdapter;
 import com.android.smap.ui.ViewQuery;
+import com.android.smap.utils.MWCommsUtils;
 import com.google.inject.Inject;
-import com.mjw.android.swipe.MultiChoiceSwipeListener.MultiSelectActionAdapter;
+import com.mjw.android.swipe.DistributionDetailsSwipeListener;
 import com.mjw.android.swipe.SwipeListView;
 
+import java.util.List;
+
 public class DialogueAdapter extends VelocAdapter implements
-		MultiSelectActionAdapter {
+        DistributionDetailsSwipeListener.MultiSelectBackViewActionAdapter {
 
-	private List<Dialogue> mModel;
-	private SwipeListView mListViewRef;
-	private DataManager mDataManager;
+    private List<Dialogue> mModel;
+    private SwipeListView mListViewRef;
+    private DataManager mDataManager;
 
-	@Inject
-	public DialogueAdapter(Context context, List<Dialogue> model,
+    @Inject
+    public DialogueAdapter(Context context, List<Dialogue> model,
                            SwipeListView ref) {
-		super(context);
-		this.mModel = model;
-		this.mListViewRef = ref;
-		mDataManager = GatewayApp.getDependencyContainer().getDataManager();
-	}
+        super(context);
+        this.mModel = model;
+        this.mListViewRef = ref;
+        mDataManager = GatewayApp.getDependencyContainer().getDataManager();
+    }
 
-	@Override
-	public View newView(LayoutInflater inflator, int position, ViewGroup parent) {
-		return inflator.inflate(R.layout.item_survey_contact_slider, null,
-				false);
-	}
+    @Override
+    public View newView(LayoutInflater inflator, int position, ViewGroup parent) {
+        return inflator.inflate(R.layout.item_survey_contact_slider, null,
+                false);
+    }
 
-	@Override
-	public void bindView(Context context, View view, ViewQuery query,
-			int position) {
+    @Override
+    public void bindView(Context context, View view, ViewQuery query,
+                         int position) {
 
-		// clean up choice selections when scrolling
-		mListViewRef.recycle(view, position);
+        // clean up choice selections when scrolling
+        mListViewRef.recycle(view, position);
 
-		Dialogue dialogue = getItem(position);
+        Dialogue dialogue = getItem(position);
 
-		Contact contact;
-		String contactName, phoneNumber;
-		if ((contact = dialogue.contact) != null) {
-			contactName = contact.getName();
-			phoneNumber = contact.getNumber();
-		} else {
-			contactName = "";
-			phoneNumber = "";
-		}
+        Contact contact;
+        String contactName, phoneNumber;
+        if ((contact = dialogue.contact) != null) {
+            contactName = contact.getName();
+            phoneNumber = contact.getNumber();
+        } else {
+            contactName = "";
+            phoneNumber = "";
+        }
 
-		String updatedAt = dialogue.updatedAt;
-		int completed = dialogue.answers;
-		int total = dialogue.total;
+        String updatedAt = dialogue.updatedAt;
+        int completed = dialogue.answers;
+        int total = dialogue.total;
 
-		String template = getContext().getResources().getString(
-				R.string.surveys_of_total);
-		String totalCount = String.format(template, total);
+        String template = getContext().getResources().getString(
+                R.string.surveys_of_total);
+        String totalCount = String.format(template, total);
 
-		query.find(R.id.txt_name).text(contactName);
-		query.find(R.id.txt_number).text("Ph: " + phoneNumber);
-		query.find(R.id.txt_completed_progress).text(String.valueOf(completed));
-		query.find(R.id.txt_completed_total).text(totalCount);
-		query.find(R.id.txt_timestamp).text(updatedAt);
+        query.find(R.id.txt_name).text(contactName);
+        query.find(R.id.txt_number).text("Ph: " + phoneNumber);
+        query.find(R.id.txt_completed_progress).text(String.valueOf(completed));
+        query.find(R.id.txt_completed_total).text(totalCount);
+        query.find(R.id.txt_timestamp).text(updatedAt);
 
-	}
+    }
 
-	@Override
-	public int getCount() {
-		return mModel.size();
-	}
+    @Override
+    public int getCount() {
+        return mModel.size();
+    }
 
-	@Override
-	public Dialogue getItem(int position) {
-		return mModel.get(position);
-	}
+    @Override
+    public Dialogue getItem(int position) {
+        return mModel.get(position);
+    }
 
-	public void setModel(List<Dialogue> model) {
-		this.mModel = model;
-		notifyDataSetChanged();
-	}
+    public void setModel(List<Dialogue> model) {
+        this.mModel = model;
+        notifyDataSetChanged();
+    }
 
-	@Override
-	public void actionAllSelected(int[] pos) {
+    @Override
+    public void actionAllSelected(int[] pos) {
 
-		for (int i : pos) {
-			this.action(i);
-		}
-	}
+        for (int i : pos) {
+            this.action(i);
+        }
+    }
 
-	@Override
-	public void action(int pos) {
-		Dialogue dialogue = getItem(pos);
-		mDataManager.removeContactFromDistribution(
+    @Override
+    public void action(int pos) {
+        Dialogue dialogue = getItem(pos);
+        mDataManager.removeContactFromDistribution(
                 dialogue.contact.getId(),
                 dialogue.getDistribution().getId());
         mModel.remove(pos);
-		notifyDataSetChanged();
+        notifyDataSetChanged();
 
-	}
+    }
 
+    @Override
+    public void onBackViewPressed(int position) {
+
+        MWCommsUtils.call(getContext(), getItem(position).getContact().getNumber());
+
+    }
 }
