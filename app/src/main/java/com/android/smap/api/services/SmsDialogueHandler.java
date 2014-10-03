@@ -48,8 +48,6 @@ public class SmsDialogueHandler implements DialogueHandler {
 
     @Override
     public void reply(String response) {
-        response = response.replace("[","(");
-        response = response.replace("]",")");
         TextMessage replyMessage = new TextMessage(dialogue.getPhoneNumber(), response);
         dialogue.logMessage(replyMessage);
         sender.sendMessage(replyMessage);
