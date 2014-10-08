@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.android.smap.R;
-import com.android.smap.utils.MWEmailUtils;
+import com.android.smap.utils.MWCommsUtils;
 
 /**
  * Controller to send email. Future idea is to make this completely automated.
@@ -48,8 +48,8 @@ public class EmailController implements Controller {
 	@Override
 	public void start() {
 
-		Intent intent = MWEmailUtils.createEmailIntent(mAddress, null,
-				mSubject, mMessage);
+		Intent intent = MWCommsUtils.createEmailIntent(mAddress, null,
+                mSubject, mMessage);
 
 		Intent mailer = Intent.createChooser(intent,
 				mContext.getString(R.string.contact_choose_email_client));

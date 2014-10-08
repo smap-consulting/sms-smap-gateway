@@ -33,6 +33,7 @@
         swipe:swipeDrawableChecked="@drawable/choice_selected"
         swipe:swipeDrawableUnchecked="@drawable/choice_unselected"
         swipe:swipeFrontView="@+id/front_contact"
-        swipe:swipeMode="right" />
+        swipe:swipeMode="right"
+        swipe:swipeOpenOnLongPress="false"/>
 
 </LinearLayout>
