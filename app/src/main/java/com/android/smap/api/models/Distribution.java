@@ -111,7 +111,7 @@ public class Distribution extends Model {
         int totalQuestion = 0;
 
         for (Dialogue dialogue : dialogueList) {
-            totalAnswered += dialogue.getAnswers();
+            totalAnswered += dialogue.getQuestionNumber();
             totalQuestion += dialogue.getTotal();
         }
 
