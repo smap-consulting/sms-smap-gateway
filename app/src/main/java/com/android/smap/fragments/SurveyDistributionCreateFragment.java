@@ -2,6 +2,7 @@ package com.android.smap.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.android.smap.R;
+import com.android.smap.activities.FragmentContainerActivity;
 import com.android.smap.api.models.Survey;
 import com.android.smap.ui.ViewQuery;
 import com.android.smap.utils.MWUiUtils;
@@ -49,5 +51,17 @@ public class SurveyDistributionCreateFragment extends BaseFragment implements
 		MWUiUtils.hideKeyboard(getActivity());
         getActivity().onBackPressed();
 	}
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean handled = true;
+        switch (item.getItemId()) {
+            case android.R.id.home: // Actionbar home/up icon
+                getActivity().onBackPressed();
+                break;
+        }
+        return handled;
+    }
 
 }
