@@ -10,6 +10,7 @@
     <color name="smap_green">#8ABC8A</color>
     <color name="smap_dark_green">#1A3C1A</color>
     <color name="smap_light_green">#56C756</color>
+    <color name="smap_grey">#ACACAC</color>
 
     <!-- BASE CLASSES -->
     <color name="loading_bg">#80545454</color>

@@ -61,7 +61,7 @@ public class DialogueAdapter extends VelocAdapter implements
         }
 
         String updatedAt = dialogue.updatedAt;
-        int completed = dialogue.answers;
+        int completed = dialogue.getQuestionNumber();
         int total = dialogue.total;
 
         String template = getContext().getResources().getString(

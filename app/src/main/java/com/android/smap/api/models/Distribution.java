@@ -104,18 +104,30 @@ public class Distribution extends Model {
     }
 
     public float getCompletionPercentage() {
-
+    /* Completion percentage of total answered questions
         List <Dialogue> dialogueList = getDialogues();
 
         int totalAnswered = 0;
         int totalQuestion = 0;
 
         for (Dialogue dialogue : dialogueList) {
-            totalAnswered += dialogue.getAnswers();
+            totalAnswered += dialogue.getQuestionNumber();
             totalQuestion += dialogue.getTotal();
         }
 
         return ((float) totalAnswered / totalQuestion) * 100f;
+     */
+     //Completion percentage of total completed
+       List <Dialogue> dialogueList = getDialogues();
+
+       int totalComplete = 0;
+       for (Dialogue dialogue : dialogueList) {
+           if(dialogue.isCompleted())
+               totalComplete ++;
+       }
+
+       return ((float) totalComplete / dialogueList.size()) * 100f;
+
     }
 
     public static Distribution findById(Long id) {

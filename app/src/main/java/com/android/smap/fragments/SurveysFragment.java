@@ -72,7 +72,6 @@ public class SurveysFragment extends BaseFragment {
                                                        MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.menu_delete_survey:
-                                //removeSurveys();
                                 mSwipeListView.dismissSelected();
                                 mode.finish();
                                 return true;
@@ -123,17 +122,6 @@ public class SurveysFragment extends BaseFragment {
     public void onResume() {
         mAdapter.setModel(mDataManager.getSurveys());
         super.onResume();
-
-    }
-
-
-    private void removeSurveys() {
-        List<Integer> selected = mSwipeListView.getPositionsSelected();
-        List<Survey> surveys = new ArrayList<Survey>();
-        for (Integer i : selected) {
-            surveys.add(mModel.get(i));
-        }
-        mDataManager.deleteSurveys(surveys);
 
     }
 

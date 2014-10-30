@@ -2,6 +2,7 @@ package com.android.smap.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -87,6 +88,17 @@ public class FormListFragment extends BaseFragment implements
 
         controller.start();
 	}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean handled = true;
+        switch (item.getItemId()) {
+            case android.R.id.home: // Actionbar home/up icon
+                getActivity().onBackPressed();
+                break;
+        }
+        return handled;
+    }
 
 
 }
