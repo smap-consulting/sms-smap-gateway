@@ -62,7 +62,7 @@ public class DialogueAdapter extends VelocAdapter implements
 
         String updatedAt = dialogue.updatedAt;
         int completed = dialogue.getQuestionNumber();
-        int total = dialogue.total;
+        int total = dialogue.getSurvey().getNumberOfQuestions();
 
         String template = getContext().getResources().getString(
                 R.string.surveys_of_total);
