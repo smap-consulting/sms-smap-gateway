@@ -6,6 +6,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import android.telephony.PhoneNumberUtils;
 
 @Table(name = "contacts")
 public class Contact extends Model {
@@ -57,10 +58,13 @@ public class Contact extends Model {
 	}
 
     public static Contact findByPhoneNumber(String phoneNumber) {
-        return new Select()
-                .from(Contact.class)
-                .where("number = ?", phoneNumber)
-                .executeSingle();
+        List<Contact> allContacts = findAll();
+        for (Contact contact : allContacts) {
+            //Compare phone numbers, check if they're identical enough for caller ID purposes.
+            if(PhoneNumberUtils.compare(phoneNumber,contact.getNumber()))
+                return contact;
+        }
+        return null;
     }
 
     public Dialogue getActiveDialogue() {
