@@ -8,6 +8,8 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import org.smap.surveyConverser.SurveyConverser;
+
 @Table(name = "surveys")
 public class Survey extends Model {
 
@@ -39,6 +41,8 @@ public class Survey extends Model {
 	public Survey(String name, String formXml) {
 		this.name = name;
 		this.formXml = formXml;
+        SurveyConverser converser = SurveyConverser.createNewSurveyConverser(formXml);
+        this.numberOfQuestions = converser.getAllQuestions().length;
 	}
 
 	public String getName() {
@@ -58,6 +62,8 @@ public class Survey extends Model {
 
 	public void setFormXml(String content) {
 		this.formXml = content;
+        SurveyConverser converser = SurveyConverser.createNewSurveyConverser(formXml);
+        this.numberOfQuestions = converser.getAllQuestions().length;
 	}
 
     public int getNumberOfQuestions() {
