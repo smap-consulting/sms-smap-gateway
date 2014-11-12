@@ -59,10 +59,10 @@ public class SurveyDistributionsFragment extends BaseFragment implements
 		listView.setAdapter(mAdapter);
 
         //ViewQuery query = new ViewQuery(view);
-        //if(mSurvey.getDistributions().size() == 0)
-        //    listView.setVisibility(View.GONE);
-        //else
-        //    listView.setVisibility(View.VISIBLE);
+        if(mSurvey.getDistributions().size() == 0)
+            listView.setVisibility(View.GONE);
+        else
+            listView.setVisibility(View.VISIBLE);
         return view;
 	}
 
