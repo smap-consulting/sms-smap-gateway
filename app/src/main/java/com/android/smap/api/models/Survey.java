@@ -41,8 +41,12 @@ public class Survey extends Model {
 	public Survey(String name, String formXml) {
 		this.name = name;
 		this.formXml = formXml;
-        SurveyConverser converser = SurveyConverser.createNewSurveyConverser(formXml);
-        this.numberOfQuestions = converser.getAllQuestions().length;
+        try {
+            SurveyConverser converser = SurveyConverser.createNewSurveyConverser(formXml);
+            this.numberOfQuestions = converser.getAllQuestions().length;
+        }catch(Exception e){
+            
+        }
 	}
 
 	public String getName() {
