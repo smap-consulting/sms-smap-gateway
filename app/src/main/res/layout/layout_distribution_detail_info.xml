@@ -11,24 +11,12 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:paddingLeft="12dp"
-        android:paddingTop="12dp"
+        android:paddingTop="16dp"
         android:singleLine="true"
         android:text="APRIL SURVEY"
         android:textColor="@color/smap_cream"
-        android:textSize="18sp" />
+        android:textSize="22sp" />
 
-    <TextView
-        android:id="@+id/txt_member_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_distribution_name"
-        android:inputType="textCapCharacters"
-        android:paddingLeft="12dp"
-        android:paddingTop="2dp"
-        android:text="6 ACTIVE / 3 SILENT"
-        android:textColor="@color/smap_cream"
-   
-        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/txt_completed_progress"
