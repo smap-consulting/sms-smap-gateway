@@ -26,15 +26,6 @@
         android:divider="@color/smap_dark_grey"
         android:dividerHeight="1dp" />
 
-    <TextView
-        android:id="@android:id/empty"
-        android:layout_alignBottom="@+id/txt_survey_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text=" • Create a distribution by touching the top right icon"
-        android:textColor="@color/smap_grey"
-        android:background="@drawable/asdasd" />
 
 
 
