@@ -14,7 +14,7 @@ public class AppConfig {
 	}
 
 	public String getRequestEndpoint() {
-		return ApiConstants.DEV_URL;
+		return ApiConstants.PRODUCTION_URL;
 	}
 
 }

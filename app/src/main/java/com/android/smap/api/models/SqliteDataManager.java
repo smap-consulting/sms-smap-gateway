@@ -18,7 +18,7 @@ public class SqliteDataManager implements DataManager {
 	public SqliteDataManager() {
 
 		if (getSurveys().isEmpty()) {
-			seedDevData();
+			//seedDevData();        // npxx commented out
 		}
 	}
 
