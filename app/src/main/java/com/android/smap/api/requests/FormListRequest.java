@@ -14,7 +14,7 @@ public class FormListRequest extends SmapRawRequest {
 
 	private static String generateUrl() {
 		return new UriBuilder()
-				.scheme(SCHEME_HTTP)
+				.scheme(SCHEME_HTTPS)
 				.encodedAuthority(
 						GatewayApp.getAppConfig().getRequestEndpoint())
 				.appendEncodedPath(FORM_LIST).build().toString();
