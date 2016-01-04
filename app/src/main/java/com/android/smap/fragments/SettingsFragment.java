@@ -19,6 +19,7 @@ public class SettingsFragment extends BaseFragment implements
 
     private EditText password;
     private EditText username;
+    private EditText server;
 
     @Override
     public View onCreateContentView(LayoutInflater inflater, Bundle savedInstanceState) {
@@ -28,13 +29,18 @@ public class SettingsFragment extends BaseFragment implements
                 null);
         ViewQuery query = new ViewQuery(view);
         query.find(R.id.btn_submit).onClick(this).get();
+        server = (EditText) query.find(R.id.txt_server).get();
         username = (EditText) query.find(R.id.txt_username).get();
         password = (EditText) query.find(R.id.txt_password).get();
 
 
+        String existingServer = GatewayApp.getPreferenceWrapper().getServer();
         String existingName = GatewayApp.getPreferenceWrapper().getUserName();
         String existingPassword = GatewayApp.getPreferenceWrapper().getPassword();
 
+        if(!TextUtils.isEmpty(existingServer)){
+            server.setText(existingServer);
+        }
         if(!TextUtils.isEmpty(existingName)){
             username.setText(existingName);
         }
@@ -47,6 +53,8 @@ public class SettingsFragment extends BaseFragment implements
     @Override
     public void onClick(View arg0) {
 
+        GatewayApp.getPreferenceWrapper().setServer(
+                server.getText().toString());
         GatewayApp.getPreferenceWrapper().setUserName(
                 username.getText().toString());
         GatewayApp.getPreferenceWrapper().setPassword(

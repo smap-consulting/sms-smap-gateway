@@ -14,7 +14,14 @@ public class AppConfig {
 	}
 
 	public String getRequestEndpoint() {
-		return ApiConstants.PRODUCTION_URL;
+        String server = GatewayApp.getPreferenceWrapper().getServer();
+        if(server.startsWith("https://")) {
+            server = server.substring(8);
+        } else  if(server.startsWith("http://")) {
+            server = server.substring(7);
+        }
+		return server;
+		//return ApiConstants.PRODUCTION_URL;
 	}
 
 }

@@ -7,10 +7,18 @@
     android:padding="12dp" >
 
     <EditText
+        android:id="@+id/txt_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="enter server address"
+        android:textColorHint="@color/smap_blue"
+        android:textSize="20sp" />
+
+    <EditText
         android:id="@+id/txt_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="USERNAME"
+        android:hint="enter user name"
         android:textColorHint="@color/smap_blue"
         android:textSize="20sp" />
 
@@ -18,7 +26,7 @@
         android:id="@+id/txt_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="PASSWORD"
+        android:hint="enter password"
         android:inputType="textPassword"
         android:textColorHint="@color/smap_blue"
         android:textSize="20sp" />
@@ -28,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/smap_light_green"
-        android:text="SUBMIT"
+        android:text="Save"
         android:textSize="20sp"
         android:textStyle="bold" />
 

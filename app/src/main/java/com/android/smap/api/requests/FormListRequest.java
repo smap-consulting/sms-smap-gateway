@@ -13,10 +13,16 @@ public class FormListRequest extends SmapRawRequest {
 	}
 
 	private static String generateUrl() {
+
+		String protocol = SCHEME_HTTPS;
+		String server = GatewayApp.getAppConfig().getRequestEndpoint();
+		if(server.equals("10.0.2.2")) {
+			protocol = SCHEME_HTTP;
+
+		}
 		return new UriBuilder()
-				.scheme(SCHEME_HTTPS)
-				.encodedAuthority(
-						GatewayApp.getAppConfig().getRequestEndpoint())
+				.scheme(protocol)
+				.encodedAuthority(server)
 				.appendEncodedPath(FORM_LIST).build().toString();
 	}
 }

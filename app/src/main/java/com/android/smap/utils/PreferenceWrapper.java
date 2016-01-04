@@ -22,6 +22,10 @@ public class PreferenceWrapper {
 
 	public static final String	DEFAULT_INTERVAL	= String.valueOf(30 * 1000);
 
+	private static final String	SERVER				= PreferenceWrapper.class
+															.getCanonicalName()
+															+ "server";
+
 	private static final String	USER_NAME			= PreferenceWrapper.class
 															.getCanonicalName()
 															+ "user";
@@ -48,6 +52,12 @@ public class PreferenceWrapper {
 				DEFAULT_INTERVAL));
 	}
 
+	public void setServer(String server) {
+		Editor edit = mPrefs.edit();
+		edit.putString(SERVER, server);
+		edit.commit();
+	}
+
 	public void setUserName(String username) {
 		Editor edit = mPrefs.edit();
 		edit.putString(USER_NAME, username);
@@ -58,6 +68,10 @@ public class PreferenceWrapper {
 		Editor edit = mPrefs.edit();
 		edit.putString(PASSWORD, username);
 		edit.commit();
+	}
+
+	public String getServer() {
+		return mPrefs.getString(SERVER, null);
 	}
 
 	public String getUserName() {
