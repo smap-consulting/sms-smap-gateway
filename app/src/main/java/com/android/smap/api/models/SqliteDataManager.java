@@ -75,6 +75,12 @@ public class SqliteDataManager implements DataManager {
         distribution.addDialogues(contacts);
 	}
 
+    public void addPhoneContactToSmapContact(List<Contact> lstContacts){
+        for(Contact x : lstContacts){
+            x.save();
+        }
+    }
+
 	@Override
 	public void removeContactFromDistribution(long contactId, long distributionId) {
 
